@@ -73,20 +73,13 @@ The benchmarking system captures standardized runtime data from simulators and r
 
 ## Tooling & Automation
 
-- Support for multiple circuit formats: `.qasm`, `.py` (Qiskit), `.tfc`, `.qc`, etc.
-- Python-based feature extraction tools with CLI
-- Execution via simulators or real quantum hardware APIs
-- Power and fidelity data integration (if available)
-- JSON-based metadata logging per benchmark run
+TBA: job scripts for performing the benchmarks.
 
 ---
 
 ## Output & Reporting
 
-Benchmark results are exportable as JSON or CSV and can be visualized through custom dashboards. Example reports:
-- Depth vs Runtime plots
-- Gate Count vs Fidelity comparisons
-- Power vs Runtime heatmaps
+Benchmark results are exportable as JSON or CSV and can be visualized through custom dashboards.
 
 ---
 

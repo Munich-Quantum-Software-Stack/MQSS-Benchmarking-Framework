@@ -16,3 +16,7 @@ datasets/
 # .vscode
 
 .vscode
+
+# Secrets
+
+.env

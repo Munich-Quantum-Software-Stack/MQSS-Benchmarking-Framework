@@ -10,12 +10,13 @@
 ## Overview
 
 MQSS Benchmarking Suite is an automated and reproducable tool for uniting Quantum Computing Benchmarks. It has 4 main pillars: 
+
 - Hardware Benchmarks
 - Software Benchmarks
 - Simulator Benchmarks
 - Algorithmic Benchmarks
 
-- 
+
 ## 🛠️ Installation
 
 This project leverages [uv](https://github.com/astral-sh/uv) for dependency management and reproducibility, making setup and collaboration straightforward.
@@ -69,5 +70,3 @@ A complete list of configuration options will be listed and constantly updated f
 ## Contributing
 
 Feel free to open issues or submit pull requests to improve this project!
-
----

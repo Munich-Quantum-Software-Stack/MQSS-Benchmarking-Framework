@@ -1,0 +1,25 @@
+[project]
+name = "mqss-benchmarking-suite"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mqss-pennylane-adapter==1.1.2",
+    "mqss-qiskit>=0.2.0",
+    "mqt-bench>=2.0.0",
+    "pennylane>=0.41.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "pylint"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,12 +1,13 @@
+import pennylane as qml
+import numpy as np
+
 def get_hw_circuit(name: str):
-    if name == "randomized_benchmarking":
-        return randomized_benchmarking_circuit
+    if name == "RB":
+        return randomized_benchmarking_circuit(qml.device("default.qubit", wires=2))
     raise ValueError(f"Unsupported HW benchmark: {name}")
 
 
-def randomized_benchmarking_circuit(device):
-    import pennylane as qml
-    import numpy as np
+def randomized_benchmarking_circuit(device: str = "default.qubit"):
 
     J = 0.5  # Interaction strength
     h = 0.2  # Transverse field strength
@@ -27,6 +28,5 @@ def randomized_benchmarking_circuit(device):
         qml.CNOT(wires=[0, 1])
 
         return qml.expval(qml.PauliZ(0))
-        return qml.expval(hamiltonian)
 
     return circuit

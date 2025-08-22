@@ -22,6 +22,22 @@ class BenchmarkManager:
             raise NotImplementedError("Simulator benchmarks not implemented yet")
         else:
             raise ValueError(f"Unsupported benchmark type: {bench_type}")
+        
+    def generate_benchmark_circuits(self):
+        benchmark_type = self.config["benchmark_type"]
+        benchmark_name = self.config["benchmark_name"]
+        
+        if benchmark_type not in self.get_benchmark_types():
+            raise ValueError(f"Unsupported benchmark type: {benchmark_type}")
+        
+        list_of_bench_circuits = []
+        if benchmark_type == "HW":
+            handler = HardwareBenchmarkHandler(self.config)
+            list_of_bench_circuits = handler.build_circuits()
+
+        # Here you would implement the logic to generate circuits based on the benchmark type
+        # For now, we will just return a placeholder
+        return list_of_bench_circuits
 
     def dispatch(self):
 
@@ -39,7 +55,7 @@ class BenchmarkManager:
             raise ValueError(f"Unsupported benchmark type: {benchmark_type}")
         
         # build circuit
-        handler.build_circuit()
+        # handler.build_circuit()
 
         # run circuit
         # result = handler.run()

@@ -9,10 +9,12 @@ class BenchmarkHandler(ABC):
     def run(self):
         """Execute the benchmark."""
         pass
+    
         # TODO: To be implemented by the child classes
 
     @abstractmethod
-    def build_circuit(self):
+    def build_circuits(self):
         """Construct circuit or setup logic."""
         pass
+
         # TODO: To be implemented by the child classes

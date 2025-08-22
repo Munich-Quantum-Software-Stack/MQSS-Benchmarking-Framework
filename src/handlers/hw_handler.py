@@ -22,8 +22,9 @@ class HardwareBenchmarkHandler(BenchmarkHandler):
         # 4. Return or log the result
         return {"benchmark": benchmark_name, "result": result}
 
-        raise NotImplementedError("HW benchmarks run logic not implemented yet")
+    def build_circuits(self):
+        
+        benchmark_name = self.config["benchmark_name"]
+        circuit_fn = get_hw_circuit(benchmark_name)
 
-    def build_circuit(self):
-        raise NotImplementedError("HW benchmarks circuit builder not implemented yet")
-        # TODO: ADD RB as the first benchmark
+        return circuit_fn

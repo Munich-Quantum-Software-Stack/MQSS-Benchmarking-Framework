@@ -1,0 +1,12 @@
+{
+    "benchmark_type": "HW",
+    "benchmark_name": "RB",
+    "interface": "qiskit",
+    "backend": "QLM",
+    "integrator": "MQSS",
+    "credentials": {
+        "mqss_token": "<TOKEN>"
+    },
+    "num_qubits": 2,
+    "params": {}
+}

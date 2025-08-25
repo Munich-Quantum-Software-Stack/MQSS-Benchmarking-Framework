@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 class MQSSAdapter(ABC):
     def __init__(self, config):
         self.config = config

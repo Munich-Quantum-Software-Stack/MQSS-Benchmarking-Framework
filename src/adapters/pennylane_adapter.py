@@ -1,5 +1,6 @@
-from adapters.mqss_adapter import MQSSAdapter
-from adapters.config import MQSS_TOKEN
+from mqss.pennylane_adapter.device import MQSSPennylaneDevice
+from .mqss_adapter import MQSSAdapter
+from .config import MQSS_TOKEN
 
 
 class PennyLaneAdapter(MQSSAdapter):

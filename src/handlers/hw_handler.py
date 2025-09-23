@@ -12,12 +12,16 @@ class HardwareBenchmarkHandler(BenchmarkHandler):
 
         backend = get_adapter(self.config)
 
-        # 2. Get the circuit function for the requested benchmark
+        # 1. Get benchmark config
         benchmark_name = self.config["benchmark_name"]
-        circuit_fn = get_hw_circuit(benchmark_name)
+        interface = self.config.get("interface", "pennylane")
+        params = self.config.get("params")
+
+        # 2. Get the circuit function for the requested benchmark
+        circuit_fn = get_hw_circuit(benchmark_name, interface)
 
         # 3. Execute the circuit using the unified backend interface
-        result = backend.run_circuit(circuit_fn, **self.config["params"])
+        result = backend.run_circuit(circuit_fn, **params)
 
         # 4. Return or log the result
         return {"benchmark": benchmark_name, "result": result}

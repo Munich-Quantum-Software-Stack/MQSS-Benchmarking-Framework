@@ -20,3 +20,6 @@ datasets/
 # Secrets
 
 .env
+
+# System files
+.DS_Store

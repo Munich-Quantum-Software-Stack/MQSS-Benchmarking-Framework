@@ -1,6 +1,6 @@
 from src.adapters.mqss_adapter import MQSSAdapter
 from mqss.qiskit_adapter import MQSSQiskitAdapter
-from src.adapters.config import MQSS_TOKEN
+from src.adapters.config import MQSS_TOKEN, MQSS_BACKEND
 
 
 class QiskitAdapter(MQSSAdapter):
@@ -10,13 +10,13 @@ class QiskitAdapter(MQSSAdapter):
 
         if not isinstance(config, dict):
             raise TypeError("config must be a dict")
-        backend_name = str(config.get("backend", "")).strip()
+        backend_name = str(config.get("backend", "") or MQSS_BACKEND).strip()
         credentials = config.get("credentials") or {}
         token = (credentials.get("mqss_token") if isinstance(credentials, dict) else None) or MQSS_TOKEN
         if not token:
             raise ValueError("Missing required config: credentials.mqss_token or MQSS_TOKEN")
         if not backend_name:
-            raise ValueError("Missing required config: backend")
+            raise ValueError("Missing required config: backend or MQSS_BACKEND")
         self.adapter = MQSSQiskitAdapter(token=token)
         self.backend = self.adapter.get_backend(backend_name)
         self.shots = int(config["shots"]) if config.get("shots") is not None else None

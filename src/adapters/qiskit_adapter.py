@@ -11,15 +11,16 @@ class QiskitAdapter(MQSSAdapter):
         if not isinstance(config, dict):
             raise TypeError("config must be a dict")
         backend_name = str(config.get("backend", "") or MQSS_BACKEND).strip()
+        if not backend_name:
+            raise ValueError("Missing required config: backend or MQSS_BACKEND")
         credentials = config.get("credentials") or {}
         token = (credentials.get("mqss_token") if isinstance(credentials, dict) else None) or MQSS_TOKEN
         if not token:
             raise ValueError("Missing required config: credentials.mqss_token or MQSS_TOKEN")
-        if not backend_name:
-            raise ValueError("Missing required config: backend or MQSS_BACKEND")
+        self.shots = int(config["shots"]) if config.get("shots") is not None else None
+        
         self.adapter = MQSSQiskitAdapter(token=token)
         self.backend = self.adapter.get_backend(backend_name)
-        self.shots = int(config["shots"]) if config.get("shots") is not None else None
         #TODO: consider using config["wires"], which is number of qubits
 
     def run_circuit(self, circuit, params=None):
@@ -32,7 +33,7 @@ class QiskitAdapter(MQSSAdapter):
         Returns:
             _type_: _description_
         """        
-        # In current implementation, circuit is expected to be a function, so we call it to get a QuantumCircuit
+        # In current implementation, circuit is a function, so we call it to get a QuantumCircuit
         if callable(circuit):
             built_circuit = circuit()
         else:
@@ -43,4 +44,4 @@ class QiskitAdapter(MQSSAdapter):
             job = self.backend.run(built_circuit, shots=self.shots)
         else:
             job = self.backend.run(built_circuit)
-        return job.result()
+        return job.result().get_counts()

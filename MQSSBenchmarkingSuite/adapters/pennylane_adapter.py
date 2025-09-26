@@ -1,6 +1,6 @@
 from mqss.pennylane_adapter.device import MQSSPennylaneDevice
-from mqss_adapter import MQSSAdapter
-from config import MQSS_TOKEN, MQSS_BACKEND
+from .mqss_adapter import MQSSAdapter
+from .config import MQSS_TOKEN, MQSS_BACKEND
 from typing import override
 
 
@@ -44,6 +44,8 @@ class PennyLaneAdapter(MQSSAdapter):
         print(
             "Running the circuit ..."
         )  # print for debugging. TODO: later we can define a verbose mode
+        print(self.device)
+        print(circuit)
         qnode = circuit(self.device)
         if params is not None:
             return qnode(*params)

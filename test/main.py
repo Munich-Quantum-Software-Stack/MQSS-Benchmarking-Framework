@@ -1,4 +1,3 @@
-
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from MQSSBenchmarkingSuite.manager.benchmark_manager import BenchmarkManager
 from MQSSBenchmarkingSuite.adapters.config import MQSS_TOKEN, MQSS_BACKEND
@@ -14,12 +13,12 @@ metrics = [
 ]
 config = {
     "benchmark_type": "SW",
-    "benchmark_name": "VQE-H2",
-    "interface": "pennylane",
+    "benchmark_name": "vqe_su2",
+    "interface": "qiskit",
     "backend": MQSS_BACKEND,
     "credentials": {"mqss_token": MQSS_TOKEN},
     "wires": 2,
-    "params": {"depth": 100},
+    "params": {},
     "metrics": metrics,
 }
 

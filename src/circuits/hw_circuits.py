@@ -1,10 +1,15 @@
-def get_hw_circuit(name: str):
+def get_hw_circuit(name: str, interface: str = "pennylane"):
     if name == "randomized_benchmarking":
-        return randomized_benchmarking_circuit
+        if interface == "pennylane":
+            return randomized_benchmarking_circuit_pennylane
+        elif interface == "qiskit":
+            return randomized_benchmarking_circuit_qiskit
+        else:
+            raise ValueError(f"Unsupported interface for HW benchmark: {interface}")
     raise ValueError(f"Unsupported HW benchmark: {name}")
 
 
-def randomized_benchmarking_circuit(device):
+def randomized_benchmarking_circuit_pennylane(device):
     import pennylane as qml
     import numpy as np
 
@@ -28,5 +33,17 @@ def randomized_benchmarking_circuit(device):
 
         return qml.expval(qml.PauliZ(0))
         return qml.expval(hamiltonian)
+
+    return circuit
+
+
+def randomized_benchmarking_circuit_qiskit():
+    from qiskit import QuantumCircuit
+
+    # TODO1: Example circuit — replace with real RB
+    circuit = QuantumCircuit(2, 2)
+    circuit.h(0)
+    circuit.cx(0, 1)
+    circuit.measure([0, 1], [0, 1])
 
     return circuit

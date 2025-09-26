@@ -49,25 +49,29 @@ list_of_benchmarks = BenchmarkManager.get_available_benchmarks("HW")
 
 config = {
     "benchmark_type": "HW",
-    "benchmark_name": "RB",
-    "interface": "pennylane",
-    "backend": "QLM",
+    "benchmark_name": "randomized_benchmarking",
+    "interface": "qiskit",
+    "backend": "QExa20",
     "integrator": "MQSS",
     "credentials": {
         "mqss_token": "<TOKEN>"
     },
     "wires": 2,
+    "shots": 200,
     "params": {}
 }
 
 benchmark_manager = BenchmarkManager(config)
 benchmark_manager.dispatch()
 ```
+### Supported interfaces
+- Qiskit Adapter (config value `qiskit`)
+- Pennylane Adapter (config value `pennylane`)
+
 A complete list of configuration options will be listed and constantly updated for the upcoming releases
 
 ## 🛠️ Upcoming Features
 - Integration of the [Toolchain Project]([https://pages.github.com/](https://gitlab.lrz.de/qcbm/benchmark-comparison)) to the Suite for Simulator Benchmarks
-- Connecting the Qiskit Adapter as an alternative interface
 - Improving the benchmark set for all types of benchmarks
 ## Contributing
 

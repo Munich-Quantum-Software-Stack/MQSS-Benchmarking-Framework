@@ -1,9 +1,10 @@
-from handlers import HardwareBenchmarkHandler
-from handlers import SoftwareBenchmarkHandler
+from ..handlers import HardwareBenchmarkHandler
+from ..handlers import SoftwareBenchmarkHandler
 
 
 class BenchmarkManager:
 
+    @staticmethod
     def get_available_benchmarks():
         return ["randomized_benchmarking", "to", "be", "filled"]
 

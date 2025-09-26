@@ -1,6 +1,7 @@
 from mqss.pennylane_adapter.device import MQSSPennylaneDevice
-from src.adapters.mqss_adapter import MQSSAdapter
-from src.adapters.config import MQSS_TOKEN
+from ..adapters.mqss_adapter import MQSSAdapter
+from ..adapters.config import MQSS_TOKEN
+from typing import override
 
 
 class PennyLaneAdapter(MQSSAdapter):
@@ -15,6 +16,7 @@ class PennyLaneAdapter(MQSSAdapter):
             backends="QExa20",
         )
 
+    @override
     def run_circuit(self, circuit, params=None):
         """Given a PennyLane circuit, run it using the PennylaneAdapter
 

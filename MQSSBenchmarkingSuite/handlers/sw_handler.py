@@ -1,6 +1,6 @@
 from .base_handler import BenchmarkHandler
-from adapters.adapter_factory import get_adapter
-from circuits.sw_benchmark_circuits import get_sw_benchmark_by_name
+from ..adapters.adapter_factory import get_adapter
+from ..circuits.sw_benchmark_circuits import get_sw_benchmark_by_name
 
 
 class SoftwareBenchmarkHandler(BenchmarkHandler):

@@ -6,6 +6,6 @@ class MQSSAdapter(ABC):
         self.config = config
 
     @abstractmethod
-    def run_circuit(self, circuit, params):
+    def run_circuit(self, circuit, params=None):
         # TODO: To be implemented by the child classes
         pass

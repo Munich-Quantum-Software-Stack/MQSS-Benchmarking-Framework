@@ -44,8 +44,6 @@ class PennyLaneAdapter(MQSSAdapter):
         print(
             "Running the circuit ..."
         )  # print for debugging. TODO: later we can define a verbose mode
-        print(self.device)
-        print(circuit)
         qnode = circuit(self.device)
         if params is not None:
             return qnode(*params)

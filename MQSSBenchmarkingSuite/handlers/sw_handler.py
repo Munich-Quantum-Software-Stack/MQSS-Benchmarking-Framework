@@ -9,7 +9,7 @@ class SoftwareBenchmarkHandler(BenchmarkHandler):
         backend = get_adapter(self.config)
 
         name = self.config["benchmark_name"]
-        num_qubits = self.config["benchmark_name"]
+        num_qubits = self.config["wires"]
         # TODO: Indicate which modules have to be benchmarked through the config
         circuit_fn = get_sw_benchmark_by_name(name, num_qubits)
 

@@ -1,10 +1,10 @@
-from mqss.pennylane_adapter.device import MQSSPennylaneDevice
-from mqss_adapter import MQSSAdapter
-from config import MQSS_TOKEN, MQSS_BACKEND
-from typing import override
+from ..adapters.mqss_adapter import MQSSAdapter
+from mqss.qiskit_adapter import MQSSQiskitAdapter
+from ..adapters.config import MQSS_TOKEN, MQSS_BACKEND
 
 
-class PennyLaneAdapter(MQSSAdapter):
+class QiskitAdapter(MQSSAdapter):
+
     def __init__(self, config):
         super().__init__(config)
 
@@ -21,31 +21,33 @@ class PennyLaneAdapter(MQSSAdapter):
             raise ValueError(
                 "Missing required config: credentials.mqss_token or MQSS_TOKEN"
             )
-        shots = int(config["shots"]) if config.get("shots") is not None else None
+        self.shots = int(config["shots"]) if config.get("shots") is not None else None
 
-        self.device = MQSSPennylaneDevice(
-            wires=2,  # TODO: use wires=config["wires"] later
-            token=token,
-            shots=shots,
-            backends=backend_name,
-        )
+        self.adapter = MQSSQiskitAdapter(token=token)
+        self.backend = self.adapter.get_backend(backend_name)
+        # TODO: consider using config["wires"], which is number of qubits
 
-    @override
     def run_circuit(self, circuit, params=None):
-        """Given a PennyLane circuit, run it using the PennylaneAdapter
+        """Given a Qiskit circuit, run it using the QiskitAdapter
 
         Args:
-            circuit (qml.qnode): Pennylane Circuit
+            circuit (callable): A builder function returning a `QuantumCircuit`.
             params (float, optional): Parameters to the circuit. Defaults to None.
 
         Returns:
             _type_: _description_
         """
+        # In current implementation, circuit is a function, so we call it to get a QuantumCircuit
+        if callable(circuit):
+            built_circuit = circuit()
+        else:
+            built_circuit = circuit
+
         print(
             "Running the circuit ..."
         )  # print for debugging. TODO: later we can define a verbose mode
-        qnode = circuit(self.device)
-        if params is not None:
-            return qnode(*params)
+        if self.shots is not None:
+            job = self.backend.run(built_circuit, shots=self.shots)
         else:
-            return qnode()
+            job = self.backend.run(built_circuit)
+        return job.result().get_counts()

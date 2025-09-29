@@ -6,7 +6,7 @@ class BenchmarkHandler(ABC):
         self.config = config
 
     @abstractmethod
-    def run(self):
+    def run(self) -> dict:
         """Execute the benchmark."""
         pass
         # TODO: To be implemented by the child classes

@@ -1,6 +1,6 @@
-from src.adapters.mqss_adapter import MQSSAdapter
+from ..adapters.mqss_adapter import MQSSAdapter
 from mqss.qiskit_adapter import MQSSQiskitAdapter
-from src.adapters.config import MQSS_TOKEN, MQSS_BACKEND
+from ..adapters.config import MQSS_TOKEN, MQSS_BACKEND
 
 
 class QiskitAdapter(MQSSAdapter):
@@ -14,14 +14,18 @@ class QiskitAdapter(MQSSAdapter):
         if not backend_name:
             raise ValueError("Missing required config: backend or MQSS_BACKEND")
         credentials = config.get("credentials") or {}
-        token = (credentials.get("mqss_token") if isinstance(credentials, dict) else None) or MQSS_TOKEN
+        token = (
+            credentials.get("mqss_token") if isinstance(credentials, dict) else None
+        ) or MQSS_TOKEN
         if not token:
-            raise ValueError("Missing required config: credentials.mqss_token or MQSS_TOKEN")
+            raise ValueError(
+                "Missing required config: credentials.mqss_token or MQSS_TOKEN"
+            )
         self.shots = int(config["shots"]) if config.get("shots") is not None else None
-        
+
         self.adapter = MQSSQiskitAdapter(token=token)
         self.backend = self.adapter.get_backend(backend_name)
-        #TODO: consider using config["wires"], which is number of qubits
+        # TODO: consider using config["wires"], which is number of qubits
 
     def run_circuit(self, circuit, params=None):
         """Given a Qiskit circuit, run it using the QiskitAdapter
@@ -32,14 +36,16 @@ class QiskitAdapter(MQSSAdapter):
 
         Returns:
             _type_: _description_
-        """        
+        """
         # In current implementation, circuit is a function, so we call it to get a QuantumCircuit
         if callable(circuit):
             built_circuit = circuit()
         else:
             built_circuit = circuit
 
-        print("Running the circuit ...")  # print for debugging. TODO: later we can define a verbose mode
+        print(
+            "Running the circuit ..."
+        )  # print for debugging. TODO: later we can define a verbose mode
         if self.shots is not None:
             job = self.backend.run(built_circuit, shots=self.shots)
         else:

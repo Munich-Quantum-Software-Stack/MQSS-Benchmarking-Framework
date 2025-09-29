@@ -3,12 +3,13 @@ name = "mqss-benchmarking-suite"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "mqss-pennylane-adapter==1.1.2",
     "mqss-qiskit>=0.2.0",
     "mqt-bench>=2.0.0",
     "pennylane>=0.41.1",
+    "typing>=3.10.0.0",
 ]
 
 [project.optional-dependencies]

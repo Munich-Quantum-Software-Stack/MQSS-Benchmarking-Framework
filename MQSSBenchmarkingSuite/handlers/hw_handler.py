@@ -1,6 +1,6 @@
 from .base_handler import BenchmarkHandler
-from circuits.hw_circuits import get_hw_circuit
-from adapters.adapter_factory import get_adapter
+from ..circuits.hw_circuits import get_hw_circuit
+from ..adapters.adapter_factory import get_adapter
 
 
 class HardwareBenchmarkHandler(BenchmarkHandler):

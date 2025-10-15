@@ -10,6 +10,10 @@ dependencies = [
     "mqt-bench>=2.0.0",
     "pennylane>=0.41.1",
     "typing>=3.10.0.0",
+    "qiskit-experiments>=0.5.0",
+    "scipy>=1.10.0",
+    "numpy>=1.24.0",
+    "qiskit-aer>=0.13.3",
 ]
 
 [project.optional-dependencies]
@@ -20,7 +24,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = {"" = "MQSSBenchmarkingSuite"}
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["MQSSBenchmarkingSuite"]

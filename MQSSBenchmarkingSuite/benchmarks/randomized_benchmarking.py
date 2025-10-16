@@ -101,13 +101,32 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
 
             # Fit the mean survival probabilities to an exponential decay model to extract the decay parameter
             def model(L, A, p, B):
-                return A * (p ** L) + B  # assuming gate-independent and time-independent errors
+                """
+                Exponential decay model for randomized benchmarking, assuming gate-independent and time-independent errors
+
+                L : int or array-like
+                    RB sequence length (number of clifford gates)
+                A : float
+                    Amplitude (accounts for SPAM errors)
+                p : float
+                    Depolarizing parameter (average survival probability per clifford)
+                B : float
+                    Offset (baseline survival due to SPAM)
+
+                Note: A and B absorb state preparation and measurement (=SPAM) errors as well as an edge effect from the error on the final gate.
+                
+                Returns
+                -------
+                float or array-like
+                    Predicted mean survival probability: A * (p**L) + B
+                """
+                return A * (p ** L) + B 
 
             Ls = np.array(lengths, dtype=float)
             ys = np.array(mean_survivals, dtype=float)
 
             try:
-                popt, _ = curve_fit(model, Ls, ys, bounds=([0, 0, 0], [1, 1, 1]))
+                popt, _ = curve_fit(model, Ls, ys, p0=[0.5, 0.95, 0.5], bounds=([-1, 0, -1], [2, 1, 2]))
                 _, p_decay, _ = popt
             except Exception:
                 return None  # fail: curve fit failed
@@ -127,5 +146,3 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
 
 
 register_benchmark(RandomizedBenchmarkingBenchmark)
-
-

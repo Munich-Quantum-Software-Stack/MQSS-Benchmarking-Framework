@@ -67,5 +67,7 @@ class QiskitAdapter(MQSSAdapter):
             job = self.backend.run(built_circuit)
         return job.result().get_counts()
 
-    #TODO: add ability to use batch circuits running for efficiency
+    # TODO: add ability to use batch circuits running for efficiency
     # def run_circuits(self, circuits, circuits_params=None):
+
+    # TODO: consider exploring alternative solutions for transpilation here

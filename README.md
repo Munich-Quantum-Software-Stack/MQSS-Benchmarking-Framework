@@ -56,9 +56,12 @@ config = {
     "credentials": {
         "mqss_token": "<TOKEN>"
     },
-    "wires": 2,
     "shots": 200,
-    "params": {}
+    "params": {},
+    "benchmark_params": {
+        "num_qubits": 2
+    },
+    "metrics": metrics
 }
 
 benchmark_manager = BenchmarkManager(config)

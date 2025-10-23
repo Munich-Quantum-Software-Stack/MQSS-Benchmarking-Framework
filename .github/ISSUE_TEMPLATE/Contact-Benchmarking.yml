@@ -1,0 +1,49 @@
+name: Contact the Bencharmking Team of the MQSS
+description: File a request to the "Munich Quantum Software Stack (MQSS)" team
+title: "[Contact F4-S: Benchmarking team]: "
+labels: ["Contact_F4-S"]
+projects: ["F4-S: Benchmarking team"]
+assignees:
+  - Bmete7
+body:
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@lrz.de
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Communication Type
+      description: What type of communication do you require?
+      options:
+        - Request
+        - Question
+        - Report
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: message
+    attributes:
+      label: Message
+      description: Tell us about your request/question/report.
+      placeholder: Tell us as much as you can!
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant code or log snippet
+      description: Please copy and paste any relevant code or log output. This will be automatically parsed (backticks are not required).
+      placeholder: Keyboard not found. Press F1 to resume.
+      render: shell
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for visiting, come back soon :)

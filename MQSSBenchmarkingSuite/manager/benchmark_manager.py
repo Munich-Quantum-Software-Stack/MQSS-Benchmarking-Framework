@@ -1,12 +1,14 @@
 from ..handlers import HardwareBenchmarkHandler
 from ..handlers import SoftwareBenchmarkHandler
+from ..benchmarks.registry import list_registerd_benchmarks
 
 
 class BenchmarkManager:
 
     @staticmethod
-    def get_available_benchmarks():
-        return ["randomized_benchmarking", "to", "be", "filled"]
+    def get_available_benchmarks(): 
+        # TODO: consider this part when implementing the unified approach to load external benchmarks (e.g. mqtbench or even custom ones)
+        return list_registerd_benchmarks()
 
     def __init__(self, config: dict):
         self.config = config
@@ -26,3 +28,5 @@ class BenchmarkManager:
         else:
             raise ValueError(f"Unsupported benchmark type: {benchmark_type}")
         return handler.run()
+
+    # TODO: consider adding a method here to check if the config is valid, e.g. num_qubits should be provided

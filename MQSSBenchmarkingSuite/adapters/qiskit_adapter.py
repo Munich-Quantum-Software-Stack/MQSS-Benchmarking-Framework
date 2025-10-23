@@ -1,6 +1,7 @@
 from ..adapters.mqss_adapter import MQSSAdapter
 from mqss.qiskit_adapter import MQSSQiskitAdapter
 from ..adapters.config import MQSS_TOKEN, MQSS_BACKEND
+from qiskit import transpile
 
 
 class QiskitAdapter(MQSSAdapter):
@@ -25,29 +26,48 @@ class QiskitAdapter(MQSSAdapter):
 
         self.adapter = MQSSQiskitAdapter(token=token)
         self.backend = self.adapter.get_backend(backend_name)
-        # TODO: consider using config["wires"], which is number of qubits
 
-    def run_circuit(self, circuit, params=None):
+
+    def run_circuit(self, circuit, circuit_params=None, transpile_mode=True):
         """Given a Qiskit circuit, run it using the QiskitAdapter
 
         Args:
             circuit (callable): A builder function returning a `QuantumCircuit`.
-            params (float, optional): Parameters to the circuit. Defaults to None.
+            circuit_params (optional): parameters to the circuit. Defaults to None.
 
         Returns:
-            _type_: _description_
+            dict: Dictionary of measurement counts from the executed circuit.
         """
-        # In current implementation, circuit is a function, so we call it to get a QuantumCircuit
+        # Build circuit: support factory functions receiving circuit_params dict
         if callable(circuit):
-            built_circuit = circuit()
+            if isinstance(circuit_params, dict):
+                built_circuit = circuit(**circuit_params)
+            elif circuit_params is None:
+                built_circuit = circuit()
+            else:
+                built_circuit = circuit(circuit_params)
         else:
             built_circuit = circuit
+        
+        # print for debugging. TODO: later we can define a verbose mode
+        print(f"Circuit:\n{built_circuit}")
+        print("Running the circuit ...")
 
-        print(
-            "Running the circuit ..."
-        )  # print for debugging. TODO: later we can define a verbose mode
-        if self.shots is not None:
+        # Transpile to basic gates to avoid unsupported custom instructions errors (a conservative basis set compatible with most backends)
+        if transpile_mode is True:
+            built_circuit = transpile(
+                built_circuit,
+                basis_gates=["u", "cx"],
+                optimization_level=0,
+            )
+
+        if self.shots is not None: 
             job = self.backend.run(built_circuit, shots=self.shots)
         else:
             job = self.backend.run(built_circuit)
         return job.result().get_counts()
+
+    # TODO: add ability to use batch circuits running for efficiency
+    # def run_circuits(self, circuits, circuits_params=None):
+
+    # TODO: consider exploring alternative solutions for transpilation here

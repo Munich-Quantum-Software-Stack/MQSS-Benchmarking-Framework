@@ -16,13 +16,22 @@ class HardwareBenchmarkHandler(BenchmarkHandler):
         benchmark_name = self.config["benchmark_name"]
         interface = self.config.get("interface", "pennylane")
         benchmark_params = self.config.get("benchmark_params", {})
+        visualization = self.config.get("visualization", False)
+        backend_name = self.config.get("backend", None)
+        save_plots = self.config.get("save_plots", None)
 
         # 2. Resolve benchmark class and run
         benchmark_class = get_benchmark_class(benchmark_name)
         benchmark_params = benchmark_class.validate_params(benchmark_params)
         benchmark_class.check_requirements(interface)
         runs = benchmark_class.execute(backend, benchmark_params)
-        result = benchmark_class.analyze(benchmark_params, runs)
+        result = benchmark_class.analyze(
+            benchmark_params,
+            runs,
+            visualization=visualization,
+            backend=backend_name,
+            save_plots=save_plots,
+        )
 
         # 4. Return or log the result
         return {"benchmark": benchmark_name, "result": result}

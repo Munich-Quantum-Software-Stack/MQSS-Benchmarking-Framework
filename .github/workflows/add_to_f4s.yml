@@ -1,0 +1,17 @@
+name: 'Add new item to "F4-S: Benchmarking team" in "MQSS-management"'
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  add-to-project:    
+    if: ${{ contains(github.event.issue.labels.*.name, 'Contact_F4-S') }}
+    name: Copy issue to MQSS management platform
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Add to "F4-S: Benchmarking team" in "MQSS-management"'
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/MQSS-management/projects/25
+          github-token: ${{ secrets.PROJECT_TOKEN }}

@@ -1,5 +1,6 @@
 from .benchmark import Benchmark
 from .registry import register_benchmark
+import matplotlib.pyplot as plt
 
 
 class RandomizedBenchmarkingBenchmark(Benchmark):
@@ -23,7 +24,9 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
     @classmethod
     def check_requirements(self, interface: str) -> None:
         if interface not in self.interfaces():
-            raise ValueError(f"Only {self.interfaces()} interface(s) are supported for {self.name()} currently")
+            raise ValueError(
+                f"Only {self.interfaces()} interface(s) are supported for {self.name()} currently"
+            )
 
     @classmethod
     def execute(self, adapter, params: dict):
@@ -50,12 +53,13 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
         return runs
 
     @classmethod
-    def analyze(self, params: dict, runs) -> dict:
+    def analyze(self, params: dict, runs, **kwargs) -> dict:
         num_qubits = int(params["num_qubits"])
         status = "failed"
         mean_survivals = []
         p_decay = float("nan")
         avg_gate_error = float("nan")
+        visualization = kwargs.get("visualization", False)
 
         result = self.rb_analyze(num_qubits, runs)
         if result is None:
@@ -63,7 +67,8 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
         else:
             status = "success"
             mean_survivals, p_decay, avg_gate_error = result
-
+        if visualization:
+            self.plot(runs, num_qubits, **kwargs)
         return {
             "num_qubits": num_qubits,
             "lengths": sorted(runs.keys()),
@@ -75,6 +80,44 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
             "runs_info": runs,
         }
 
+    @classmethod
+    def plot(self, runs: dict, num_qubits: int, **kwargs):
+        # TODO: Add device name and other info to the plot title
+        probabilities: list = []
+        clifford_lengths: list = []
+        backend = kwargs.get("backend", None)
+        save_plots = kwargs.get("save_plots", None)
+        for length, seq_counts in runs.items():
+            clifford_lengths.append(length)
+            total = 0
+            probability = 0
+            try:
+                for cdx, counts in seq_counts[0].items():
+                    total += counts
+                    if cdx == "0" * num_qubits:
+                        probability += counts
+                if probability == 0 or total == 0:
+                    raise ValueError("No counts for zero state or total counts is zero")
+
+            except Exception as e:
+                raise ValueError(f"Error while plotting RB results: {e}")
+            probabilities.append(probability / total)
+
+        plt.figure()
+
+        if backend is not None:
+            plt.title(f"Randomized Benchmarking on {backend} for {num_qubits} qubits")
+        else:
+            plt.title(f"Randomized Benchmarking for {num_qubits} qubits")
+
+        plt.xlabel("Clifford Length")
+        plt.ylabel("Mean Survival Probability")
+        plt.grid(True)
+        plt.xticks(clifford_lengths)
+        plt.plot(clifford_lengths, probabilities, marker="o", linestyle="-")
+        if save_plots is not None:
+            plt.savefig(f"{save_plots}.png")
+        plt.show()
 
     @classmethod
     def rb_analyze(self, num_qubits, runs):
@@ -89,12 +132,14 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
             for L in lengths:
                 seq_counts = runs[L]
                 zero_state = "0" * num_qubits
-                survivals = [] 
+                survivals = []
                 for counts in seq_counts:
                     total = sum(counts.values())
                     if total == 0:
                         return None  # fail: no measurement counts
-                    survivals.append(counts.get(zero_state, 0) / total)  # Survival probability is the probability of measuring the all-zero state |00..0>
+                    survivals.append(
+                        counts.get(zero_state, 0) / total
+                    )  # Survival probability is the probability of measuring the all-zero state |00..0>
                 if not survivals:
                     return None  # fail: empty survival list
                 mean_survivals.append(float(np.mean(survivals)))
@@ -114,26 +159,32 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
                     Offset (baseline survival due to SPAM)
 
                 Note: A and B absorb state preparation and measurement (=SPAM) errors as well as an edge effect from the error on the final gate.
-                
+
                 Returns
                 -------
                 float or array-like
                     Predicted mean survival probability: A * (p**L) + B
                 """
-                return A * (p ** L) + B 
+                return A * (p**L) + B
 
             Ls = np.array(lengths, dtype=float)
             ys = np.array(mean_survivals, dtype=float)
 
             try:
-                popt, _ = curve_fit(model, Ls, ys, p0=[0.5, 0.95, 0.5], bounds=([-1, 0, -1], [2, 1, 2]))
+                popt, _ = curve_fit(
+                    model, Ls, ys, p0=[0.5, 0.95, 0.5], bounds=([-1, 0, -1], [2, 1, 2])
+                )
                 _, p_decay, _ = popt
             except Exception:
                 return None  # fail: curve fit failed
 
             # Calculate average gate error
-            dimension = 2 ** num_qubits  # Dimension of the Hilbert space for num_qubits qubits
-            avg_gate_error = ((dimension - 1) / dimension) * (1 - p_decay)  # Error per Clifford (EPC)
+            dimension = (
+                2**num_qubits
+            )  # Dimension of the Hilbert space for num_qubits qubits
+            avg_gate_error = ((dimension - 1) / dimension) * (
+                1 - p_decay
+            )  # Error per Clifford (EPC)
 
             # TODO: Consider using RBAnalysis instead of manual fitting and calculations above:
             # https://qiskit-community.github.io/qiskit-experiments/stubs/qiskit_experiments.library.randomized_benchmarking.RBAnalysis.html

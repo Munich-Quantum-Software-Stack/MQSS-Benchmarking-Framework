@@ -33,31 +33,25 @@ sample_config_hw_rb = {
     "credentials": {"mqss_token": MQSS_TOKEN},
     "shots": 200,
     "params": {},
-    "benchmark_params": {
-        "num_qubits": 2,
-        "lengths": [2, 4, 8, 16],
-        "num_sequences": 2
-    },
+    "benchmark_params": {"num_qubits": 2, "lengths": [2, 4], "num_sequences": 1},
     "metrics": metrics,
+    "visualization": True,
+    "save_plots": "rb_benchmark",
 }
 
 sample_config_hw_qv = {
     "benchmark_type": "HW",
-    "benchmark_name": "quantum_volume", 
+    "benchmark_name": "quantum_volume",
     "interface": "qiskit",
     "backend": "QExa20",
     "credentials": {"mqss_token": MQSS_TOKEN},
     "shots": 200,
     "params": {},
-    "benchmark_params": {
-        "num_qubits": 2,
-        "depth": 2,
-        "trials": 2
-    },
+    "benchmark_params": {"num_qubits": 2, "depth": 2, "trials": 2},
     "metrics": metrics,
 }
 
-benchmark_manager = BenchmarkManager(sample_config_sw_vqe)
+benchmark_manager = BenchmarkManager(sample_config_hw_rb)
 print("Available benchmarks:", benchmark_manager.get_available_benchmarks())
 result = benchmark_manager.dispatch()
 print(result)

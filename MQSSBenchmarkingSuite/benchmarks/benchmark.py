@@ -32,8 +32,12 @@ class Benchmark(ABC):
 
     @classmethod
     @abstractmethod
-    def analyze(self, params: dict, runs) -> dict:
+    def analyze(self, params: dict, runs: dict, **kwargs) -> dict:
         pass
+
+    @classmethod
+    @abstractmethod
+    def plot(self, runs: dict, num_qubits: int, **kwargs):
+        pass
+
     pass
-
-

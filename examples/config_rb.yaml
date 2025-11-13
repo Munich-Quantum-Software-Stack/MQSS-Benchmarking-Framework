@@ -1,0 +1,26 @@
+benchmark: core/native/randomized_benchmarking
+
+benchmark_params: # benchamark specific params
+  num_qubits: 2
+  lengths: [2, 4, 8, 16]
+  num_sequences: 2
+
+adapter: mqss_qiskit
+backend: QExa20
+
+credentials:
+  mqss_token: ""
+
+shots: 200
+
+output:
+  analysis: true
+  visualization: true  # only applies if enabled is true
+  save: true
+  output_dir: "./results"
+
+profiling:
+  enabled: true
+  metrics: # not defining metrics means all of them are requested
+    - transpiler
+    - submitter

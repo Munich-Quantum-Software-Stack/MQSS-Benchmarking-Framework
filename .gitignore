@@ -13,6 +13,9 @@ wheels/
 datasets/
 *.h5
 
+# Results
+results/
+
 # .vscode
 
 .vscode

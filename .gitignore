@@ -15,6 +15,7 @@ datasets/
 
 # Results
 results/
+*.png
 
 # .vscode
 
@@ -23,6 +24,8 @@ results/
 # Secrets
 
 .env
+.env-stg
+.env-test
 
 # System files
 .DS_Store

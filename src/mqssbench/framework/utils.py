@@ -40,6 +40,9 @@ def make_output_path(name: str, output_dir: str, is_plot: bool) -> str:
         path = os.path.join(output_dir, f"{base}_{counter}.{ext}")
         counter += 1
 
+    # print where file is saved
+    print(f"Output {'plot' if is_plot else 'data'} saved to: {path}")
+
     return path
 
 def safe_plot_show():
@@ -47,24 +50,24 @@ def safe_plot_show():
     Show a plot when running interactively (e.g., VS Code, Jupyter, local terminal).
     Close the plot automatically in headless environments (CI, SSH without X11).
     """
+    # Check the env variable
+    if os.environ.get("MQSSBENCH_DISPLAY", "1") != "1":
+        plt.close()
+        return
+
     try:
-        # Interactive if matplotlib thinks it's interactive
-        if matplotlib.is_interactive():
+        interactive_env = (
+            matplotlib.is_interactive() or
+            os.environ.get("DISPLAY") or
+            os.environ.get("WAYLAND_DISPLAY") or
+            sys.stdout.isatty()
+        )
+
+        if interactive_env:
             plt.show()
             return
-
-        # Interactive if display environment variable exists (Linux/macOS)
-        if os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):
-            plt.show()
-            return
-
-        # On Windows or VS Code terminal, sys.stdout.isatty() is usually True
-        if sys.stdout.isatty():
-            plt.show()
-            return
-
     except Exception:
         pass
 
-    # Otherwise, close the plot
+    # headless / no display
     plt.close()

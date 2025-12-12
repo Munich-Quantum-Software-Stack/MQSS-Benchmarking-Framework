@@ -60,7 +60,15 @@ This prints every benchmark registered under the `origin/source/name` structure,
 mqssbench run --config path/to/config.yaml
 ```
 
-Example:
+**Note:**
+The `--config` file may contain either:
+
+1. a **single benchmark configuration** (dict)
+2. or a **list of benchmark configurations** (each a full config dict)
+
+When a list is provided, mqssbench runs each benchmark sequentially using the same execution engine.
+
+Example of running a config file:
 
 ```bash
 mqssbench run --config examples/config_qv.yaml
@@ -123,8 +131,7 @@ profiling:
     - <METRIC_2>
 ```
 
-Example:
-
+Example of a Single benchmark config:
 ```yaml
 benchmark: core/native/randomized_benchmarking
 
@@ -154,7 +161,32 @@ profiling:
     - submitter
 ```
 
-Running the command automatically loads the correct adapter, executes the circuits and prints or saves the results.
+
+Example of a multi benchmark config:
+
+```yaml
+- benchmark: core/native/randomized_benchmarking
+  benchmark_params:
+    num_qubits: 2
+    lengths: [2, 4, 8]
+    num_sequences: 2
+  adapter: mqss_qiskit
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 200
+
+- benchmark: core/native/quantum_volume
+  benchmark_params:
+    num_qubits: 3
+    depth: 3
+    trials: 2
+  adapter: mqss_qiskit
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 200
+```
 
 ## 🧩 Python API Usage
 

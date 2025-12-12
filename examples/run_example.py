@@ -8,22 +8,15 @@ print(format_registry_lists(benchmarks=BenchmarkManager.get_available_benchmarks
 # Example config — users can replace with their own YAML file
 config = {
     "benchmark": "core/native/quantum_volume",
-    "adapter": "mqss_qiskit",
-    "backend": "QExa20",
-    "credentials": {"mqss_token": ""},
-    "shots": 200,
     "benchmark_params": {
         "num_qubits": 3,
         "depth": 3,
         "trials": 2
     },
-    "metrics": [
-        "fidelity",
-        "time-to-solution",
-        "compile-time",
-        "gate-count",
-        "classical-compute-time",
-    ],
+    "adapter": "mqss_qiskit",
+    "backend": "QExa20",
+    "credentials": {"mqss_token": ""},
+    "shots": 200,
 }
 
 manager = BenchmarkManager(config)

@@ -22,9 +22,11 @@ def cli_run(config_path: str):
         raise FileNotFoundError("No config found at provided path, %s" % config_path)
 
     manager = BenchmarkManager(cfg)
-    result = manager.dispatch()
+    results = manager.dispatch()
 
-    print(format_benchmark_result(result))
+    for r in results:
+        print(format_benchmark_result(r))
+        print()  # blank line between runs    
 
 
 def cli_list():

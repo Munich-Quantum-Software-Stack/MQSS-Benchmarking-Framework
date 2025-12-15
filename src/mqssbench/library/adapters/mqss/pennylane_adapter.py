@@ -1,12 +1,13 @@
 import logging
-from typing import override, Any, Callable, cast
-logger = logging.getLogger(__name__)
+from typing import override, Callable, cast
 from mqss.pennylane_adapter.device import MQSSPennylaneDevice
 from pennylane import QNode
 from ....framework.adapter import DeviceAdapter
 from ....framework.adapter_registry import AdapterRegistry
 from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
 from ....framework.types import ProfilingConfig, RunContext, ProfilingMetrics, ExecutionResult
+
+logger = logging.getLogger(__name__)
 
 MQSS_PENNYLANE_PROFILING_ENABLED = False
 

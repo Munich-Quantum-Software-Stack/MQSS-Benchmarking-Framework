@@ -1,7 +1,6 @@
 """MQSS adapter base class."""
 
 from abc import ABC, abstractmethod
-from typing import Any
 from .types import ProfilingConfig, RunContext, ExecutionResult
 
 # TODO: refactor to not using raw config here, instead use dedicated AdapterConfig dataclass

@@ -2,24 +2,26 @@ import argparse
 import yaml
 import logging
 import sys
-logger = logging.getLogger(__name__)
-logging.basicConfig(stream=sys.stdout, 
-                    level=logging.WARNING,
-                    format="[%(levelname)s] %(name)s: %(message)s")
 
 from mqssbench.runtime.benchmark_manager import BenchmarkManager
 from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    stream=sys.stdout, 
+    level=logging.WARNING,
+    format="[%(levelname)s] %(name)s: %(message)s"
+)
 
 def cli_run(config_path: str):
-    if(not config_path):
+    if not config_path:
         raise ValueError("No config path provided")
 
     try:
         with open(config_path, "r") as f:
             cfg = yaml.safe_load(f)
     except FileNotFoundError:
-        raise FileNotFoundError("No config found at provided path, %s" % config_path)
+        raise FileNotFoundError(f"No config found at provided path: {config_path}")
 
     manager = BenchmarkManager(cfg)
     results = manager.dispatch()
@@ -28,7 +30,6 @@ def cli_run(config_path: str):
         print(format_benchmark_result(r))
         print()  # blank line between runs    
 
-
 def cli_list():
     formatted = format_registry_lists(
         benchmarks=BenchmarkManager.get_available_benchmarks(),
@@ -36,7 +37,6 @@ def cli_list():
         adapters=BenchmarkManager.get_available_adapters(),
     )
     print(formatted)
-
 
 def main():
     parser = argparse.ArgumentParser(prog="mqssbench")
@@ -57,7 +57,6 @@ def main():
         cli_list()
     else:
         parser.print_help()
-
 
 if __name__ == "__main__":
     main()

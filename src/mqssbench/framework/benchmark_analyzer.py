@@ -1,11 +1,9 @@
 """Benchmark analyzer abstraction."""
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, override
+from typing import List, override
 from collections import Counter
 import matplotlib.pyplot as plt
-import os
-from datetime import datetime
 
 from .types import RunContext, ExecutionResult, AnalysisResult
 from .utils import make_output_path, safe_plot_show

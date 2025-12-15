@@ -1,5 +1,5 @@
 # FILE: mqssbench/runtime/benchmark_manager.py
-from typing import Any, Dict, List
+from typing import Dict, List
 import os
 from ..framework import BenchmarkRegistry
 from ..framework import ProviderRegistry

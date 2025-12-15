@@ -5,10 +5,9 @@ from __future__ import annotations
 import logging
 import threading
 from typing import Dict, Type, List, Optional
-logger = logging.getLogger(__name__)
-
 from .provider import CircuitProvider
 
+logger = logging.getLogger(__name__)
 
 class ProviderRegistry:
     """Registry for managing circuit provider classes."""

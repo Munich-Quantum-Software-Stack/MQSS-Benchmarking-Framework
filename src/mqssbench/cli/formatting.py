@@ -1,7 +1,7 @@
 from __future__ import annotations
 from colorama import Fore, Style, init as colorama_init
-from typing import Any, Dict, Iterable, List, Optional
-from mqssbench.framework.types import BenchmarkResult, ExecutionResult, AnalysisResult
+from typing import Iterable, List, Optional
+from mqssbench.framework.types import BenchmarkResult, ExecutionResult
 
 # needed for Windows
 colorama_init(autoreset=True)

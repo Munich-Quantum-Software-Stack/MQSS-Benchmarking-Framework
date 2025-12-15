@@ -1,7 +1,5 @@
 from collections import defaultdict
 from typing import Any, Dict, List, Tuple, override
-import os
-from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
@@ -17,7 +15,6 @@ from ...framework import (
     RunContext,
     ExecutionResult,
     AnalysisResult,
-    BenchmarkResult,
     BenchmarkRegistry,
 )
 
@@ -97,7 +94,6 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         _, p_decay, _ = popt
         dimension = 2**num_qubits
         avg_gate_error = ((dimension - 1) / dimension) * (1 - float(p_decay))
-        combined_counts = [r.counts for r in execution_results]
         
         if context.output_config.visualization:
             self._plot(lengths, mean_survivals, context)

@@ -12,7 +12,6 @@ from mqssbench.framework import (
     RunContext,
     ExecutionResult,
     AnalysisResult,
-    BenchmarkResult,
     BenchmarkRegistry,
 )
 from mqssbench.runtime.benchmark_manager import BenchmarkManager

@@ -5,10 +5,10 @@ from __future__ import annotations
 import logging
 import threading
 from typing import Dict, Optional, Type, List, Any
-logger = logging.getLogger(__name__)
 
 from .adapter import DeviceAdapter
 
+logger = logging.getLogger(__name__)
 
 class AdapterRegistry:
     """Registry for managing adapter classes."""

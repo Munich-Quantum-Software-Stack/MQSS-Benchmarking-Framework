@@ -1,13 +1,14 @@
 import logging
-from typing import override, Any
-logger = logging.getLogger(__name__)
+from typing import override
 from qiskit import QuantumCircuit
 from qiskit import transpile
 from ....framework.adapter import DeviceAdapter
 from mqss.qiskit_adapter import MQSSQiskitAdapter
 from ....framework.adapter_registry import AdapterRegistry
-from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
 from ....framework.types import ProfilingConfig, RunContext, ProfilingMetrics, ExecutionResult
+from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
+
+logger = logging.getLogger(__name__)
 
 MQSS_QISKIT_PROFILING_ENABLED = True
 

@@ -7,10 +7,6 @@ from ...framework import (
     CircuitGenerator,
     CircuitSpec,
     DefaultBenchmarkExecutor,
-    RunContext,
-    ExecutionResult,
-    AnalysisResult,
-    BenchmarkResult,
     BenchmarkRegistry,
 )
 from ...framework import ProviderRegistry

@@ -7,7 +7,7 @@ from typing import Any, Dict, Tuple, Type, TypeVar
 
 from .utils import validate_benchmark_registry_key
 
-from .types import BenchmarkCategory, RunContext, VALID_ORIGINS, AnalysisResult, BenchmarkResult
+from .types import BenchmarkCategory, RunContext, BenchmarkResult
 from .circuit_generator import CircuitGenerator
 from .benchmark_executor import BenchmarkExecutor
 from .benchmark_analyzer import BenchmarkAnalyzer
@@ -108,11 +108,11 @@ class Benchmark(ABC):
         validate_benchmark_registry_key(cls.registry_key())
 
         if not issubclass(cls.generator, CircuitGenerator):
-            raise TypeError(f"generator must be a subclass of CircuitGenerator.")
+            raise TypeError("generator must be a subclass of CircuitGenerator.")
         if not issubclass(cls.executor, BenchmarkExecutor):
-            raise TypeError(f"executor must be a subclass of BenchmarkExecutor.")
+            raise TypeError("executor must be a subclass of BenchmarkExecutor.")
         if not issubclass(cls.analyzer, BenchmarkAnalyzer):
-            raise TypeError(f"analyzer must be a subclass of BenchmarkAnalyzer.")
+            raise TypeError("analyzer must be a subclass of BenchmarkAnalyzer.")
 
         if not isinstance(cls.supported_adapters, tuple):
             raise TypeError("supported_adapters must be a tuple of strings.")

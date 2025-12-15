@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Tuple, override
 import logging
-logger = logging.getLogger(__name__)
 import numpy as np
 
 from ...framework import (
@@ -14,9 +13,9 @@ from ...framework import (
     ExecutionResult,
     BenchmarkRegistry,
     AnalysisResult,
-    BenchmarkResult,
 )
 
+logger = logging.getLogger(__name__)
 
 class QuantumVolumeGenerator(CircuitGenerator):
     @override
@@ -68,7 +67,6 @@ class QuantumVolumeAnalyzer(BenchmarkAnalyzer):
 
         median_p_heavy = float(np.median(p_heavy_list))
         passed_threshold = bool(median_p_heavy >= 2 / 3)
-        combined_counts = [r.counts for r in execution_results]
 
         if context.output_config.visualization:
             logger.warning("Visualization for '%s' is not implemented.", context.benchmark_key)

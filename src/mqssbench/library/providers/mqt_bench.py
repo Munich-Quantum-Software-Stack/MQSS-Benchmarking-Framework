@@ -1,6 +1,5 @@
 import logging
 from typing import List, Dict, Any, override
-import pkgutil
 from ...framework.provider import (
     MAX_CIRCUITS_PER_PROVIDER,
     CircuitProvider,
@@ -15,7 +14,7 @@ class MQTBenchProvider(CircuitProvider):
     def __init__(self):
         self._available = []
         try:
-            from mqt.bench.benchmarks import get_available_benchmark_names, get_benchmark_description
+            from mqt.bench.benchmarks import get_available_benchmark_names
             available_circuits = get_available_benchmark_names()
             if len(available_circuits) > MAX_CIRCUITS_PER_PROVIDER:
                 raise RuntimeError(f"MQTBenchCircuitProvider: number of available circuits ({len(available_circuits)}) "

@@ -1,0 +1,17 @@
+benchmark: core/native/quantum_volume
+
+benchmark_params:
+  num_qubits: 2
+  depth: 2
+  trials: 2
+
+adapter: mqss_qiskit
+backend: QExa20
+
+credentials:
+  mqss_token: ""
+
+shots: 200
+
+profiling:
+  enabled: true

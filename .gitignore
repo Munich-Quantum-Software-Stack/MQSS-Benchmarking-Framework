@@ -13,6 +13,10 @@ wheels/
 datasets/
 *.h5
 
+# Results
+results/
+*.png
+
 # .vscode
 
 .vscode
@@ -20,6 +24,8 @@ datasets/
 # Secrets
 
 .env
+.env-stg
+.env-test
 
 # System files
 .DS_Store

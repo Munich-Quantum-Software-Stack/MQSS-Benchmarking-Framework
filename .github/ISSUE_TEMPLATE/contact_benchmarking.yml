@@ -3,7 +3,6 @@ description: File a request to the "Munich Quantum Software Stack (MQSS)" team
 title: "[Contact F4-S: Benchmarking team]: "
 labels: ["Contact_F4-S"]
 projects: ["F4-S: Benchmarking team"]
-type: request
 assignees:
   - Bmete7
 body:
@@ -19,7 +18,7 @@ body:
     id: message
     attributes:
       label: Message
-      description: Tell us about your request/question/report.
+      description: Tell us about your request
       placeholder: Tell us as much as you can!
     validations:
       required: true

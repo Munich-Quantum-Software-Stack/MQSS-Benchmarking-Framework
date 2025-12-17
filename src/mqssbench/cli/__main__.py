@@ -7,11 +7,27 @@ from mqssbench.runtime.benchmark_manager import BenchmarkManager
 from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(
-    stream=sys.stdout, 
-    level=logging.WARNING,
-    format="[%(levelname)s] %(name)s: %(message)s"
-)
+
+def setup_logging(verbosity: int):
+    """
+    Map repeatable -v to logging levels:
+      no -v -> WARNING
+      -v     -> INFO
+      -vv    -> DEBUG
+    Logs are sent to stderr so stdout remains for program output.
+    """
+    if verbosity >= 2:
+        level = logging.DEBUG
+    elif verbosity == 1:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+
+    logging.basicConfig(
+        level=level,
+        stream=sys.stderr,
+        format="[%(levelname)s] %(name)s: %(message)s"
+    )
 
 def cli_run(config_path: str):
     if not config_path:
@@ -28,7 +44,7 @@ def cli_run(config_path: str):
 
     for r in results:
         print(format_benchmark_result(r))
-        print()  # blank line between runs    
+        print()  # blank line between runs
 
 def cli_list():
     formatted = format_registry_lists(
@@ -40,6 +56,14 @@ def cli_list():
 
 def main():
     parser = argparse.ArgumentParser(prog="mqssbench")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Increase verbosity (-v, -vv)"
+    )
+
     subparsers = parser.add_subparsers(dest="command")
 
     # mqssbench run
@@ -50,6 +74,9 @@ def main():
     subparsers.add_parser("list", help="List available benchmarks, circuit providers, and adapters")
 
     args = parser.parse_args()
+
+    # configure logging based on parsed verbosity
+    setup_logging(args.verbose)
 
     if args.command == "run":
         cli_run(args.config)

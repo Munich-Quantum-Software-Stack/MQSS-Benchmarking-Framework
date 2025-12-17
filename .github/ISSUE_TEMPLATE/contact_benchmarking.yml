@@ -5,6 +5,7 @@ labels: ["Contact_F4-S"]
 projects: ["F4-S: Benchmarking team"]
 assignees:
   - Bmete7
+type: "Request"
 body:
   - type: input
     id: contact

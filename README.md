@@ -80,16 +80,15 @@ The CLI supports adjustable logging verbosity for debugging and inspection.
 
 Default behavior shows only warnings and errors.
 
-Increase verbosity with `-v` or `--verbose`:
+Set verbosity with `--verbose=<n>` or the short alias `-v` where:
+- `0` = WARNING (default)
+- `1` = INFO
+- `>=2` = DEBUG
 
+Examples:
 ```bash
-mqssbench run --config path/to/config.yaml -v
-```
-
-Enable debug level logging with `-vv`:
-
-```bash
-mqssbench run --config path/to/config.yaml -vv
+mqssbench run --verbose=1 --config=path/to/config.yaml
+mqssbench run -v 2 -c path/to/config.yaml
 ```
 
 Benchmark results are printed to standard output, while logs are sent to standard error.

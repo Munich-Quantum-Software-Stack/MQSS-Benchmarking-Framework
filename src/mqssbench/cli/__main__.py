@@ -10,15 +10,16 @@ logger = logging.getLogger(__name__)
 
 def setup_logging(verbosity: int):
     """
-    Map repeatable -v to logging levels:
-      no -v -> WARNING
-      -v     -> INFO
-      -vv    -> DEBUG
+    Map numeric verbosity to logging levels:
+      0 -> WARNING
+      1 -> INFO
+      >=2 -> DEBUG
     Logs are sent to stderr so stdout remains for program output.
     """
-    if verbosity >= 2:
+    v = max(0, int(verbosity))
+    if v >= 2:
         level = logging.DEBUG
-    elif verbosity == 1:
+    elif v == 1:
         level = logging.INFO
     else:
         level = logging.WARNING
@@ -54,14 +55,36 @@ def cli_list():
     )
     print(formatted)
 
+def non_negative_int(value: str) -> int:
+    """
+    argparse type for non negative integers. Raises ArgumentTypeError on invalid input.
+    """
+    try:
+        iv = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"invalid int value: {value!r}")
+    if iv < 0:
+        raise argparse.ArgumentTypeError("verbosity must be a non-negative integer")
+    return iv
+
 def main():
-    parser = argparse.ArgumentParser(prog="mqssbench")
+    EXAMPLES = """Examples:
+    mqssbench list
+    mqssbench run --verbose=1 --config=path/to/config.yaml
+    mqssbench run -v 2 -c path/to/config.yaml
+    """
+    parser = argparse.ArgumentParser(
+        prog="mqssbench",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=EXAMPLES)
+
     parser.add_argument(
         "-v",
         "--verbose",
-        action="count",
+        type=non_negative_int,
         default=0,
-        help="Increase verbosity (-v, -vv)"
+        metavar="LEVEL",
+        help="Set verbosity level (integer). 0=WARNING, 1=INFO, 2=DEBUG. Default is 0."
     )
 
     subparsers = parser.add_subparsers(dest="command")
@@ -75,8 +98,9 @@ def main():
 
     args = parser.parse_args()
 
-    # configure logging based on parsed verbosity
-    setup_logging(args.verbose)
+    # resolve and configure logging
+    verbosity = args.verbose
+    setup_logging(verbosity)
 
     if args.command == "run":
         cli_run(args.config)

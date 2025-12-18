@@ -5,13 +5,14 @@ labels: ["Contact_F4-S"]
 projects: ["F4-S: Benchmarking team"]
 assignees:
   - Bmete7
+type: Request
 body:
   - type: input
     id: contact
     attributes:
       label: Contact Details
       description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@lrz.de
+      placeholder: ex. email@yourcompany.de
     validations:
       required: true
   - type: textarea
@@ -25,4 +26,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for visiting, come back soon :)
+        Thank you for visiting, come back soon 🙂

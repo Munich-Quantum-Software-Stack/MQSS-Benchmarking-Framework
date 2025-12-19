@@ -78,17 +78,18 @@ mqssbench --help
 
 The CLI supports adjustable logging verbosity for debugging and inspection.
 
-Default behavior shows only warnings and errors.
+By default, only warnings and errors are shown.
 
-Set verbosity with `--verbose=<n>` or the short alias `-v` where:
-- `0` = WARNING (default)
-- `1` = INFO
-- `>=2` = DEBUG
+Increase verbosity by repeating the `-v` / `--verbose` flag:
+
+- No `-v` → WARNING (default)
+- `-v` → INFO
+- `-vv` → DEBUG
 
 Examples:
 ```bash
-mqssbench run --verbose=1 --config=path/to/config.yaml
-mqssbench run -v 2 -c path/to/config.yaml
+mqssbench run -v --config path/to/config.yaml
+mqssbench run -vv --config path/to/config.yaml
 ```
 
 Benchmark results are printed to standard output, while logs are sent to standard error.

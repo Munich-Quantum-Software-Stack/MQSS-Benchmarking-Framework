@@ -10,13 +10,14 @@ logger = logging.getLogger(__name__)
 
 def setup_logging(verbosity: int):
     """
-    Map numeric verbosity to logging levels:
+    Map repeatable verbosity to logging levels:
       0 -> WARNING
       1 -> INFO
       >=2 -> DEBUG
     Logs are sent to stderr so stdout remains for program output.
     """
-    v = max(0, int(verbosity))
+    v = verbosity or 0
+
     if v >= 2:
         level = logging.DEBUG
     elif v == 1:
@@ -45,7 +46,7 @@ def cli_run(config_path: str):
 
     for r in results:
         print(format_benchmark_result(r))
-        print()  # blank line between runs
+        print()
 
 def cli_list():
     formatted = format_registry_lists(
@@ -55,52 +56,40 @@ def cli_list():
     )
     print(formatted)
 
-def non_negative_int(value: str) -> int:
-    """
-    argparse type for non negative integers. Raises ArgumentTypeError on invalid input.
-    """
-    try:
-        iv = int(value)
-    except ValueError:
-        raise argparse.ArgumentTypeError(f"invalid int value: {value!r}")
-    if iv < 0:
-        raise argparse.ArgumentTypeError("verbosity must be a non-negative integer")
-    return iv
-
 def main():
     EXAMPLES = """Examples:
     mqssbench list
-    mqssbench run --verbose=1 --config=path/to/config.yaml
-    mqssbench run -v 2 -c path/to/config.yaml
+    mqssbench run --config path/to/config.yaml
+    mqssbench run -v --config path/to/config.yaml
     """
+
     parser = argparse.ArgumentParser(
         prog="mqssbench",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=EXAMPLES)
+        epilog=EXAMPLES
+    )
 
     parser.add_argument(
         "-v",
         "--verbose",
-        type=non_negative_int,
+        action="count",
         default=0,
-        metavar="LEVEL",
-        help="Set verbosity level (integer). 0=WARNING, 1=INFO, 2=DEBUG. Default is 0."
+        help="Increase verbosity (-v, -vv)."
     )
 
     subparsers = parser.add_subparsers(dest="command")
 
-    # mqssbench run
     run_parser = subparsers.add_parser("run", help="Run a benchmark from config file")
     run_parser.add_argument("-c", "--config", required=True, help="Path to config YAML")
 
-    # mqssbench list
-    subparsers.add_parser("list", help="List available benchmarks, circuit providers, and adapters")
+    subparsers.add_parser(
+        "list",
+        help="List available benchmarks, circuit providers, and adapters"
+    )
 
     args = parser.parse_args()
 
-    # resolve and configure logging
-    verbosity = args.verbose
-    setup_logging(verbosity)
+    setup_logging(args.verbose)
 
     if args.command == "run":
         cli_run(args.config)

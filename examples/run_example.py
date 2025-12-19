@@ -20,7 +20,9 @@ config = {
 }
 
 manager = BenchmarkManager(config)
-result = manager.dispatch()
+results = manager.dispatch()
 
 print("\n===== Benchmark Result =====")
-print(format_benchmark_result(result))
+for r in results:
+    print(format_benchmark_result(r))
+    print()  # blank line between runs

@@ -104,7 +104,7 @@ class PennyLaneAdapter(DeviceAdapter):
             qnode = circuit
 
         job_result_count = qnode()
-
+        # TODO: implement storing job id in pennylane
         if MQSS_PENNYLANE_PROFILING_ENABLED:
             # To be implemented: get profiling data from job_profiler_metrics
             profiling_data = {}  # Placeholder for actual profiling data retrieval
@@ -112,6 +112,7 @@ class PennyLaneAdapter(DeviceAdapter):
         else:
             profiling_data = None
         return ExecutionResult(
+            job_id=0,
             counts=job_result_count,
             profiling_metrics=ProfilingMetrics(params=profiling_data),
         )

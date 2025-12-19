@@ -138,7 +138,8 @@ profiling:
   enabled: <true_or_false>
   metrics:
     # List of profiling metrics. If omitted, all supported metrics are collected.
-    # Valid metrics:
+    # Available metrics depend on your selected adaptor.
+    # For example, for MQSS adaptors, these are valid metrics:
     #   mqp_api, quantum_database, quantum_job_runner, isv_job_runner,
     #   quantum_daemon_job_runner, generator, scheduler, pass_runner,
     #   transpiler, submitter, pass_selection, knitter, job_execution

@@ -75,6 +75,7 @@ class ProfilingMetrics:
 @dataclass(frozen=True)
 class ExecutionResult:
     """Result from executing a circuit."""
+    job_id: str
     counts: Any
     profiling_metrics: ProfilingMetrics = field(default_factory=ProfilingMetrics)
     metadata: Dict[str, Any] = field(default_factory=dict)

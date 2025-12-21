@@ -8,7 +8,7 @@ from .types import (
     ExecutionResult,
     AnalysisResult,
     BenchmarkResult,
-    OutputConfig,
+    ReportConfig,
 )
 from .circuit_generator import CircuitGenerator
 from .benchmark_executor import BenchmarkExecutor, DefaultBenchmarkExecutor
@@ -28,7 +28,7 @@ __all__ = [
     "ExecutionResult",
     "AnalysisResult",
     "BenchmarkResult",
-    "OutputConfig",    
+    "ReportConfig",
     "CircuitGenerator",
     "BenchmarkExecutor",
     "DefaultBenchmarkExecutor",

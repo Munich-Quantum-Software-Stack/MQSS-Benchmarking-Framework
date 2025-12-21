@@ -71,11 +71,12 @@ class Benchmark(ABC):
         excecution_results = executor.run(circuits, self.context)
 
         analysis_result = None
-        if(self.context.output_config.analysis):
+        if(self.context.report_config.analysis.enabled):
             analyzer = self._instantiate_component(self.analyzer, BenchmarkAnalyzer)
             analysis_result = analyzer.analyze(excecution_results, self.context)
 
         return BenchmarkResult(
+            run_id = self.context.run_id,
             benchmark_key = self.context.benchmark_key,
             params = self.context.params,
             execution_results = excecution_results,

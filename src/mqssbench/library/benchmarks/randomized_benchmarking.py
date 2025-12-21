@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 
-from ...framework.utils import make_output_path, safe_plot_show
+from ...framework.utils import make_output_filepath
 from ...framework import (
     Benchmark,
     BenchmarkAnalyzer,
@@ -95,14 +95,19 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         dimension = 2**num_qubits
         avg_gate_error = ((dimension - 1) / dimension) * (1 - float(p_decay))
         
-        if context.output_config.visualization:
-            self._plot(lengths, mean_survivals, context)
+        artifacts = {}
+        if context.report_config.analysis.visualization.enabled:
+            plot_filename = self._plot(lengths, mean_survivals, context)
+            artifacts["decay_plot"] = plot_filename
 
-        return AnalysisResult({
-            "mean_survivals": mean_survivals,
-            "decay_p": float(p_decay),
-            "avg_gate_error": float(avg_gate_error),
-        })
+        return AnalysisResult(
+            metrics={
+                "mean_survivals": mean_survivals,
+                "decay_p": float(p_decay),
+                "avg_gate_error": float(avg_gate_error),
+            },
+            artifacts=artifacts,
+        )
 
     def _plot(self, lengths: List[int], survivals: List[float], context: RunContext) -> None:
         backend_name = context.adapter.get_backend_name()
@@ -117,12 +122,10 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         plt.xticks(lengths)
         plt.plot(lengths, survivals, marker="o", linestyle="-")
 
-        if context.output_config.save:
-            bench_name = context.benchmark_key.split("/")[-1]
-            filename = make_output_path(name=bench_name, output_dir=context.output_config.output_dir, is_plot=True)
-            plt.savefig(filename)
+        filename = make_output_filepath(context.benchmark_key, context.run_dir, tag="decay_plot")
+        plt.savefig(filename)
 
-        safe_plot_show()
+        return filename
 
 @BenchmarkRegistry.register_benchmark
 class RandomizedBenchmarkingBenchmark(Benchmark):

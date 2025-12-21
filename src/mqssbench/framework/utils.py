@@ -1,9 +1,13 @@
 from .types import VALID_ORIGINS
 import os
-from datetime import datetime
+import re
 import sys
 import matplotlib.pyplot as plt
 import matplotlib
+from typing import Iterable
+import webbrowser
+from pathlib import Path
+
 
 def validate_benchmark_registry_key(identifier: str) -> None:
     """
@@ -21,39 +25,56 @@ def validate_benchmark_registry_key(identifier: str) -> None:
     if not source or not name:
         raise ValueError("Source and name segments must be non-empty.")
 
-def make_output_path(name: str, output_dir: str, is_plot: bool) -> str:
-    """Generate a unique output filename for saving figures or data."""
-    if not output_dir:
-        raise ValueError("output_dir must be provided to make_output_path")
-    # ensure output directory exists
-    os.makedirs(output_dir, exist_ok=True)
+def make_output_filepath(
+    benchmark_key: str,
+    run_dir: str,
+    tag: str = "output",
+    ext: str = "png"
+) -> str:
+    """
+    Generate a safe output filename for saving artifacts (plots, diagrams, etc.)
+    inside the run folder. Automatically creates an 'artifacts' subfolder.
 
-    ext = "png"
-    tag = "_plot" if is_plot else ""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base = f"{name}{tag}_{timestamp}"
-    path = os.path.join(output_dir, f"{base}.{ext}")
+    Args:
+        benchmark_key: Full benchmark key (e.g., "origin/source/name").
+        run_dir: Run folder where the artifacts subfolder will be created.
+        tag: Descriptive tag for the artifact (plot, diagram, etc.).
+        ext: File extension (default "png").
 
-    # increment if file exists
-    counter = 1
-    while os.path.exists(path):
-        path = os.path.join(output_dir, f"{base}_{counter}.{ext}")
-        counter += 1
+    Returns:
+        Full path to the artifact file.
+    """
+    if not run_dir:
+        raise ValueError("run_dir must be provided to make_output_filepath")
 
-    # print where file is saved
-    print(f"Output {'plot' if is_plot else 'data'} saved to: {path}")
+    # Create artifacts subfolder
+    artifact_dir = os.path.join(run_dir, "artifacts")
+    os.makedirs(artifact_dir, exist_ok=True)
+
+    # Take last part of benchmark_key and sanitize
+    bench_name = benchmark_key.split("/")[-1].lower()
+    safe_name = re.sub(r"[^a-z0-9_]+", "_", bench_name)
+
+    filename = f"{safe_name}_{tag}.{ext}"
+
+    path = os.path.join(artifact_dir, filename)
 
     return path
 
-def safe_plot_show():
+
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".pdf", ".svg"}
+
+def can_display() -> bool:
     """
-    Show a plot when running interactively (e.g., VS Code, Jupyter, local terminal).
-    Close the plot automatically in headless environments (CI, SSH without X11).
+    Determine if the current environment can display artifacts.
+
+    Returns True if running interactively (e.g., VS Code, local terminal) 
+    and a display is available. Returns False in headless environments 
+    (CI, SSH without X11) or if display is disabled via MQSSBENCH_DISPLAY.
     """
-    # Check the env variable
     if os.environ.get("MQSSBENCH_DISPLAY", "1") != "1":
         plt.close()
-        return
+        return False
 
     try:
         interactive_env = (
@@ -62,12 +83,31 @@ def safe_plot_show():
             os.environ.get("WAYLAND_DISPLAY") or
             sys.stdout.isatty()
         )
-
-        if interactive_env:
-            plt.show()
-            return
+        return bool(interactive_env)
     except Exception:
-        pass
+        return False
 
-    # headless / no display
-    plt.close()
+
+def show_artifacts(artifact_paths: Iterable[str], max_files: int = 3):
+    """
+    Open artifacts in the default system viewer, respecting headless environments.
+    
+    Args:
+        artifact_paths: Iterable of file paths to artifacts.
+        max_files: Maximum number of artifacts to open (default 10).
+    """
+    if not can_display():
+        return
+
+    opened = 0
+    for path_str in artifact_paths:
+        if opened >= max_files:
+            break
+
+        path = Path(path_str).resolve()
+        if not path.exists():
+            continue
+        if path.suffix.lower() in IMAGE_EXTENSIONS:
+            webbrowser.open(f"file://{path}")
+            opened += 1
+

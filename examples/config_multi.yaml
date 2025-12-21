@@ -10,11 +10,11 @@
   credentials:
     mqss_token: ""
   shots: 200
-  output:
-    analysis: true
-    visualization: true
-    save: true
-    output_dir: "./results"
+  output_dir: "./results"
+  storage:
+    type: "file" 
+    file:
+      format: "json"
 
 - benchmark: core/native/quantum_volume
   benchmark_params:
@@ -26,11 +26,11 @@
   credentials:
     mqss_token: ""
   shots: 200
-  output:
-    analysis: true
-    visualization: false
-    save: true
-    output_dir: "./results"
+  output_dir: "./results"
+  storage:
+    type: "file" 
+    file:
+      format: "json"
 
 - benchmark: core/mqt_bench/vqe_su2
   benchmark_params:
@@ -41,8 +41,8 @@
   credentials:
     mqss_token: ""
   shots: 200
-  output:
-    analysis: true
-    visualization: true
-    save: true
-    output_dir: "./results"
+  output_dir: "./results"
+  storage:
+    type: "file" 
+    file:
+      format: "json"

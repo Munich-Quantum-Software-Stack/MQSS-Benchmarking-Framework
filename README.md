@@ -126,12 +126,24 @@ credentials:
 # Number of measurement shots
 shots: <NUM_SHOTS>
 
-# Output controls
-output:
-  analysis: <true_or_false>
-  visualization: <true_or_false>
-  save: <true_or_false>
-  output_dir: <PATH>
+# output directory
+output_dir: <PATH>
+
+# Controls what is generated (analysis, visualizations, reports)
+report:
+  analysis:
+    enabled: <true_or_false>
+      visualization: <true_or_false>
+        enabled: <true_or_false>
+        show: <true_or_false>
+
+# Controls how results are persisted
+storage:
+  type: <STORAGE_TYPE>  # "file" or "sqlite"
+  file:
+    format: <FILE_FORMAT> #"json"
+  sqlite:
+    db_path: <DATABASE_PATH>
 
 # Profiling controls
 profiling:
@@ -164,11 +176,19 @@ credentials:
 
 shots: 1000
 
-output:
-  analysis: true
-  visualization: true
-  save: true
-  output_dir: "./results"
+output_dir: "./results"
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: false
+
+storage:
+  type: "file" 
+  file:
+    format: "json"
 
 profiling:
   enabled: true
@@ -191,6 +211,11 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    type: "file" 
+    file:
+      format: "json"
 
 - benchmark: core/native/quantum_volume
   benchmark_params:
@@ -202,6 +227,11 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    type: "file" 
+    file:
+      format: "json"
 ```
 
 ## 🧩 Python API Usage
@@ -231,13 +261,24 @@ config = {
 
   "shots": 1000,
 
-  "output": {
-    "analysis": true,
-    "visualization": true,
-    "save": true,
-    "output_dir": "./results"
+  "output_dir": "./results"
+
+  "report": {
+    "analysis": {
+      "enabled": true,
+      "visualization": {
+        "enabled": true
+      }
+    }
   },
 
+  "storage": {
+    "type": "file",
+    "file": {
+      "format": "json"
+    }
+  },
+  
   "profiling": {
     "enabled": true,
     "metrics": ["transpiler", "submitter"]

@@ -112,7 +112,7 @@ class PennyLaneAdapter(DeviceAdapter):
         else:
             profiling_data = None
         return ExecutionResult(
-            job_id=0,
+            job_id=None,
             counts=job_result_count,
             profiling_metrics=ProfilingMetrics(params=profiling_data),
         )

@@ -6,7 +6,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 
 from .types import RunContext, ExecutionResult, AnalysisResult
-from .utils import make_output_path, safe_plot_show
+from .utils import make_output_filepath
 
 class BenchmarkAnalyzer(ABC):
     """Abstract base class for benchmark analyzers."""
@@ -40,14 +40,19 @@ class DefaultAnalyzer(BenchmarkAnalyzer):
         probabilities = {k: v / total_shots for k, v in combined.items()} if total_shots else {}
         most_frequent = max(combined, key=combined.get) if combined else None
 
-        if context.output_config.visualization:
-            self._plot(probabilities, context)
+        artifacts = {}
+        if context.report_config.analysis.visualization.enabled:
+            plot_filename = self._plot(probabilities, context)
+            artifacts["plot"] = plot_filename
 
-        return AnalysisResult({
-            "total_shots": total_shots,
-            "probabilities": probabilities,
-            "most_frequent": most_frequent,
-        })
+        return AnalysisResult(
+            metrics={
+                "total_shots": total_shots,
+                "probabilities": probabilities,
+                "most_frequent": most_frequent,
+            },
+            artifacts=artifacts,
+        )
 
     def _plot(self, probabilities: dict, context: RunContext) -> None:
         """Simple probability bar plot."""
@@ -68,10 +73,7 @@ class DefaultAnalyzer(BenchmarkAnalyzer):
 
         plt.bar(outcomes, probs)
 
-        if context.output_config.save:
-            bench_name = context.benchmark_key.split("/")[-1]
-            filename = make_output_path(name=bench_name, output_dir=context.output_config.output_dir, is_plot=True)
-            plt.savefig(filename)
+        filename = make_output_filepath(context.benchmark_key, context.run_dir, tag="plot")
+        plt.savefig(filename)
 
-        # safe plot show to avoid calling plt.show() which blocks in In CI / headless environments
-        safe_plot_show()
+        return filename

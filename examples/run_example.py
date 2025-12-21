@@ -17,6 +17,13 @@ config = {
     "backend": "QExa20",
     "credentials": {"mqss_token": ""},
     "shots": 200,
+    "output_dir": "./results",
+    "storage": {
+        "type": "file",
+        "file": {
+            "format": "json"
+        }
+    }
 }
 
 manager = BenchmarkManager(config)

@@ -38,6 +38,7 @@ class BenchmarkManager:
 
     def _validate_config(self) -> None:
         """Placeholder for future validation."""
+        # implement validation logic (with pydantic, jsonschema or similar)
         return
 
     def dispatch(self) -> List[BenchmarkResult]:

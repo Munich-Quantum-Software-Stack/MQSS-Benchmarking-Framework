@@ -1,4 +1,3 @@
-version: "0.1"
 benchmark: core/mqt_bench/vqe_su2
 
 benchmark_params:
@@ -25,6 +24,7 @@ report:
 
 # Controls how results are persisted
 storage:
+  enabled: true
   type: "file"  # "file" or "sqlite"
   file:
     format: "json"

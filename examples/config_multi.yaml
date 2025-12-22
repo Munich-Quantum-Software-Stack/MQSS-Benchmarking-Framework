@@ -12,7 +12,8 @@
   shots: 200
   output_dir: "./results"
   storage:
-    type: "file" 
+    enabled: true
+    type: "file"
     file:
       format: "json"
 
@@ -28,7 +29,8 @@
   shots: 200
   output_dir: "./results"
   storage:
-    type: "file" 
+    enabled: true
+    type: "file"
     file:
       format: "json"
 
@@ -43,6 +45,7 @@
   shots: 200
   output_dir: "./results"
   storage:
-    type: "file" 
+    enabled: true
+    type: "file"
     file:
       format: "json"

@@ -1,15 +1,14 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import uuid
 import os
 from datetime import datetime
+import dataclasses
 from ..framework import AdapterRegistry
 from ..framework import RunContext, BenchmarkRegistry
 from ..framework.types import ProfilingConfig, BenchmarkResult, ReportConfig, StorageConfig
 from ..framework.utils import show_artifacts
-from ..storage import save_result_json
 from dacite import from_dict, Config
-import dataclasses
-
+from ..storage.storage_registry import get_storage
 class BenchmarkRunner:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -41,6 +40,10 @@ class BenchmarkRunner:
         report_config = self.config.get("report") or {}
         report_config_obj = from_dict(data_class=ReportConfig, data=report_config, config=Config(strict=True))
 
+        # storage config 
+        storage_config = self.config.get("storage") or {}
+        storage_config_obj = from_dict(data_class=StorageConfig, data=storage_config, config=Config(strict=True))
+
         # create run context
         context = RunContext(
             run_id=run_id,
@@ -55,26 +58,18 @@ class BenchmarkRunner:
         benchmark = BenchmarkRegistry.get_benchmark_instance(benchmark_key, context)
         benchmark_result = benchmark.run()
 
-        # TODO: this is temporarily here until we have a proper storage component
-        # storage config
-        storage_config = self.config.get("storage") or {}
-        if storage_config:
-            storage_config_obj = from_dict(data_class=StorageConfig, data=storage_config, config=Config(strict=True))
-
-            # save result if configured
-            if storage_config_obj.type == "file" and getattr(storage_config_obj.file, "format", None) == "json":
-                saved = save_result_json(context, benchmark_result)
-                if saved:
-                    benchmark_result = dataclasses.replace(
-                        benchmark_result,
-                        storage_location=saved
-                    )
+        # get storage config and store result
+        if storage_config_obj.enabled:
+            saved_location = self._store_result(context, storage_config_obj, benchmark_result)
+            if saved_location is not None:
+                benchmark_result = dataclasses.replace(benchmark_result, storage_location=saved_location)
 
         # show plots if configured
         if report_config_obj.analysis.visualization.enabled and report_config_obj.analysis.visualization.show:
             show_artifacts(benchmark_result.analysis_result.artifacts.values())
             
         return benchmark_result
+
 
     def _resolve_benchmark_key(self) -> str:
         direct_key = self.config.get("benchmark")
@@ -89,3 +84,21 @@ class BenchmarkRunner:
                 "Provide either 'benchmark' with 'origin/source/name' or 'origin', 'source', and 'name' fields."
             )
         return f"{origin}/{source}/{name}"
+
+
+    def _store_result(self, context: RunContext, storage_config_obj: StorageConfig, benchmark_result: BenchmarkResult) -> Optional[str]:
+        if not storage_config_obj.enabled:
+            return None
+        storage_backend = None
+        saved_location: Optional[str] = None
+        try:
+            storage_backend = get_storage(storage_config_obj.type, context=context, config=storage_config_obj)
+            saved_location = storage_backend.save_result(benchmark_result)
+        finally:
+            if storage_backend is not None:
+                try:
+                    storage_backend.close()
+                except Exception:
+                    pass
+
+        return saved_location

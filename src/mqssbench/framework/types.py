@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
 from typing import Any, Dict, Optional, Literal, TYPE_CHECKING
+from pathlib import Path
 if TYPE_CHECKING:
     from mqssbench.framework.adapter import DeviceAdapter
 
@@ -79,12 +80,16 @@ class SqliteStorageConfig:
         # Ensure the path is not empty
         if not self.db_path:
             raise ValueError("db_path must be provided for sqlite storage")
-
+        # Enforce relative path (relative to output_dir) for safety
+        db_path_obj = Path(self.db_path)
+        if db_path_obj.is_absolute():
+            raise ValueError("db_path must be relative to output_dir for safety")
 
 @dataclass(frozen=True)
 class StorageConfig:
     """Configuration for persisting benchmark results."""
-    type: Literal["file", "sqlite"]
+    enabled: bool = False
+    type: Literal["file", "sqlite"] = "file"
     file: Optional[FileStorageConfig] = field(default_factory=FileStorageConfig)
     sqlite: Optional[SqliteStorageConfig] = None  # field(default_factory=SqliteStorageConfig)
 

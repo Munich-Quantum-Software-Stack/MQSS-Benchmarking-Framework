@@ -19,6 +19,7 @@ config = {
     "shots": 200,
     "output_dir": "./results",
     "storage": {
+        "enabled": True,
         "type": "file",
         "file": {
             "format": "json"

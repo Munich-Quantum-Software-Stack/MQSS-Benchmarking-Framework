@@ -1,17 +1,42 @@
 import json
-import os
 from datetime import datetime
-from ..framework import RunContext
-from ..framework.types import BenchmarkResult
+from pathlib import Path
+from ..framework.types import BenchmarkResult, RunContext
+from .storage_registry import register_storage
+from .storage_backend import StorageBackend, StorageError
+from ..framework.utils import atomic_write
 
-# TODO: this is temporarily here until we have a proper storage component
-def save_result_json(context: RunContext, result: BenchmarkResult) -> str:
-    run_dir = context.run_dir
-    os.makedirs(run_dir, exist_ok=True)
+@register_storage("file")
+class FileStorage(StorageBackend):
+    def initialize(self):
+        self.results_path = Path(self.context.run_dir) / "results.json"
+        self.results_path.parent.mkdir(parents=True, exist_ok=True)
+
+    def save_result(self, result: BenchmarkResult) -> str:
+        try:
+            if self.config.file.format != "json":
+                raise StorageError(f"Unsupported format: {self.config.file.format}")
+
+            payload = serialize_result_json(self.context, result)
+
+            atomic_write(
+                self.results_path,
+                lambda f: json.dump(payload, f, indent=2, ensure_ascii=False)
+            )
+        except Exception as e:
+            raise StorageError(e)
+
+        return str(self.results_path)
+
+    def close(self):
+        return None
+
+
+def serialize_result_json(context: RunContext, result: BenchmarkResult) -> dict:
     now = datetime.utcnow().isoformat() + "Z"
 
-    payload = {
-        "schema_version": 0.1, # use version 1.0 when becoming stable
+    return {
+        "schema_version": 0.1,
         "timestamp_utc": now,
         "run_id": context.run_id,
         "benchmark_key": result.benchmark_key,
@@ -21,27 +46,17 @@ def save_result_json(context: RunContext, result: BenchmarkResult) -> str:
         },
         "execution_results": [
             {
-                "job_id": getattr(er, "job_id", None),
+                "job_id": er.job_id,
                 "counts": er.counts,
-                # TODO: write this
-                "profiling_metrics": getattr(er.profiling_metrics, "params", None) if getattr(er, "profiling_metrics", None) else None,
-                #"metadata": er.metadata,
-            } for er in result.execution_results
+                "profiling_metrics": (
+                    er.profiling_metrics.params
+                    if er.profiling_metrics else None
+                ),
+            }
+            for er in result.execution_results
         ],
         "analysis": {
-            "metrics": getattr(result.analysis_result, "metrics", None),
-            "artifacts": getattr(result.analysis_result, "artifacts", None),
+            "metrics": result.analysis_result.metrics,
+            "artifacts": result.analysis_result.artifacts,
         } if result.analysis_result else None,
     }
-
-    # Atomic write to avoid corrupted result.json on failure
-    tmp = os.path.join(run_dir, ".result.json.tmp")
-    final = os.path.join(run_dir, "result.json")
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
-    os.replace(tmp, final)
-
-    return final
-
-
-

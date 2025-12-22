@@ -60,7 +60,7 @@ def main():
     EXAMPLES = """Examples:
     mqssbench list
     mqssbench run --config path/to/config.yaml
-    mqssbench run -v --config path/to/config.yaml
+    mqssbench -v run --config path/to/config.yaml
     """
 
     parser = argparse.ArgumentParser(

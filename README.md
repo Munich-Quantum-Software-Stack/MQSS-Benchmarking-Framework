@@ -88,8 +88,8 @@ Increase verbosity by repeating the `-v` / `--verbose` flag:
 
 Examples:
 ```bash
-mqssbench run -v --config path/to/config.yaml
-mqssbench run -vv --config path/to/config.yaml
+mqssbench -v run --config path/to/config.yaml
+mqssbench -vv run --config path/to/config.yaml
 ```
 
 Benchmark results are printed to standard output, while logs are sent to standard error.
@@ -139,10 +139,11 @@ report:
 
 # Controls how results are persisted
 storage:
+  enabled: <true_or_false>
   type: <STORAGE_TYPE>  # "file" or "sqlite"
   file:
     format: <FILE_FORMAT> #"json"
-  sqlite:
+  sqlite: # this will be implemeted in future
     db_path: <DATABASE_PATH>
 
 # Profiling controls
@@ -186,6 +187,7 @@ report:
       show: false
 
 storage:
+  enabled: true
   type: "file" 
   file:
     format: "json"
@@ -213,6 +215,7 @@ Example of a multi benchmark config:
   shots: 200
   output_dir: "./results"
   storage:
+    enabled: true
     type: "file" 
     file:
       format: "json"
@@ -229,6 +232,7 @@ Example of a multi benchmark config:
   shots: 200
   output_dir: "./results"
   storage:
+    enabled: true
     type: "file" 
     file:
       format: "json"
@@ -265,14 +269,15 @@ config = {
 
   "report": {
     "analysis": {
-      "enabled": true,
+      "enabled": True,
       "visualization": {
-        "enabled": true
+        "enabled": True
       }
     }
   },
 
   "storage": {
+    "enabled": True,
     "type": "file",
     "file": {
       "format": "json"
@@ -280,7 +285,7 @@ config = {
   },
   
   "profiling": {
-    "enabled": true,
+    "enabled": True,
     "metrics": ["transpiler", "submitter"]
   }
 }

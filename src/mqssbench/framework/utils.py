@@ -4,9 +4,20 @@ import re
 import sys
 import matplotlib.pyplot as plt
 import matplotlib
-from typing import Iterable
+from typing import Iterable, Callable, IO
 import webbrowser
 from pathlib import Path
+
+
+def atomic_write(target_path: Path, write_fn: Callable[[IO], None], encoding="utf-8"):
+    """
+    Atomically write to a file. Writes to a temp file first then renames it.
+    """
+    temp_path = target_path.with_suffix(".tmp")
+    os.makedirs(target_path.parent, exist_ok=True)
+    with open(temp_path, "w", encoding=encoding) as f:
+        write_fn(f)
+    temp_path.replace(target_path)
 
 
 def validate_benchmark_registry_key(identifier: str) -> None:

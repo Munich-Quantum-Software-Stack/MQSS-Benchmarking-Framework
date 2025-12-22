@@ -25,6 +25,7 @@ report:
 
 # Controls how results are persisted
 storage:
+  enabled: true
   type: "file"  # "file" or "sqlite"
   file:
     format: "json"

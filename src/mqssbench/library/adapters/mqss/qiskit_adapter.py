@@ -110,7 +110,7 @@ class QiskitAdapter(DeviceAdapter):
             job = backend.run(transpiled_circuit, shots=self._shots)
         else:
             job = backend.run(transpiled_circuit)
-
+        job_id = job.job_id()
         job_result = job.result()
         counts = job_result.get_counts()
         if MQSS_QISKIT_PROFILING_ENABLED:
@@ -118,6 +118,7 @@ class QiskitAdapter(DeviceAdapter):
         else:
             profiling_data = None
         return ExecutionResult(
+            job_id=job_id,
             counts=counts,
             profiling_metrics=ProfilingMetrics(params=profiling_data),
         )

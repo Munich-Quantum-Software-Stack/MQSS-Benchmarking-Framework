@@ -88,8 +88,8 @@ Increase verbosity by repeating the `-v` / `--verbose` flag:
 
 Examples:
 ```bash
-mqssbench run -v --config path/to/config.yaml
-mqssbench run -vv --config path/to/config.yaml
+mqssbench -v run --config path/to/config.yaml
+mqssbench -vv run --config path/to/config.yaml
 ```
 
 Benchmark results are printed to standard output, while logs are sent to standard error.
@@ -126,19 +126,33 @@ credentials:
 # Number of measurement shots
 shots: <NUM_SHOTS>
 
-# Output controls
-output:
-  analysis: <true_or_false>
-  visualization: <true_or_false>
-  save: <true_or_false>
-  output_dir: <PATH>
+# output directory
+output_dir: <PATH>
+
+# Controls what is generated (analysis, visualizations, reports)
+report:
+  analysis:
+    enabled: <true_or_false>
+      visualization: <true_or_false>
+        enabled: <true_or_false>
+        show: <true_or_false>
+
+# Controls how results are persisted
+storage:
+  enabled: <true_or_false>
+  type: <STORAGE_TYPE>  # "file" or "sqlite"
+  file:
+    format: <FILE_FORMAT> #"json"
+  sqlite: # this will be implemeted in future
+    db_path: <DATABASE_PATH>
 
 # Profiling controls
 profiling:
   enabled: <true_or_false>
   metrics:
     # List of profiling metrics. If omitted, all supported metrics are collected.
-    # Valid metrics:
+    # Available metrics depend on your selected adaptor.
+    # For example, for MQSS adaptors, these are valid metrics:
     #   mqp_api, quantum_database, quantum_job_runner, isv_job_runner,
     #   quantum_daemon_job_runner, generator, scheduler, pass_runner,
     #   transpiler, submitter, pass_selection, knitter, job_execution
@@ -163,11 +177,20 @@ credentials:
 
 shots: 1000
 
-output:
-  analysis: true
-  visualization: true
-  save: true
-  output_dir: "./results"
+output_dir: "./results"
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: false
+
+storage:
+  enabled: true
+  type: "file" 
+  file:
+    format: "json"
 
 profiling:
   enabled: true
@@ -190,6 +213,12 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file" 
+    file:
+      format: "json"
 
 - benchmark: core/native/quantum_volume
   benchmark_params:
@@ -201,6 +230,12 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file" 
+    file:
+      format: "json"
 ```
 
 ## 🧩 Python API Usage
@@ -230,15 +265,27 @@ config = {
 
   "shots": 1000,
 
-  "output": {
-    "analysis": true,
-    "visualization": true,
-    "save": true,
-    "output_dir": "./results"
+  "output_dir": "./results"
+
+  "report": {
+    "analysis": {
+      "enabled": True,
+      "visualization": {
+        "enabled": True
+      }
+    }
   },
 
+  "storage": {
+    "enabled": True,
+    "type": "file",
+    "file": {
+      "format": "json"
+    }
+  },
+  
   "profiling": {
-    "enabled": true,
+    "enabled": True,
     "metrics": ["transpiler", "submitter"]
   }
 }

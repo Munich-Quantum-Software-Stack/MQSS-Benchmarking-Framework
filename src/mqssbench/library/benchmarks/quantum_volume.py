@@ -68,14 +68,17 @@ class QuantumVolumeAnalyzer(BenchmarkAnalyzer):
         median_p_heavy = float(np.median(p_heavy_list))
         passed_threshold = bool(median_p_heavy >= 2 / 3)
 
-        if context.output_config.visualization:
+        if context.report_config.analysis.visualization.enabled:
             logger.warning("Visualization for '%s' is not implemented.", context.benchmark_key)
 
-        return AnalysisResult({
-            "trials_p_heavy": p_heavy_list,
-            "median_p_heavy": median_p_heavy,
-            "passed_threshold": passed_threshold,
-        })
+        return AnalysisResult(
+            metrics={
+                "trials_p_heavy": p_heavy_list,
+                "median_p_heavy": median_p_heavy,
+                "passed_threshold": passed_threshold,
+            },
+            artifacts={},
+        )
 
 @BenchmarkRegistry.register_benchmark
 class QuantumVolumeBenchmark(Benchmark):

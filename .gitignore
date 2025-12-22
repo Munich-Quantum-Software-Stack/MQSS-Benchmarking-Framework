@@ -11,6 +11,7 @@ wheels/
 
 # Datasets
 datasets/
+mqssbench.db
 *.h5
 
 # Results

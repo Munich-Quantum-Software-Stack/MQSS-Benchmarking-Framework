@@ -12,11 +12,24 @@ credentials:
 
 shots: 200
 
-output:
-  analysis: true
-  visualization: true  # only applies if enabled is true
-  save: true
-  output_dir: "./results"
+output_dir: "./results"
+
+# Controls what is generated
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: true
+
+# Controls how results are persisted
+storage:
+  enabled: true
+  type: "file"  # "file" or "sqlite"
+  file:
+    format: "json"
+  sqlite:
+    db_path: "./mqssbench.db"
 
 profiling:
   enabled: true

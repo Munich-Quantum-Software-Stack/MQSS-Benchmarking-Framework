@@ -1,0 +1,51 @@
+# Each item is a full, independent benchmark config.
+
+- benchmark: core/native/randomized_benchmarking
+  benchmark_params:
+    num_qubits: 2
+    lengths: [2, 4, 8]
+    num_sequences: 2
+  adapter: mqss_qiskit
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file"
+    file:
+      format: "json"
+
+- benchmark: core/native/quantum_volume
+  benchmark_params:
+    num_qubits: 3
+    depth: 3
+    trials: 2
+  adapter: mqss_qiskit
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file"
+    file:
+      format: "json"
+
+- benchmark: core/mqt_bench/vqe_su2
+  benchmark_params:
+    num_qubits: 2
+    level: ALG
+  adapter: mqss_qiskit
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file"
+    file:
+      format: "json"

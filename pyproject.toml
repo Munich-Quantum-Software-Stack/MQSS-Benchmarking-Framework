@@ -1,5 +1,5 @@
 [project]
-name = "mqss-benchmarking-suite"
+name = "mqss-benchmarking-framework"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -9,22 +9,42 @@ dependencies = [
     "mqss-qiskit>=0.2.0",
     "mqt-bench>=2.0.0",
     "pennylane>=0.41.1",
-    "typing>=3.10.0.0",
     "qiskit-experiments>=0.5.0",
     "scipy>=1.10.0",
     "numpy>=1.24.0",
     "qiskit-aer>=0.13.3",
+    "pyyaml>=6.0.3",
+    "colorama>=0.4.6",
+    "dacite>=1.9.2",
 ]
 
+# for PyPy
 [project.optional-dependencies]
-dev = ["pytest", "ruff", "pylint"]
+dev = [
+    "ruff",
+    "pylint",
+    "pytest", 
+    "pytest-cov"
+]
+
+# for uv
+[tool.uv]
+dev-dependencies = [
+    "ruff",
+    "pylint",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+mqssbench = "mqssbench.cli.__main__:main"
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = {"" = "MQSSBenchmarkingSuite"}
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
-where = ["MQSSBenchmarkingSuite"]
+where = ["src"]

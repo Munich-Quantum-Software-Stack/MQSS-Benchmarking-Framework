@@ -11,7 +11,11 @@ wheels/
 
 # Datasets
 datasets/
+mqssbench.db
 *.h5
+
+# Results
+results/
 *.png
 
 # .vscode
@@ -22,6 +26,7 @@ datasets/
 
 .env
 .env-stg
+.env-test
 
 # System files
 .DS_Store

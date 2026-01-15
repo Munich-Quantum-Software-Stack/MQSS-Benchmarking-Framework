@@ -1,0 +1,43 @@
+benchmark: core/native/qaoa
+
+benchmark_params: # benchamark specific params
+  num_qubits: 4
+  edges:
+    - [0, 1]
+    - [1, 2]
+    - [2, 3]
+    - [3, 0]
+  parameters: [0, 0]
+  
+adapter: mqss_qiskit
+backend: QExa20
+
+credentials:
+  mqss_token: ""
+
+shots: 200
+
+output_dir: "./results"
+
+# Controls what is generated
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: true
+
+# Controls how results are persisted
+storage:
+  enabled: true
+  type: "file"  # "file" or "sqlite"
+  file:
+    format: "json"
+  sqlite:
+    db_path: "./mqssbench.db"
+  
+profiling:
+  enabled: true
+  metrics: # not defining metrics means all of them are requested
+    - transpiler
+    - submitter

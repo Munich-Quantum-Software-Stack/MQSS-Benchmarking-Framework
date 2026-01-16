@@ -9,7 +9,6 @@ from qiskit_aer import AerSimulator
 
 from qiskit import QuantumRegister, QuantumCircuit, ClassicalRegister
 from qiskit.quantum_info.operators import Operator
-from qiskit.primitives import BackendSampler
 
 from time import process_time, sleep
 from scipy.optimize import minimize

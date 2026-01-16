@@ -33,12 +33,12 @@ backend_name    = args["backend"]
 num_qubits      = args["qubits"]
 num_shots       = args["shots"]
 
-logger.info('------------------------------------------')
-logger.info('Testing GHZ example:')
-logger.info(' + Num. qubits: %d', num_qubits)
-logger.info(' + Backend: %s', backend_name)
-logger.info(' + Num. shots: %d', num_shots)
-logger.info('------------------------------------------')
+print('------------------------------------------')
+print('Testing GHZ example:')
+print(' + Num. qubits: ', num_qubits)
+print(' + Backend: ', backend_name)
+print(' + Num. shots: ', num_shots)
+print('------------------------------------------')
 
 # for setting up the quantum backend
 if backend_name == "AerSimulator":
@@ -58,19 +58,22 @@ qc.measure_all()
 # submit the jobs
 start_submit_time = process_time()
 job = backend.run(qc, shots=1000)
+results = job.result()
 end_submit_time = process_time()
 
-logger.info(f'Start submit time: {start_submit_time}')
-logger.info(f'End submit time: {end_submit_time}')
-logger.info(f'Submit latency: {end_submit_time - start_submit_time}s')
+result_dict = job.result().to_dict()
+qserver_submit_time = result_dict["timestamps"]["submitted"]
+qserver_scheduled_time = result_dict["timestamps"]["scheduled"]
+qserver_completed_time = result_dict["timestamps"]["completed"]
 
-# get the results
-results = job.result().get_counts()
-get_result_time = process_time()
+print(f'Completion time: {start_submit_time - end_submit_time}s')
+print(f'Server submitted time: {qserver_submit_time}')
+print(f'Server scheduled time: {qserver_scheduled_time}')
+print(f'Server completed time: {qserver_completed_time}')
+# print(f'Submit latency: {qserver_scheduled_time - start_submit_time}s')
+# print(f'Get-back-result latency: {end_submit_time - qserver_completed_time}s')
 
-logger.info(f'Get result time: {get_result_time}')
-logger.info(f'Completion time: {get_result_time - start_submit_time}s')
-
-logger.info('------------------------------------------')
-logger.info(f'Counts for GHZ example: {results}')
-logger.info('------------------------------------------')
+counts = results.get_counts()
+print('------------------------------------------')
+print(f'Counts for GHZ example: {counts}')
+print('------------------------------------------')

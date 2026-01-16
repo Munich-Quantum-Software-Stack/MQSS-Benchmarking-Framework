@@ -20,7 +20,7 @@ from mqss.qiskit_adapter import MQSSQiskitAdapter
 # For Logging
 # ------------------------------------------
 logger = logging.getLogger("random_hamiltonian_h2_simulation")
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s: %(message)s")
 # logging.basicConfig(filename='hpcqc_vqe_random_hamiltonian_h2.log', level=logging.INFO)
 
 # ------------------------------------------
@@ -203,8 +203,8 @@ def objective_func(params, num_qubits, backend, num_shots, bases, offset, profil
             raise error
         latency_submit_exec = profiled_data[1] - profiled_data[0]
         execution_time = profiled_data[2] - profiled_data[1]
-        completion_time = profiled_data[3] - profiled_data[2]
-        logger.info(f"\tTerms: {terms}, latency_submit={latency_submit_exec}, execution_time={execution_time}")
+        completion_time = profiled_data[3] - profiled_data[0]
+        logger.info(f"\tTerms: {terms}, latency_submit={latency_submit_exec}s, complete_time={completion_time}s")
         logger.info(f"\tEnergy: {exp_val}")
     exp_vals.append(exp_val)
 
@@ -333,15 +333,11 @@ if __name__ == "__main__":
     # calculate and find the result by VQE
     exp_vals = []
     profiled_qpu_time_arr = []
-    profiled_host_time_arr = []
     idx = 0
 
     start_time = process_time()
     opt_res = find_opt_params(num_qubits, backend, num_shots, max_iters, bases, offset, profiled_qpu_time_arr)
     stop_time = process_time()
-
-    gannt_timestamp_host = (start_time, (stop_time - start_time))
-    profiled_host_time_arr.append(gannt_timestamp_host)
 
     logger.info('------------------------------------------')
     logger.info('Converged energy: %.6f', opt_res.fun)

@@ -16,7 +16,7 @@ t1=$(date +%s%N)
 source ~/export_conda_env.sh
 t2=$(date +%s%N)
 echo "Time to load mqss env (ms): $((t1 - t0))"
-echo "Time to load conda env (ms): $((t2 - t1))
+echo "Time to load conda env (ms): $((t2 - t1))"
 
 export MQSS_HPCQC_ENV=True
 t_start=$(date +%s%N)

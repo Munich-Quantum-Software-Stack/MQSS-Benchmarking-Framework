@@ -98,7 +98,6 @@ def gen_hamiltonian(bases, N, offset=0):
 
     return H
 
-
 def convert_counts_to_expval(counts, total_shots, basis=None):
     """Given the counts as measurement type, find the expectation value for the given term in the hamiltonian
 
@@ -158,14 +157,14 @@ def run_circuit(params, num_qubits, backend, num_shots, basis=None, draw_flag=Fa
 
     submit_time = process_time()
     # assume some delay here between submission and execution start
-    start_execution = process_time()
+    # start_execution = process_time()
     job = backend.run(circuit, shots=num_shots)
-    end_execution = process_time()
+    # end_execution = process_time()
     result = job.result()
     complete_time = process_time()
 
     # profile time the execution
-    profiled_execution = (submit_time, start_execution, end_execution, complete_time)
+    profiled_execution = (submit_time, complete_time)
 
     # post-processing the results
     counts = result.get_counts()
@@ -192,7 +191,7 @@ def objective_func(params, num_qubits, backend, num_shots, bases, offset, profil
     exp_val = offset
 
     # sum the contributions of all terms in the Hamiltonian
-    logger.info(f"Opt. iteration {idx}: running with params {params}")
+    print(f"Opt. iteration {idx}: running with params {params}")
     for terms in bases:
         ops, coeffs = terms
         try:
@@ -201,11 +200,9 @@ def objective_func(params, num_qubits, backend, num_shots, bases, offset, profil
             profiled_qpu_time_arr.append(profiled_data)
         except TypeError as error:
             raise error
-        latency_submit_exec = profiled_data[1] - profiled_data[0]
-        execution_time = profiled_data[2] - profiled_data[1]
-        completion_time = profiled_data[3] - profiled_data[0]
-        logger.info(f"\tTerms: {terms}, latency_submit={latency_submit_exec}s, complete_time={completion_time}s")
-        logger.info(f"\tEnergy: {exp_val}")
+        completion_time = profiled_data[1] - profiled_data[0]
+        print(f"\tTerms: {terms}, complete_time={completion_time}s")
+        print(f"\tEnergy: {exp_val}")
     exp_vals.append(exp_val)
 
     # increase the iter counter
@@ -316,19 +313,19 @@ if __name__ == "__main__":
     offset = 0
     H = gen_hamiltonian(bases, N, offset)
 
-    logger.info('------------------------------------------')
-    logger.info('Generated random diagonal Hamiltonian for %d qubits.', N)
-    logger.info('Hamiltonian matrix: shape=%s', H.shape)
-    logger.info('------------------------------------------')
+    print('------------------------------------------')
+    print('Generated random diagonal Hamiltonian for %d qubits.', N)
+    print('Hamiltonian matrix: shape=%s', H.shape)
+    print('------------------------------------------')
 
     # calculate the ground state (result) by classical linear algorithm
     ev, eg = np.linalg.eig(H)
     ground_truth = np.min(ev).real
 
-    logger.info('------------------------------------------')
-    logger.info('Using np.linalg to calculate eigen values and vectors')
-    logger.info('Ground state energy: %.6f', ground_truth)
-    logger.info('------------------------------------------')
+    print('------------------------------------------')
+    print('Using np.linalg to calculate eigen values and vectors')
+    print('Ground state energy: %.6f', ground_truth)
+    print('------------------------------------------')
 
     # calculate and find the result by VQE
     exp_vals = []
@@ -339,10 +336,10 @@ if __name__ == "__main__":
     opt_res = find_opt_params(num_qubits, backend, num_shots, max_iters, bases, offset, profiled_qpu_time_arr)
     stop_time = process_time()
 
-    logger.info('------------------------------------------')
-    logger.info('Converged energy: %.6f', opt_res.fun)
-    logger.info('Elapsed time: %.6fs', (stop_time-start_time))
-    logger.info('------------------------------------------')
+    print('------------------------------------------')
+    print('Converged energy: %.6f', opt_res.fun)
+    print('Elapsed time: %.6fs', (stop_time-start_time))
+    print('------------------------------------------')
 
     # visualize the comparison between ground_truth and opt. exp. results
     visualize_convergence(exp_vals, ground_truth)

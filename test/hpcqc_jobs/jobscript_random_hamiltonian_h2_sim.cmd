@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=wolpy
-#SBATCH --time=00:05:00
+#SBATCH --time=00:30:00
 
 echo '---------------------------------'
 echo 'Loading the mqss env'
@@ -20,7 +20,7 @@ echo "Time to load conda env (ms): $((t2 - t1))
 
 export MQSS_HPCQC_ENV=True
 t_start=$(date +%s%N)
-~/conda/x86_64/bin/python ghz_example.py --backend=QExa20
+~/conda/x86_64/bin/python random_hamiltonian_h2_simulation.py --backend=QExa20 --maxiter=1
 t_end=$(date +%s%N)
 echo "Total execution time (ms): $((t_end - t_start))"
 

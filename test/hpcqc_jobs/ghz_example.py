@@ -60,15 +60,15 @@ job = backend.run(qc, shots=1000)
 results = job.result()
 end_submit_time = process_time()
 
-result_dict = job.result().to_dict()
-qserver_submit_time = result_dict["timestamps"]["submitted"]
-qserver_scheduled_time = result_dict["timestamps"]["scheduled"]
-qserver_completed_time = result_dict["timestamps"]["completed"]
+# result_dict = job.result().to_dict()
+# qserver_submit_time = result_dict["timestamps"]["submitted"]
+# qserver_scheduled_time = result_dict["timestamps"]["scheduled"]
+# qserver_completed_time = result_dict["timestamps"]["completed"]
 
 print(f'Completion time: {start_submit_time - end_submit_time}s')
-print(f'Server submitted time: {qserver_submit_time}')
-print(f'Server scheduled time: {qserver_scheduled_time}')
-print(f'Server completed time: {qserver_completed_time}')
+# print(f'Server submitted time: {qserver_submit_time}')
+# print(f'Server scheduled time: {qserver_scheduled_time}')
+# print(f'Server completed time: {qserver_completed_time}')
 # print(f'Submit latency: {qserver_scheduled_time - start_submit_time}s')
 # print(f'Get-back-result latency: {end_submit_time - qserver_completed_time}s')
 

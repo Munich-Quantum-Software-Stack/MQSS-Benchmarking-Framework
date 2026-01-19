@@ -10,7 +10,8 @@ from qiskit_aer import AerSimulator
 from qiskit import QuantumRegister, QuantumCircuit, ClassicalRegister
 from qiskit.quantum_info.operators import Operator
 
-from time import process_time, sleep
+from time import process_time, sleep, perf_counter
+from datetime import datetime, timezone
 from scipy.optimize import minimize
 
 from mqss.qiskit_adapter import MQSSQiskitAdapter
@@ -55,22 +56,34 @@ for i in range(num_qubits - 1):
 qc.measure_all()
 
 # submit the jobs
-start_submit_time = process_time()
-job = backend.run(qc, shots=1000)
+# local wall-clock timestamps for correlation with server times
+local_start_dt = datetime.now()
+start_run_time = perf_counter()
+job = backend.run(qc, shots=num_shots)
 results = job.result()
-end_submit_time = process_time()
+end_run_time = perf_counter()
+local_end_dt = datetime.now()
 
 result_dict = job.result().to_dict()
-qserver_submit_time = result_dict["timestamps"]["submitted"]
-qserver_scheduled_time = result_dict["timestamps"]["scheduled"]
-qserver_completed_time = result_dict["timestamps"]["completed"]
+ts = result_dict["timestamps"]
+fmt = "%Y-%m-%d %H:%M:%S.%f"
+qserver_submitted_dt = datetime.strptime(ts["submitted"], fmt)
+qserver_scheduled_dt = datetime.strptime(ts["scheduled"], fmt)
+qserver_completed_dt = datetime.strptime(ts["completed"], fmt)
 
-print(f'Completion time: {start_submit_time - end_submit_time}s')
-print(f'Quantum server submitted time: {qserver_submit_time}')
-print(f'Quantum server scheduled time: {qserver_scheduled_time}')
-print(f'Quantum server completed time: {qserver_completed_time}')
-print(f'Submit latency: {qserver_scheduled_time - start_submit_time}s')
-print(f'Get-back-result latency: {end_submit_time - qserver_completed_time}s')
+print(f'------------------------------------------')
+print(f'Completion time: {end_run_time-start_run_time:.3f}s')
+print(f'------------------------------------------')
+print(f'Quantum server submitted time: {qserver_submitted_dt}')
+print(f'Quantum server scheduled time: {qserver_scheduled_dt}')
+print(f'Quantum server completed time: {qserver_completed_dt}')
+print(f'Quantum server queue wait latency (scheduled-submitted): {(qserver_scheduled_dt - qserver_submitted_dt).total_seconds():.3f}s')
+print(f'Quantum server completion time (completed-scheduled): {(qserver_completed_dt - qserver_scheduled_dt).total_seconds():.3f}s')
+print(f'------------------------------------------')
+# local vs server correlation (only meaningful if clocks are comparable)
+print(f"Local<->server submit latency (submitted-local_start_run): {(qserver_submitted_dt - local_start_dt).total_seconds():.3f}s")
+print(f"Local<->server result-receiv completion latency (local_end-completed): {(local_end_dt - qserver_completed_dt).total_seconds():.3f}s")
+print(f'------------------------------------------')
 
 counts = results.get_counts()
 print('------------------------------------------')

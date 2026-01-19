@@ -10,7 +10,8 @@ from qiskit_aer import AerSimulator
 from qiskit import QuantumRegister, QuantumCircuit, ClassicalRegister
 from qiskit.quantum_info.operators import Operator
 
-from time import process_time, sleep
+from time import process_time, sleep, perf_counter
+from datetime import datetime, timezone
 from scipy.optimize import minimize
 
 from mqss.qiskit_adapter import MQSSQiskitAdapter
@@ -56,7 +57,7 @@ qc.measure_all()
 
 # submit the jobs
 start_submit_time = process_time()
-job = backend.run(qc, shots=1000)
+job = backend.run(qc, shots=num_shots)
 results = job.result()
 end_submit_time = process_time()
 

@@ -67,9 +67,9 @@ local_end_dt = datetime.now()
 result_dict = job.result().to_dict()
 ts = result_dict["timestamps"]
 fmt = "%Y-%m-%d %H:%M:%S.%f"
-qserver_submitted_dt = datetime.strptime(ts["submitted"], fmt)
-qserver_scheduled_dt = datetime.strptime(ts["scheduled"], fmt)
-qserver_completed_dt = datetime.strptime(ts["completed"], fmt)
+qserver_submitted_dt = ts["submitted"] # datetime.strptime(ts["submitted"], fmt)
+qserver_scheduled_dt = ts["scheduled"] # datetime.strptime(ts["scheduled"], fmt)
+qserver_completed_dt = ts["completed"] # datetime.strptime(ts["completed"], fmt)
 
 print(f'------------------------------------------')
 print(f'Completion time: {end_run_time-start_run_time:.3f}s')

@@ -15,6 +15,9 @@ from ...framework import (
 )
 from qiskit import QuantumCircuit
 
+import matplotlib.pyplot as plt
+from ...framework.utils import make_output_filepath
+
 
 class QAOAGenerator(CircuitGenerator):
     @override
@@ -27,6 +30,7 @@ class QAOAGenerator(CircuitGenerator):
         betas = parameters[1::2]
         # gammas = list(params["gammas"])
         # betas = list(params["betas"])
+
         circuits: List[CircuitSpec] = []
         if len(gammas) != len(betas):
             raise ValueError(
@@ -36,8 +40,15 @@ class QAOAGenerator(CircuitGenerator):
             raise ValueError(
                 "QAOA Benchmark generation failed: at least one gamma and one beta must be provided."
             )
-        if edges[0] >= num_qubits or edges[1] >= num_qubits:
-            raise ValueError("QAOA Benchmark analysis failed: edge index out of range.")
+        for edge in edges:
+            if edge[0] >= num_qubits or edge[1] >= num_qubits:
+                raise ValueError(
+                    "QAOA Benchmark analysis failed: edge index out of range."
+                )
+        if len(edges) <= 0:
+            raise ValueError(
+                "QAOA Benchmark analysis failed: at least one edge must be provided."
+            )
 
         def U_B_qiskit(qc, beta, num_qubits):
             for wire in range(num_qubits):
@@ -74,15 +85,19 @@ class QAOAGenerator(CircuitGenerator):
         return circuits
 
 
-def maxcut_expectation(bitstring: str, edges: list[tuple[int, int]]) -> float:
+def maxcut_expectation(counts: dict, edges: list[tuple[int, int]]) -> float:
     """
     Calculate the MaxCut expectation value for a given bitstring and edge list.
     Each edge contributes +1 if the bits are different, 0 otherwise.
     """
     value = 0
-    for i, j in edges:
-        if bitstring[i] != bitstring[j]:
-            value += 1
+    for bitstring, count in counts.items():
+        for i, j in edges:
+            if bitstring[i] != bitstring[j]:
+                value += count
+            # else:
+            #     value -= count
+    value /= sum(counts.values())
     return value
 
 
@@ -91,9 +106,7 @@ class QAOAAnalyzer(BenchmarkAnalyzer):
     def analyze(
         self, execution_results: List[ExecutionResult], context: RunContext
     ) -> AnalysisResult:
-        # num_qubits = int(context.params["num_qubits"])
-        edges = list(context.params["edges"])
-        exp_value = 0.0
+
         for result in execution_results:
             counts = result.counts
 
@@ -102,10 +115,42 @@ class QAOAAnalyzer(BenchmarkAnalyzer):
                 raise ValueError(
                     "QAOA Benchmark analysis failed: zero total counts encountered."
                 )
-            exp_value = maxcut_expectation(counts, edges)
+
+        artifacts = {}
+        if context.report_config.analysis.visualization.enabled:
+            plot_filename = self._plot(execution_results[-1].counts, context)
+            artifacts["decay_plot"] = plot_filename
+
         return AnalysisResult(
-            metrics={"exp_value": exp_value},
+            metrics={
+                "exp_value": execution_results[-1].exp_value,
+                "optimal_parameters": execution_results[-1].optimal_params,
+            },
+            artifacts=artifacts,
         )
+
+    def _plot(self, counts: dict, context: RunContext) -> str:
+        backend_name = context.adapter.get_backend_name()
+        plt.figure()
+        if backend_name:
+            plt.title(
+                f"QAOA on {backend_name} with {context.params['num_qubits']} qubits"
+            )
+        else:
+            plt.title(f"QAOA with {context.params['num_qubits']} qubits")
+        plt.xlabel("Bitstrings")
+        plt.ylabel("Probability")
+
+        # plt.xticks(list(counts.keys()), rotation="vertical")
+        plt.xticks(rotation=45, ha="right")
+        plt.bar(list(counts.keys()), list(counts.values()))
+
+        filename = make_output_filepath(
+            context.benchmark_key, context.run_dir, tag="decay_plot"
+        )
+        plt.savefig(filename)
+
+        return filename
 
 
 @BenchmarkRegistry.register_benchmark
@@ -116,7 +161,7 @@ class QAOABenchmark(Benchmark):
     generator = QAOAGenerator
     executor = HybridBenchmarkExecutor
     analyzer = QAOAAnalyzer
-    supported_adapters: Tuple[str, ...] = ("mqss_qiskit",)
+    supported_adapters: Tuple[str, ...] = ("mqss_qiskit", "qiskit_simulator")
     category = BenchmarkCategory.HARDWARE
 
     @override

@@ -135,6 +135,9 @@ class ProfilingMetrics:
         None  # duration of execution for iterative jobs, if applicable
     )
 
+    execution_start_times: Optional[List[str]] = None
+    execution_end_times: Optional[List[str]] = None
+
 
 @dataclass(frozen=True)
 class ExecutionResult:

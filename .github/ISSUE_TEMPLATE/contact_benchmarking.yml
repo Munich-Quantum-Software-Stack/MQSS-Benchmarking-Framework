@@ -13,7 +13,8 @@ body:
       description: What type of communication do you require?
       options:
         - Request
-      default: 1
+      default: 0
+      value: Request
     validations:
       required: true
   - type: input

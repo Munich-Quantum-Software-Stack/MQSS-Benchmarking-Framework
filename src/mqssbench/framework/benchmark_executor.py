@@ -38,6 +38,7 @@ class DefaultBenchmarkExecutor(BenchmarkExecutor):
             
             # set metadata in in new instance for immutability
             run_result = ExecutionResult(
+                job_id=run_result.job_id,
                 counts=run_result.counts,
                 profiling_metrics=run_result.profiling_metrics,
                 metadata=dict(spec.metadata)

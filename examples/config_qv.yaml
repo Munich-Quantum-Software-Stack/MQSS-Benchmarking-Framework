@@ -13,5 +13,14 @@ credentials:
 
 shots: 200
 
+output_dir: "./results"
+
+# Controls how results are persisted
+storage:
+  enabled: true
+  type: "file" 
+  file:
+    format: "json"
+
 profiling:
   enabled: true

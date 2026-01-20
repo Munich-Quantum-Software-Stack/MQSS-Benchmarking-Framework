@@ -11,6 +11,7 @@ def format_benchmark_result(result: BenchmarkResult) -> str:
     parts = []
 
     # header
+    parts.append(f"{Fore.CYAN}{Style.BRIGHT}Run ID: {Style.RESET_ALL}{result.run_id}")
     parts.append(f"{Fore.CYAN}{Style.BRIGHT}Benchmark: {Style.RESET_ALL}{result.benchmark_key}")
 
     # parameters
@@ -27,6 +28,7 @@ def format_benchmark_result(result: BenchmarkResult) -> str:
 
         for idx, ex in enumerate(exec_results):
             parts.append(f"  {Fore.GREEN}Execution {idx + 1}:{Style.RESET_ALL}")
+            parts.append(f"    Job ID: {ex.job_id}")
             parts.append("    Counts:")
             for state, count in ex.counts.items():
                 parts.append(f"      {state}: {count}")
@@ -37,10 +39,25 @@ def format_benchmark_result(result: BenchmarkResult) -> str:
                     parts.append(f"      {pkey}: {pval}")
 
     # analysis
-    if result.analysis_result and result.analysis_result.results:
+    if result.analysis_result:
         parts.append(f"{Fore.MAGENTA}Analysis:{Style.RESET_ALL}")
-        for key, value in result.analysis_result.results.items():
-            parts.append(f"  {Fore.WHITE}{key}{Style.RESET_ALL}: {value}")
+
+        # metrics
+        if result.analysis_result.metrics:
+            parts.append(f"  {Fore.MAGENTA}Metrics:")
+            for key, value in result.analysis_result.metrics.items():
+                parts.append(f"    {Fore.WHITE}{key}{Style.RESET_ALL}: {value}")
+
+        # artifacts
+        if result.analysis_result.artifacts:
+            parts.append(f"  {Fore.MAGENTA}Artifacts:")
+            for name, path in result.analysis_result.artifacts.items():
+                parts.append(f"    {Fore.WHITE}{name}{Style.RESET_ALL}: {path}")
+
+    parts.append("")  # blank line for separation
+
+    if result.storage_location:
+        parts.append(f"{Fore.CYAN}{Style.BRIGHT}Stored at:{Style.RESET_ALL} {result.storage_location}")
 
     return "\n".join(parts)
 

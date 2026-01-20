@@ -17,10 +17,20 @@ config = {
     "backend": "QExa20",
     "credentials": {"mqss_token": ""},
     "shots": 200,
+    "output_dir": "./results",
+    "storage": {
+        "enabled": True,
+        "type": "file",
+        "file": {
+            "format": "json"
+        }
+    }
 }
 
 manager = BenchmarkManager(config)
-result = manager.dispatch()
+results = manager.dispatch()
 
 print("\n===== Benchmark Result =====")
-print(format_benchmark_result(result))
+for r in results:
+    print(format_benchmark_result(r))
+    print()  # blank line between runs

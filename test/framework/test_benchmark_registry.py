@@ -7,6 +7,7 @@ tests. As the API stabilizes, it will be expanded with comprehensive coverage.
 
 import threading
 import pytest
+import tempfile
 
 from mqssbench.framework.benchmark_registry import BenchmarkRegistry
 from mqssbench.framework.adapter_registry import AdapterRegistry
@@ -17,17 +18,28 @@ from mqssbench.framework.benchmark_executor import BenchmarkExecutor, DefaultBen
 from mqssbench.framework.benchmark_analyzer import BenchmarkAnalyzer, DefaultAnalyzer
 from mqssbench.framework.types import (
     RunContext,
-    OutputConfig,
+    ReportConfig,
     ExecutionResult,
     ProfilingMetrics,
     CircuitSpec,
     BenchmarkCategory,
+    AnalysisConfig,
 )
 
 
 # -----------------------------------------------------------------------------
 # Fixtures
 # -----------------------------------------------------------------------------
+
+@pytest.fixture
+def temp_run_dir():
+    with tempfile.TemporaryDirectory() as tmp:
+        yield tmp
+
+@pytest.fixture
+def temp_output_dir():
+    with tempfile.TemporaryDirectory() as tmp:
+        yield tmp
 
 @pytest.fixture(autouse=True)
 def isolate_registries():
@@ -52,9 +64,11 @@ def make_minimal_context(adapter_name: str, benchmark_key: str) -> RunContext:
             return "dummy"
 
     return RunContext(
+        run_id="test_run_id",
+        run_dir=temp_run_dir,
         adapter=DummyAdapter(),
         benchmark_key=benchmark_key,
-        output_config=OutputConfig(),  # use defaults
+        report_config=ReportConfig(),  # use defaults
     )
 
 
@@ -255,6 +269,7 @@ def test_end_to_end_benchmark_run_via_registry():
             self._calls.append({"built": built, "num_qubits": num_qubits})
 
             return ExecutionResult(
+                job_id="dummy_job_id",
                 counts={"0": 10, "1": 5},
                 profiling_metrics=ProfilingMetrics(params={"dummy_metric": 42}),
                 metadata={},  # DefaultBenchmarkExecutor will copy spec.metadata into ExecutionResult.metadata
@@ -291,10 +306,12 @@ def test_end_to_end_benchmark_run_via_registry():
     adapter_instance = AdapterRegistry.get_adapter("dummy_adapter", {})
 
     ctx = RunContext(
+        run_id="test_run_id",
+        run_dir=temp_run_dir,
         adapter=adapter_instance,
         benchmark_key=key,
         params={},  # no params required
-        output_config=OutputConfig(analysis=True, visualization=False, save=False),
+        report_config=ReportConfig(analysis=AnalysisConfig(enabled=True)),
     )
 
     bench_inst = BenchmarkRegistry.get_benchmark_instance(key, ctx)
@@ -311,9 +328,9 @@ def test_end_to_end_benchmark_run_via_registry():
     assert ex0.metadata.get("num_qubits") == 1
 
     assert result.analysis_result is not None
-    assert "total_shots" in result.analysis_result.results
-    assert result.analysis_result.results["total_shots"] == 15
-    probs = result.analysis_result.results["probabilities"]
+    assert "total_shots" in result.analysis_result.metrics
+    assert result.analysis_result.metrics["total_shots"] == 15
+    probs = result.analysis_result.metrics["probabilities"]
     assert pytest.approx(probs["0"]) == 10 / 15
     assert pytest.approx(probs["1"]) == 5 / 15
 
@@ -322,7 +339,7 @@ def test_end_to_end_benchmark_run_via_registry():
 # BenchmarkRunner integration: use a config dict and run via BenchmarkRunner
 # -----------------------------------------------------------------------------
 
-def test_benchmark_runner_integration():
+def test_benchmark_runner_integration(temp_output_dir):
     """
     Validate BenchmarkRunner.run works with a real config dict.
     Registers dummy adapter and benchmark, builds config, calls runner.run.
@@ -350,6 +367,7 @@ def test_benchmark_runner_integration():
 
         def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> ExecutionResult:
             return ExecutionResult(
+                job_id="dummy_job_id",
                 counts={"0": 2, "1": 3},
                 profiling_metrics=ProfilingMetrics(params={"dummy": 1}),
                 metadata={},
@@ -388,7 +406,12 @@ def test_benchmark_runner_integration():
         "benchmark_params": {},
         "adapter": "dummy_adapter",
         "profiling": {},
-        "output": {"analysis": True, "visualization": False, "save": False},
+        "output_dir": temp_output_dir,  # injected temp dir for the test
+        "report": {"analysis": {"enabled": True}},
+        # "storage": {
+        #     "type": "file",
+        #     "file": {"format": "json"},
+        # },
     }
 
     runner = BenchmarkRunner(config)
@@ -402,7 +425,7 @@ def test_benchmark_runner_integration():
     assert ex.counts["0"] == 2
     assert ex.counts["1"] == 3
     assert result.analysis_result is not None
-    assert result.analysis_result.results["total_shots"] == 5
+    assert result.analysis_result.metrics["total_shots"] == 5
 
 
 # -----------------------------------------------------------------------------

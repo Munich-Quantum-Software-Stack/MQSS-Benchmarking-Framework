@@ -42,9 +42,12 @@ class CustomAnalyzer(BenchmarkAnalyzer):
         counts = result.counts
         total = sum(counts.values())
         p_zero = counts.get("0", 0) / total if total > 0 else 0.0
-        return AnalysisResult({
-            "p_zero": p_zero,
-        })
+        return AnalysisResult(
+            metrics={
+                "p_zero": p_zero,
+            },
+            artifacts={},
+        )
 
 
 @BenchmarkRegistry.register_benchmark
@@ -71,15 +74,18 @@ if __name__ == "__main__":
 
     config = {
         "benchmark": "user/my_examples/custom_benchmark",
+        "benchmark_params": {"num_qubits": 1, "depth": 3},
         "adapter": "mqss_qiskit",
         "backend": "QExa20",
         "credentials": {"mqss_token": ""},
         "shots": 200,
-        "benchmark_params": {"num_qubits": 1, "depth": 3},
+        "output_dir": "./results",
     }
 
     manager = BenchmarkManager(config)
-    result = manager.dispatch()
+    results = manager.dispatch()
 
     print("===== Custom Benchmark Result =====")
-    print(format_benchmark_result(result))
+    for r in results:
+        print(format_benchmark_result(r))
+        print()  # blank line between runs

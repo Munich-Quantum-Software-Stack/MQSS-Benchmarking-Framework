@@ -5,19 +5,16 @@
   />
 </a>
 
-
-
 # MQSS Benchmarking Framework
 
 ## Overview
 
-MQSS Benchmarking Framework is an automated and reproducable tool for uniting Quantum Computing Benchmarks. It has 4 main pillars: 
+MQSS Benchmarking Framework is an automated and reproducable tool for uniting Quantum Computing Benchmarks. It has 4 main pillars:
 
 - Hardware Benchmarks
 - Software Benchmarks
 - Simulator Benchmarks
 - Algorithmic Benchmarks
-
 
 ## 🛠️ Installation
 
@@ -36,8 +33,6 @@ To get started, ensure you have Python installed. Then, follow these steps to se
    uv sync
    ```
 
-   This will install all required dependencies as specified in the project configuration.
-
 ## 🚀 Usage
 
 MQSS Benchmarking Framework can be used in two ways: through a simple command-line interface or directly as a Python library.
@@ -46,7 +41,7 @@ MQSS Benchmarking Framework can be used in two ways: through a simple command-li
 
 After installation, the command `mqssbench` becomes available system-wide.
 
-**List all available benchmarks**
+### Listing benchmarks
 
 ```bash
 mqssbench list
@@ -54,24 +49,23 @@ mqssbench list
 
 This prints every benchmark registered under the `origin/source/name` structure, including internal, external and user-defined benchmarks.
 
-**Run a benchmark from a config file**
+### Running benchmarks
 
 ```bash
 mqssbench run --config path/to/config.yaml
 ```
 
-**Note:**
 The `--config` file may contain either:
-
-1. a **single benchmark configuration** (dict)
-2. or a **list of benchmark configurations** (each a full config dict)
+1. a single benchmark configuration (dict)
+2. or a list of benchmark configurations (each a full config dict)
 
 When a list is provided, mqssbench runs each benchmark sequentially using the same execution engine.
 
-Example of running a config file:
+In development setups, you can run the CLI commands through `uv`:
 
 ```bash
-mqssbench run --config examples/config_qv.yaml
+uv run mqssbench list
+uv run mqssbench run --config path/to/config.yaml
 ```
 
 To explore all available commands and options:
@@ -80,8 +74,29 @@ To explore all available commands and options:
 mqssbench --help
 ```
 
-Your YAML file temp may look like:
-Note: This template will be the structure of future versions and the current structure might be slightly different
+### Verbosity and logging
+
+The CLI supports adjustable logging verbosity for debugging and inspection.
+
+By default, only warnings and errors are shown.
+
+Increase verbosity by repeating the `-v` / `--verbose` flag:
+
+- No `-v` → WARNING (default)
+- `-v` → INFO
+- `-vv` → DEBUG
+
+Examples:
+```bash
+mqssbench -v run --config path/to/config.yaml
+mqssbench -vv run --config path/to/config.yaml
+```
+
+Benchmark results are printed to standard output, while logs are sent to standard error.
+
+### Configuration file format
+
+A typical benchmark configuration file follows the structure shown below:
 
 ```yaml
 # Benchmark configuration template
@@ -111,19 +126,33 @@ credentials:
 # Number of measurement shots
 shots: <NUM_SHOTS>
 
-# Output controls
-output:
-  analysis: <true_or_false>
-  visualization: <true_or_false>
-  save: <true_or_false>
-  output_dir: <PATH>
+# output directory
+output_dir: <PATH>
+
+# Controls what is generated (analysis, visualizations, reports)
+report:
+  analysis:
+    enabled: <true_or_false>
+      visualization: <true_or_false>
+        enabled: <true_or_false>
+        show: <true_or_false>
+
+# Controls how results are persisted
+storage:
+  enabled: <true_or_false>
+  type: <STORAGE_TYPE>  # "file" or "sqlite"
+  file:
+    format: <FILE_FORMAT> #"json"
+  sqlite: # this will be implemeted in future
+    db_path: <DATABASE_PATH>
 
 # Profiling controls
 profiling:
   enabled: <true_or_false>
   metrics:
     # List of profiling metrics. If omitted, all supported metrics are collected.
-    # Valid metrics:
+    # Available metrics depend on your selected adaptor.
+    # For example, for MQSS adaptors, these are valid metrics:
     #   mqp_api, quantum_database, quantum_job_runner, isv_job_runner,
     #   quantum_daemon_job_runner, generator, scheduler, pass_runner,
     #   transpiler, submitter, pass_selection, knitter, job_execution
@@ -148,11 +177,20 @@ credentials:
 
 shots: 1000
 
-output:
-  analysis: true
-  visualization: true
-  save: true
-  output_dir: "./results"
+output_dir: "./results"
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: false
+
+storage:
+  enabled: true
+  type: "file" 
+  file:
+    format: "json"
 
 profiling:
   enabled: true
@@ -175,6 +213,12 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file" 
+    file:
+      format: "json"
 
 - benchmark: core/native/quantum_volume
   benchmark_params:
@@ -186,6 +230,12 @@ Example of a multi benchmark config:
   credentials:
     mqss_token: ""
   shots: 200
+  output_dir: "./results"
+  storage:
+    enabled: true
+    type: "file" 
+    file:
+      format: "json"
 ```
 
 ## 🧩 Python API Usage
@@ -215,15 +265,27 @@ config = {
 
   "shots": 1000,
 
-  "output": {
-    "analysis": true,
-    "visualization": true,
-    "save": true,
-    "output_dir": "./results"
+  "output_dir": "./results"
+
+  "report": {
+    "analysis": {
+      "enabled": True,
+      "visualization": {
+        "enabled": True
+      }
+    }
   },
 
+  "storage": {
+    "enabled": True,
+    "type": "file",
+    "file": {
+      "format": "json"
+    }
+  },
+  
   "profiling": {
-    "enabled": true,
+    "enabled": True,
     "metrics": ["transpiler", "submitter"]
   }
 }
@@ -249,6 +311,6 @@ A complete list of configuration options will be listed and constantly updated f
 ## 🛠️ Upcoming Features
 - Integration of the [Toolchain Project]([https://pages.github.com/](https://gitlab.lrz.de/qcbm/benchmark-comparison)) to the Framework for Simulator Benchmarks
 - Improving the benchmark set for all types of benchmarks
-## Contributing
+## 📝 Contributing
 
 Feel free to open issues or submit pull requests to improve this project!

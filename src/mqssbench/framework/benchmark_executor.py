@@ -8,6 +8,7 @@ from mqssbench.framework.circuit_generator import CircuitGenerator
 from .types import CircuitSpec, ProfilingMetrics, RunContext, ExecutionResult
 from scipy.optimize import minimize
 import time
+from datetime import datetime
 
 
 class BenchmarkExecutor(ABC):
@@ -89,7 +90,8 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
         iteration = 0
         iteration_times: list[float] = []
         computation_times: list[float] = []
-
+        execution_start_times: list[str] = []
+        execution_end_times: list[str] = []
         objective_values: list[ExecutionResult] = []
 
         def objective(x):
@@ -104,6 +106,7 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
 
             results = []
             for spec in circuits:
+                start_time = datetime.now().strftime("%a %d-%m-%Y %H:%M:%S.%f")[:-3]
                 start_computation = time.time()
                 result = context.adapter.execute_circuit(
                     context,
@@ -111,9 +114,11 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
                     num_qubits=spec.metadata["num_qubits"],
                 )
                 end_computation = time.time()
+                end_time = datetime.now().strftime("%a %d-%m-%Y %H:%M:%S.%f")[:-3]
                 computation_times.append(end_computation - start_computation)
                 objective_values.append(result)
-
+                execution_start_times.append(start_time)
+                execution_end_times.append(end_time)
                 expectation_result = (
                     maxcut_expectation(result.counts, spec.metadata["edges"]) * -1
                 )
@@ -146,6 +151,8 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
             params=objective_values[-1].profiling_metrics.params,
             iteration_duration=iteration_times,
             multiple_execution_duration=computation_times,
+            execution_start_times=execution_start_times,
+            execution_end_times=execution_end_times,
         )
 
         # set metadata in in new instance for immutability

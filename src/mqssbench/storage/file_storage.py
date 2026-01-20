@@ -18,6 +18,7 @@ class FileStorage(StorageBackend):
             if self.config.file.format != "json":
                 raise StorageError(f"Unsupported format: {self.config.file.format}")
 
+            input("Press Enter to continue...")
             payload = serialize_result_json(self.context, result)
 
             atomic_write(
@@ -53,6 +54,16 @@ def serialize_result_json(context: RunContext, result: BenchmarkResult) -> dict:
                 "exp_value": er.exp_value if er.exp_value is not None else None,
                 "optimal_params": (
                     er.optimal_params if er.optimal_params is not None else None
+                ),
+                "iteration_duration": (
+                    er.profiling_metrics.iteration_duration
+                    if er.profiling_metrics.iteration_duration is not None
+                    else None
+                ),
+                "multiple_execution_duration": (
+                    er.profiling_metrics.multiple_execution_duration
+                    if er.profiling_metrics.multiple_execution_duration is not None
+                    else None
                 ),
             }
             for er in result.execution_results

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
-from typing import Any, Dict, Optional, Literal, TYPE_CHECKING
+from typing import Any, Dict, List, Optional, Literal, TYPE_CHECKING
 from pathlib import Path
 
 if TYPE_CHECKING:
@@ -128,6 +128,12 @@ class ProfilingMetrics:
     """Profiling output keyed by param name (e.g., 'transpiler')."""
 
     params: Dict[str, Any] = field(default_factory=dict)
+    iteration_duration: Optional[List[float]] = (
+        None  # duration of a single iteration, if applicable
+    )
+    multiple_execution_duration: Optional[List[float]] = (
+        None  # duration of execution for iterative jobs, if applicable
+    )
 
 
 @dataclass(frozen=True)

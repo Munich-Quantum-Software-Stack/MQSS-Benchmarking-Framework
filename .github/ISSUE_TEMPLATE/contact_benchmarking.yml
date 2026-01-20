@@ -6,10 +6,16 @@ projects: ["F4-S: Benchmarking team"]
 assignees:
   - Bmete7
 body:
-  - type: textarea
+  - type: dropdown
+    id: version
     attributes:
-      label: Type
-      placeholder: Request
+      label: Communication Type
+      description: What type of communication do you require?
+      options:
+        - Request
+      default: 0
+    validations:
+      required: true
   - type: input
     id: contact
     attributes:

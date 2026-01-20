@@ -5,8 +5,11 @@ labels: ["Contact_F4-S"]
 projects: ["F4-S: Benchmarking team"]
 assignees:
   - Bmete7
-type: Request
 body:
+  - type: textarea
+    attributes:
+      label: Type
+      placeholder: Request
   - type: input
     id: contact
     attributes:

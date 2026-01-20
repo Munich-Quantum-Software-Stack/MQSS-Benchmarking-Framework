@@ -6,17 +6,6 @@ projects: ["F4-S: Benchmarking team"]
 assignees:
   - Bmete7
 body:
-- type: dropdown
-    id: version
-    attributes:
-      label: Communication Type
-      description: What type of communication do you require?
-      options:
-        - Request
-      default: 0
-      value: Request
-    validations:
-      required: true
   - type: input
     id: contact
     attributes:

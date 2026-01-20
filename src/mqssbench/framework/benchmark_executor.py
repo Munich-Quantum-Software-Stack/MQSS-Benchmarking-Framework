@@ -5,7 +5,7 @@ from typing import List
 
 from mqssbench.framework.circuit_generator import CircuitGenerator
 
-from .types import CircuitSpec, RunContext, ExecutionResult
+from .types import CircuitSpec, ProfilingMetrics, RunContext, ExecutionResult
 from scipy.optimize import minimize
 import time
 
@@ -87,10 +87,13 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
         results: List[ExecutionResult] = []
         context.params["expval"] = []
         iteration = 0
-        start = time.time()
-        objective_values = []
+        iteration_times: list[float] = []
+        computation_times: list[float] = []
+
+        objective_values: list[ExecutionResult] = []
 
         def objective(x):
+            start = time.time()
             nonlocal iteration
 
             params = context.params
@@ -101,20 +104,26 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
 
             results = []
             for spec in circuits:
+                start_computation = time.time()
                 result = context.adapter.execute_circuit(
                     context,
                     lambda: spec.circuit,
                     num_qubits=spec.metadata["num_qubits"],
                 )
-
+                end_computation = time.time()
+                computation_times.append(end_computation - start_computation)
                 objective_values.append(result)
-                result = maxcut_expectation(result.counts, spec.metadata["edges"]) * -1
-                context.params["expval"].append(result)
+
+                expectation_result = (
+                    maxcut_expectation(result.counts, spec.metadata["edges"]) * -1
+                )
+                context.params["expval"].append(expectation_result)
                 end = time.time()
                 print(f"Time elapsed: {end - start} seconds")
-                print(f"Iteration {iteration}: Exp. value: {result}")
+                iteration_times.append(end - start)
+                print(f"Iteration {iteration}: Exp. value: {expectation_result}")
                 iteration += 1
-                results.append(result)
+                results.append(expectation_result)
 
             return results[0]
 
@@ -133,11 +142,17 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
         circuits[0].metadata["result"] = res.fun.tolist()
         circuits[0].metadata["opt_params"] = res.x.tolist()
 
+        profiling_metrics = ProfilingMetrics(
+            params=objective_values[-1].profiling_metrics.params,
+            iteration_duration=iteration_times,
+            multiple_execution_duration=computation_times,
+        )
+
         # set metadata in in new instance for immutability
         run_result = ExecutionResult(
             job_id=objective_values[-1].job_id,
             counts=objective_values[-1].counts,
-            profiling_metrics=objective_values[-1].profiling_metrics,
+            profiling_metrics=profiling_metrics,
             metadata=dict(circuits[0].metadata),
             exp_value=res.fun.tolist(),
             optimal_params=res.x.tolist(),

@@ -3,9 +3,10 @@
 #SBATCH -o ./%x_%j.out
 #SBATCH -e ./%x_%j.err
 #SBATCH --ntasks=1
+#SBATCH --gres=qpu:1
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=wolpy
-#SBATCH --time=00:05:00
+#SBATCH --time=00:20:00
 
 
 t0_timestamp=$(date +"%a %d-%m-%Y %H:%M:%S.%3N")
@@ -19,6 +20,12 @@ echo "[SBATCH] -------------------------------------------------"
 echo "[SBATCH] Elapsed time to load mqss-qoffload env (ms): $((t1 - t0))"
 echo "[SBATCH] -------------------------------------------------"
 echo ""
+
+module use -p /home/sw/qis/wolpy/hpcqc-software/modules/linux-rocky9-icelake/
+##module load python/3.11.7-gcc-11.4.1-o75q74w
+##module load py-qiskit
+##module load py-mqss-qiskit
+##nc -zv localhost 5672
 
 t2_timestamp=$(date +"%a %d-%m-%Y %H:%M:%S.%3N")
 t2=$(date +%s%3N)

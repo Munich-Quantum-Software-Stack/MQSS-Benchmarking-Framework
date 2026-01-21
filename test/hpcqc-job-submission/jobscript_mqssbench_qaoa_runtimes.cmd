@@ -1,11 +1,12 @@
 #!/bin/sh
-#SBATCH -J ghz_example_timestamp
+#SBATCH -J qaoa_example_timestamp
 #SBATCH -o ./%x_%j.out
 #SBATCH -e ./%x_%j.err
 #SBATCH --ntasks=1
+#SBATCH --gres=qpu:1
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=wolpy
-#SBATCH --time=00:05:00
+#SBATCH --time=02:00:00
 
 t1_timestamp=$(date +"%a %d-%m-%Y %H:%M:%S.%3N")
 t1=$(date +%s%3N)
@@ -32,6 +33,10 @@ echo "[SBATCH] -------------------------------------------------"
 echo ""
 
 # Export the HPCQC flag
+export MQSS_TOKEN="hskHPJhuLBkh2WvhNemZRjUBpySy4LoeWW3Gjh8HFsgxtAega9zxwU8b4Bn4NMCC"
+export MQSS_URL="https://portal.quantum.lrz.de"
+export MQSS_PORT="4000"
+export MQSS_BACKEND="QExa20"
 export MQSS_HPCQC_ENV=True
 
 t_start_timestamp=$(date +"%a %d-%m-%Y %H:%M:%S.%3N")

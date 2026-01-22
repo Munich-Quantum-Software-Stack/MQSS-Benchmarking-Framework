@@ -1,0 +1,34 @@
+/home/sw/qis/wolpy/opt/spack/linux-rocky9-icelake/gcc-11.4.1/py-hpcqc-qoffload-0.5.0-np6ubpbdnr2ohrzyp23l7gicdv5yk7wi
+
+[SBATCH] Thu 22-01-2026 11:32:34.518: Start loading mqss-qoffload env
+[SBATCH] Thu 22-01-2026 11:32:38.886: Finished loading mqss-qoffload env
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to load mqss-qoffload env (ms): 4368
+[SBATCH] -------------------------------------------------
+
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to load user-conda env (ms): 4339
+[SBATCH] -------------------------------------------------
+
+------------------------------------------
+Testing GHZ example:
+ + Num. qubits:  4
+ + Backend:  QExa20
+ + Num. shots:  1000
+------------------------------------------
+Completion time: -0.02525798300000126s
+------------------------------------------
+Counts for GHZ example: {'1111': 316, '1000': 45, '0000': 391, '0111': 58, '0100': 48, '1011': 48, '1101': 28, '0010': 30, '0110': 3, '1110': 1, '1001': 7, '0011': 7, '0101': 11, '1100': 4, '1010': 2, '0001': 1}
+------------------------------------------
+[SBATCH] Thu 22-01-2026 11:32:43.249: Start execution
+[SBATCH] Thu 22-01-2026 11:32:54.662: Finished execution
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to execute (ms): 11413
+[SBATCH] -------------------------------------------------
+
+[SBATCH] Thu 22-01-2026 11:32:54.670: Unloading mqss-qoffload env
+[SBATCH] Thu 22-01-2026 11:32:54.685: Finished unloading mqss-qoffload env
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to unload mqss-qoffload env (ms): 15
+[SBATCH] -------------------------------------------------
+

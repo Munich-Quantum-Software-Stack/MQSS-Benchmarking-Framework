@@ -23,8 +23,6 @@ logger = logging.getLogger("random_hamiltonian_h2_simulation")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s: %(message)s")
 # logging.basicConfig(filename='hpcqc_vqe_random_hamiltonian_h2.log', level=logging.INFO)
 
-global NUMTH_EXE_ITER
-
 # ------------------------------------------
 # Util Functions
 # ------------------------------------------
@@ -164,9 +162,7 @@ def run_circuit(params, num_qubits, backend, num_shots, basis=None, draw_flag=Fa
     local_complete_run_time = datetime.now()
     end_run_time = perf_counter()
     result = job.result()
-    NUMTH_EXE_ITER += 1
-    print('------------------------------------------')
-    print(f"-------- Iteration {NUMTH_EXE_ITER} ---------")
+
     print(f"Local start run timestamp: {local_start_run_time}")
     print(f"Local complete run timestamp: {local_complete_run_time}")
 
@@ -314,7 +310,6 @@ if __name__ == "__main__":
     num_shots  = args["shots"]
     max_iters  = args["maxiter"]
     N = num_qubits
-    NUMTH_EXE_ITER = 0
 
     # generate hamiltonian
     bases = generate_random_diagonal_hamiltonian(N)

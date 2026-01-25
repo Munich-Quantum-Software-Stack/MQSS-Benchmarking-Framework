@@ -23,6 +23,8 @@ logger = logging.getLogger("random_hamiltonian_h2_simulation")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s: %(message)s")
 # logging.basicConfig(filename='hpcqc_vqe_random_hamiltonian_h2.log', level=logging.INFO)
 
+NUMTH_ITER = 0
+
 # ------------------------------------------
 # Util Functions
 # ------------------------------------------
@@ -155,16 +157,21 @@ def run_circuit(params, num_qubits, backend, num_shots, basis=None, draw_flag=Fa
     for i in range(N):
         circuit.measure(q[i], c[i])
 
-    submit_time = process_time()
+    local_start_run_time = datetime.now()
+    start_run_time = perf_counter()
     # assume some delay here between submission and execution start
-    # start_execution = process_time()
     job = backend.run(circuit, shots=num_shots)
-    # end_execution = process_time()
+    local_complete_run_time = datetime.now()
+    end_run_time = perf_counter()
     result = job.result()
-    complete_time = process_time()
+    NUMTH_ITER += 1
+    print('------------------------------------------')
+    print(f"-------- Iteration {NUMTH_ITER} ---------")
+    print(f"Local start run timestamp: {local_start_run_time}")
+    print(f"Local complete run timestamp: {local_complete_run_time}")
 
     # profile time the execution
-    profiled_execution = (submit_time, complete_time)
+    profiled_execution = (start_run_time, end_run_time)
 
     # post-processing the results
     counts = result.get_counts()
@@ -200,7 +207,7 @@ def objective_func(params, num_qubits, backend, num_shots, bases, offset, profil
             profiled_qpu_time_arr.append(profiled_data)
         except TypeError as error:
             raise error
-        completion_time = profiled_data[1] - profiled_data[0]
+        completion_time = profiled_data[1] - profiled_data[0] # in seconds
         print(f"\tTerms: {terms}, complete_time={completion_time}s")
         print(f"\tEnergy: {exp_val}")
     exp_vals.append(exp_val)
@@ -274,7 +281,7 @@ def visualize_convergence(exp_vals, ground_truth):
     plt.grid(True)
 
     # show the plot or save to file
-    save_path = "./qaoa_random_hamiltonian_results.pdf"
+    save_path = "./vqe_random_hamiltonian_results.pdf"
     plt.savefig(save_path, bbox_inches="tight")
     # plt.show()
 
@@ -316,6 +323,7 @@ if __name__ == "__main__":
     print('------------------------------------------')
     print('Generated random diagonal Hamiltonian for %d qubits.', N)
     print('Hamiltonian matrix: shape=%s', H.shape)
+    print('VQE Opt. max iters: %d', max_iters)
     print('------------------------------------------')
 
     # calculate the ground state (result) by classical linear algorithm

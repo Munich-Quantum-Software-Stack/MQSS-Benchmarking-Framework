@@ -6,7 +6,7 @@
 #SBATCH --gres=qpu:1
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=wolpy
-#SBATCH --time=01:00:00
+#SBATCH --time=02:00:00
 
 t0_timestamp=$(date +"%a %d-%m-%Y %H:%M:%S.%3N")
 t0=$(date +%s%3N)

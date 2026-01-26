@@ -1,0 +1,1243 @@
+/home/sw/qis/wolpy/opt/spack/linux-rocky9-icelake/gcc-11.4.1/py-hpcqc-qoffload-0.5.0-np6ubpbdnr2ohrzyp23l7gicdv5yk7wi
+
+[SBATCH] Sun 25-01-2026 16:03:12.011: Start loading mqss-qoffload env
+[SBATCH] Sun 25-01-2026 16:03:16.085: Finished loading mqss-qoffload env
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to load mqss-qoffload env (ms): 4074
+[SBATCH] -------------------------------------------------
+
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to load user-conda env (ms): 4964
+[SBATCH] -------------------------------------------------
+
+------------------------------------------
+Generated random diagonal Hamiltonian for %d qubits. 4
+Hamiltonian matrix: shape=%s (16, 16)
+VQE Opt. max iters: %d 2
+------------------------------------------
+------------------------------------------
+Using np.linalg to calculate eigen values and vectors
+Ground state energy: %.6f -8.69155508967384
+------------------------------------------
+Opt. iteration 0: running with params [1.17665249 2.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:03:26.945050
+Local complete run timestamp: 2026-01-25 16:03:26.960164
+	Terms: ('IIII', array([1.87270059])), complete_time=0.015113160014152527s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:03:33.028499
+Local complete run timestamp: 2026-01-25 16:03:33.042438
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.013937802985310555s
+	Energy: [1.62551487]
+Local start run timestamp: 2026-01-25 16:03:39.108288
+Local complete run timestamp: 2026-01-25 16:03:39.121775
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.013486664742231369s
+	Energy: [2.21842997]
+Local start run timestamp: 2026-01-25 16:03:45.182212
+Local complete run timestamp: 2026-01-25 16:03:45.192427
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.010214352048933506s
+	Energy: [0.72777034]
+Local start run timestamp: 2026-01-25 16:03:51.257857
+Local complete run timestamp: 2026-01-25 16:03:51.270658
+	Terms: ('IZII', array([0.7800932])), complete_time=0.012800346128642559s
+	Energy: [0.60919618]
+Local start run timestamp: 2026-01-25 16:03:59.348897
+Local complete run timestamp: 2026-01-25 16:03:59.360878
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.011980450712144375s
+	Energy: [0.90558576]
+Local start run timestamp: 2026-01-25 16:04:07.436481
+Local complete run timestamp: 2026-01-25 16:04:07.448907
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.012425556778907776s
+	Energy: [0.73772412]
+Local start run timestamp: 2026-01-25 16:04:13.517641
+Local complete run timestamp: 2026-01-25 16:04:13.530703
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013060079887509346s
+	Energy: [1.08419458]
+Local start run timestamp: 2026-01-25 16:04:19.599524
+Local complete run timestamp: 2026-01-25 16:04:19.612859
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.013334502466022968s
+	Energy: [1.37874094]
+Local start run timestamp: 2026-01-25 16:04:25.676837
+Local complete run timestamp: 2026-01-25 16:04:25.689379
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.012541759759187698s
+	Energy: [0.93265521]
+Local start run timestamp: 2026-01-25 16:04:31.753687
+Local complete run timestamp: 2026-01-25 16:04:31.764356
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.010668396949768066s
+	Energy: [0.94788774]
+Local start run timestamp: 2026-01-25 16:04:39.837117
+Local complete run timestamp: 2026-01-25 16:04:39.848037
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.01091994158923626s
+	Energy: [1.14186971]
+Local start run timestamp: 2026-01-25 16:04:45.906092
+Local complete run timestamp: 2026-01-25 16:04:45.918217
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012124457396566868s
+	Energy: [0.76727052]
+Local start run timestamp: 2026-01-25 16:04:51.977575
+Local complete run timestamp: 2026-01-25 16:04:51.990384
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.012808755040168762s
+	Energy: [0.85008278]
+Local start run timestamp: 2026-01-25 16:04:58.056117
+Local complete run timestamp: 2026-01-25 16:04:58.068110
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.01199223194271326s
+	Energy: [0.82462728]
+Local start run timestamp: 2026-01-25 16:05:08.164480
+Local complete run timestamp: 2026-01-25 16:05:08.179374
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.014893602579832077s
+	Energy: [0.89248695]
+Opt. iteration 1: running with params [2.17665249 2.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:05:14.257733
+Local complete run timestamp: 2026-01-25 16:05:14.270924
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013189553283154964s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:05:20.333115
+Local complete run timestamp: 2026-01-25 16:05:20.345350
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012234024703502655s
+	Energy: [2.9565149]
+Local start run timestamp: 2026-01-25 16:05:28.423465
+Local complete run timestamp: 2026-01-25 16:05:28.433881
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.010415730997920036s
+	Energy: [2.29040042]
+Local start run timestamp: 2026-01-25 16:05:34.495596
+Local complete run timestamp: 2026-01-25 16:05:34.507323
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.011726328171789646s
+	Energy: [0.79375421]
+Local start run timestamp: 2026-01-25 16:05:42.585664
+Local complete run timestamp: 2026-01-25 16:05:42.598254
+	Terms: ('IZII', array([0.7800932])), complete_time=0.01258939690887928s
+	Energy: [1.09799055]
+Local start run timestamp: 2026-01-25 16:05:48.664726
+Local complete run timestamp: 2026-01-25 16:05:48.677505
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012778518721461296s
+	Energy: [1.48017713]
+Local start run timestamp: 2026-01-25 16:05:56.753225
+Local complete run timestamp: 2026-01-25 16:05:56.766993
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.013767693191766739s
+	Energy: [1.28966288]
+Local start run timestamp: 2026-01-25 16:06:04.848351
+Local complete run timestamp: 2026-01-25 16:06:04.860643
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.012291564606130123s
+	Energy: [-0.1741748]
+Local start run timestamp: 2026-01-25 16:06:14.962107
+Local complete run timestamp: 2026-01-25 16:06:14.977979
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.015871679410338402s
+	Energy: [-0.01187375]
+Local start run timestamp: 2026-01-25 16:06:23.058153
+Local complete run timestamp: 2026-01-25 16:06:23.069570
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.01141657680273056s
+	Energy: [-0.0260352]
+Local start run timestamp: 2026-01-25 16:06:33.158796
+Local complete run timestamp: 2026-01-25 16:06:33.171685
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.012888490222394466s
+	Energy: [-0.02500598]
+Local start run timestamp: 2026-01-25 16:06:39.241191
+Local complete run timestamp: 2026-01-25 16:06:39.256609
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.015417358838021755s
+	Energy: [0.31446247]
+Local start run timestamp: 2026-01-25 16:06:45.326045
+Local complete run timestamp: 2026-01-25 16:06:45.338681
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012635789811611176s
+	Energy: [0.50592428]
+Local start run timestamp: 2026-01-25 16:06:51.404562
+Local complete run timestamp: 2026-01-25 16:06:51.417483
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.012919827364385128s
+	Energy: [0.58024297]
+Local start run timestamp: 2026-01-25 16:06:57.484772
+Local complete run timestamp: 2026-01-25 16:06:57.496441
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.011668799445033073s
+	Energy: [0.54205972]
+Local start run timestamp: 2026-01-25 16:07:07.587717
+Local complete run timestamp: 2026-01-25 16:07:07.600234
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.012516801245510578s
+	Energy: [0.53839163]
+Opt. iteration 2: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:07:17.699078
+Local complete run timestamp: 2026-01-25 16:07:17.712991
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013912135735154152s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:07:23.775331
+Local complete run timestamp: 2026-01-25 16:07:23.788963
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01363164372742176s
+	Energy: [2.77587919]
+Local start run timestamp: 2026-01-25 16:07:33.877934
+Local complete run timestamp: 2026-01-25 16:07:33.889655
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.01172072347253561s
+	Energy: [1.831607]
+Local start run timestamp: 2026-01-25 16:07:39.946496
+Local complete run timestamp: 2026-01-25 16:07:39.958186
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.01168974582105875s
+	Energy: [0.18529617]
+Local start run timestamp: 2026-01-25 16:07:50.051291
+Local complete run timestamp: 2026-01-25 16:07:50.064085
+	Terms: ('IZII', array([0.7800932])), complete_time=0.01279396004974842s
+	Energy: [0.49733345]
+Local start run timestamp: 2026-01-25 16:07:56.131314
+Local complete run timestamp: 2026-01-25 16:07:56.144044
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012729331851005554s
+	Energy: [0.84832112]
+Local start run timestamp: 2026-01-25 16:08:02.204636
+Local complete run timestamp: 2026-01-25 16:08:02.217779
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.013142385520040989s
+	Energy: [0.68742951]
+Local start run timestamp: 2026-01-25 16:08:08.282770
+Local complete run timestamp: 2026-01-25 16:08:08.296462
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013690860010683537s
+	Energy: [-0.6118347]
+Local start run timestamp: 2026-01-25 16:08:14.362449
+Local complete run timestamp: 2026-01-25 16:08:14.376593
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014143249951303005s
+	Energy: [0.47017232]
+Local start run timestamp: 2026-01-25 16:08:20.445093
+Local complete run timestamp: 2026-01-25 16:08:20.458171
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.013077033683657646s
+	Energy: [0.76048207]
+Local start run timestamp: 2026-01-25 16:08:26.521874
+Local complete run timestamp: 2026-01-25 16:08:26.535966
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.014092312194406986s
+	Energy: [0.75307166]
+Local start run timestamp: 2026-01-25 16:08:34.615181
+Local complete run timestamp: 2026-01-25 16:08:34.630372
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.015191320329904556s
+	Energy: [-0.57570484]
+Local start run timestamp: 2026-01-25 16:08:40.700575
+Local complete run timestamp: 2026-01-25 16:08:40.714029
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.013454190455377102s
+	Energy: [-0.22607893]
+Local start run timestamp: 2026-01-25 16:08:46.776966
+Local complete run timestamp: 2026-01-25 16:08:46.790253
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013286120258271694s
+	Energy: [0.02448122]
+Local start run timestamp: 2026-01-25 16:08:54.869002
+Local complete run timestamp: 2026-01-25 16:08:54.882903
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013900327496230602s
+	Energy: [-0.23916498]
+Local start run timestamp: 2026-01-25 16:09:00.951331
+Local complete run timestamp: 2026-01-25 16:09:00.969663
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.01833121757954359s
+	Energy: [-0.33453533]
+Opt. iteration 3: running with params [2.17665249 3.98675708 3.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:09:09.052710
+Local complete run timestamp: 2026-01-25 16:09:09.065526
+	Terms: ('IIII', array([1.87270059])), complete_time=0.012815098278224468s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:09:15.133785
+Local complete run timestamp: 2026-01-25 16:09:15.147323
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.013537206687033176s
+	Energy: [3.19419348]
+Local start run timestamp: 2026-01-25 16:09:23.237950
+Local complete run timestamp: 2026-01-25 16:09:23.252174
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.014223630540072918s
+	Energy: [2.04496299]
+Local start run timestamp: 2026-01-25 16:09:29.320206
+Local complete run timestamp: 2026-01-25 16:09:29.334257
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.014050395227968693s
+	Energy: [0.54831678]
+Local start run timestamp: 2026-01-25 16:09:37.415022
+Local complete run timestamp: 2026-01-25 16:09:37.429358
+	Terms: ('IZII', array([0.7800932])), complete_time=0.0143352672457695s
+	Energy: [0.9477245]
+Local start run timestamp: 2026-01-25 16:09:43.498763
+Local complete run timestamp: 2026-01-25 16:09:43.513930
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.015166721306741238s
+	Energy: [1.33303097]
+Local start run timestamp: 2026-01-25 16:09:51.594453
+Local complete run timestamp: 2026-01-25 16:09:51.608192
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.013738065958023071s
+	Energy: [1.16168431]
+Local start run timestamp: 2026-01-25 16:09:57.674760
+Local complete run timestamp: 2026-01-25 16:09:57.689027
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.014265965670347214s
+	Energy: [0.18290527]
+Local start run timestamp: 2026-01-25 16:10:05.767571
+Local complete run timestamp: 2026-01-25 16:10:05.782078
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014506532810628414s
+	Energy: [0.64576382]
+Local start run timestamp: 2026-01-25 16:10:11.848918
+Local complete run timestamp: 2026-01-25 16:10:11.862491
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.013572043739259243s
+	Energy: [1.26178697]
+Local start run timestamp: 2026-01-25 16:10:17.931754
+Local complete run timestamp: 2026-01-25 16:10:17.944825
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.01307130791246891s
+	Energy: [1.24778951]
+Local start run timestamp: 2026-01-25 16:10:24.014599
+Local complete run timestamp: 2026-01-25 16:10:24.028098
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.013498060405254364s
+	Energy: [0.82102918]
+Local start run timestamp: 2026-01-25 16:10:32.106222
+Local complete run timestamp: 2026-01-25 16:10:32.118536
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012313985265791416s
+	Energy: [1.17897951]
+Local start run timestamp: 2026-01-25 16:10:42.210220
+Local complete run timestamp: 2026-01-25 16:10:42.223985
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013764863833785057s
+	Energy: [1.28090228]
+Local start run timestamp: 2026-01-25 16:10:48.291080
+Local complete run timestamp: 2026-01-25 16:10:48.305959
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.014878707937896252s
+	Energy: [1.12998756]
+Local start run timestamp: 2026-01-25 16:10:56.390499
+Local complete run timestamp: 2026-01-25 16:10:56.404169
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013669087551534176s
+	Energy: [1.03828531]
+Opt. iteration 4: running with params [2.17665249 3.98675708 2.29962679 2.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:11:02.469800
+Local complete run timestamp: 2026-01-25 16:11:02.484656
+	Terms: ('IIII', array([1.87270059])), complete_time=0.014855238609015942s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:11:10.560386
+Local complete run timestamp: 2026-01-25 16:11:10.573428
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.013041426427662373s
+	Energy: [2.61425775]
+Local start run timestamp: 2026-01-25 16:11:16.635579
+Local complete run timestamp: 2026-01-25 16:11:16.649157
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.013576162979006767s
+	Energy: [1.81638436]
+Local start run timestamp: 2026-01-25 16:11:22.712907
+Local complete run timestamp: 2026-01-25 16:11:22.725631
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.012723886407911777s
+	Energy: [-0.11129596]
+Local start run timestamp: 2026-01-25 16:11:32.807864
+Local complete run timestamp: 2026-01-25 16:11:32.820243
+	Terms: ('IZII', array([0.7800932])), complete_time=0.01237788237631321s
+	Energy: [0.15861629]
+Local start run timestamp: 2026-01-25 16:11:40.892472
+Local complete run timestamp: 2026-01-25 16:11:40.905927
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.013454439118504524s
+	Energy: [0.50648407]
+Local start run timestamp: 2026-01-25 16:11:46.965915
+Local complete run timestamp: 2026-01-25 16:11:46.980644
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.014728793874382973s
+	Energy: [0.32468236]
+Local start run timestamp: 2026-01-25 16:11:55.061979
+Local complete run timestamp: 2026-01-25 16:11:55.074546
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.012566225603222847s
+	Energy: [-0.61944964]
+Local start run timestamp: 2026-01-25 16:12:05.164321
+Local complete run timestamp: 2026-01-25 16:12:05.175076
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.01075365487486124s
+	Energy: [0.57676923]
+Local start run timestamp: 2026-01-25 16:12:11.240653
+Local complete run timestamp: 2026-01-25 16:12:11.255574
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014919929206371307s
+	Energy: [1.1998731]
+Local start run timestamp: 2026-01-25 16:12:19.330992
+Local complete run timestamp: 2026-01-25 16:12:19.344861
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013868010602891445s
+	Energy: [1.17167235]
+Local start run timestamp: 2026-01-25 16:12:25.408818
+Local complete run timestamp: 2026-01-25 16:12:25.419427
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.010608826763927937s
+	Energy: [0.26965618]
+Local start run timestamp: 2026-01-25 16:12:31.484636
+Local complete run timestamp: 2026-01-25 16:12:31.498949
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.014312642626464367s
+	Energy: [1.30188506]
+Local start run timestamp: 2026-01-25 16:12:39.573871
+Local complete run timestamp: 2026-01-25 16:12:39.587877
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.014006231911480427s
+	Energy: [1.58641947]
+Local start run timestamp: 2026-01-25 16:12:45.650706
+Local complete run timestamp: 2026-01-25 16:12:45.663915
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013208064250648022s
+	Energy: [1.32459151]
+Local start run timestamp: 2026-01-25 16:12:53.737747
+Local complete run timestamp: 2026-01-25 16:12:53.750917
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013170397840440273s
+	Energy: [1.16502959]
+Opt. iteration 5: running with params [2.17665249 3.98675708 2.29962679 1.8807411  1.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:12:59.816744
+Local complete run timestamp: 2026-01-25 16:12:59.830848
+	Terms: ('IIII', array([1.87270059])), complete_time=0.01410334836691618s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:13:05.895911
+Local complete run timestamp: 2026-01-25 16:13:05.908244
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012332727201282978s
+	Energy: [2.10087203]
+Local start run timestamp: 2026-01-25 16:13:13.987953
+Local complete run timestamp: 2026-01-25 16:13:14.000435
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.012481089681386948s
+	Energy: [1.92519348]
+Local start run timestamp: 2026-01-25 16:13:20.067983
+Local complete run timestamp: 2026-01-25 16:13:20.080271
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.012287545017898083s
+	Energy: [0.82964846]
+Local start run timestamp: 2026-01-25 16:13:28.160949
+Local complete run timestamp: 2026-01-25 16:13:28.174681
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013731585815548897s
+	Energy: [1.06211623]
+Local start run timestamp: 2026-01-25 16:13:36.249414
+Local complete run timestamp: 2026-01-25 16:13:36.262227
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.01281214039772749s
+	Energy: [1.09955491]
+Local start run timestamp: 2026-01-25 16:13:44.338851
+Local complete run timestamp: 2026-01-25 16:13:44.353210
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.01435934565961361s
+	Energy: [1.09316572]
+Local start run timestamp: 2026-01-25 16:13:50.418879
+Local complete run timestamp: 2026-01-25 16:13:50.432341
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013461636379361153s
+	Energy: [0.02776906]
+Local start run timestamp: 2026-01-25 16:13:56.497720
+Local complete run timestamp: 2026-01-25 16:13:56.512692
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014971483498811722s
+	Energy: [0.86933007]
+Local start run timestamp: 2026-01-25 16:14:02.577921
+Local complete run timestamp: 2026-01-25 16:14:02.592029
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014107609167695045s
+	Energy: [0.73479628]
+Local start run timestamp: 2026-01-25 16:14:08.651734
+Local complete run timestamp: 2026-01-25 16:14:08.664374
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.012639139778912067s
+	Energy: [0.73520797]
+Local start run timestamp: 2026-01-25 16:14:18.756572
+Local complete run timestamp: 2026-01-25 16:14:18.771743
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.015169995836913586s
+	Energy: [0.42483682]
+Local start run timestamp: 2026-01-25 16:14:24.839211
+Local complete run timestamp: 2026-01-25 16:14:24.893559
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.05434769205749035s
+	Energy: [0.4498101]
+Local start run timestamp: 2026-01-25 16:14:30.958034
+Local complete run timestamp: 2026-01-25 16:14:30.970827
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.01279179472476244s
+	Energy: [0.65365565]
+Local start run timestamp: 2026-01-25 16:14:39.050411
+Local complete run timestamp: 2026-01-25 16:14:39.065289
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.01487708743661642s
+	Energy: [0.48455843]
+Local start run timestamp: 2026-01-25 16:14:45.130252
+Local complete run timestamp: 2026-01-25 16:14:45.144938
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.014685244299471378s
+	Energy: [0.46988607]
+Opt. iteration 6: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 1.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:14:51.208468
+Local complete run timestamp: 2026-01-25 16:14:51.223041
+	Terms: ('IIII', array([1.87270059])), complete_time=0.01457206066697836s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:14:57.290822
+Local complete run timestamp: 2026-01-25 16:14:57.304533
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01371114980429411s
+	Energy: [2.61425775]
+Local start run timestamp: 2026-01-25 16:15:07.395841
+Local complete run timestamp: 2026-01-25 16:15:07.410720
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.014879009686410427s
+	Energy: [1.69926533]
+Local start run timestamp: 2026-01-25 16:15:13.476359
+Local complete run timestamp: 2026-01-25 16:15:13.490484
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.014124132692813873s
+	Energy: [0.46602885]
+Local start run timestamp: 2026-01-25 16:15:19.559653
+Local complete run timestamp: 2026-01-25 16:15:19.572345
+	Terms: ('IZII', array([0.7800932])), complete_time=0.012691984884440899s
+	Energy: [0.72501979]
+Local start run timestamp: 2026-01-25 16:15:25.631356
+Local complete run timestamp: 2026-01-25 16:15:25.643680
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012323991395533085s
+	Energy: [1.07600746]
+Local start run timestamp: 2026-01-25 16:15:33.713074
+Local complete run timestamp: 2026-01-25 16:15:33.724486
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.011411596089601517s
+	Energy: [0.90582248]
+Local start run timestamp: 2026-01-25 16:15:39.785465
+Local complete run timestamp: 2026-01-25 16:15:39.797586
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.012120342813432217s
+	Energy: [0.03098457]
+Local start run timestamp: 2026-01-25 16:15:49.879036
+Local complete run timestamp: 2026-01-25 16:15:49.891501
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.012465247884392738s
+	Energy: [1.33540415]
+Local start run timestamp: 2026-01-25 16:15:57.961243
+Local complete run timestamp: 2026-01-25 16:15:57.972491
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.011247579008340836s
+	Energy: [1.47701866]
+Local start run timestamp: 2026-01-25 16:16:04.033083
+Local complete run timestamp: 2026-01-25 16:16:04.044654
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.011570876464247704s
+	Energy: [1.47290176]
+Local start run timestamp: 2026-01-25 16:16:10.108950
+Local complete run timestamp: 2026-01-25 16:16:10.122024
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.013073432259261608s
+	Energy: [0.71637208]
+Local start run timestamp: 2026-01-25 16:16:16.183113
+Local complete run timestamp: 2026-01-25 16:16:16.195428
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012313522398471832s
+	Energy: [1.01605143]
+Local start run timestamp: 2026-01-25 16:16:22.256515
+Local complete run timestamp: 2026-01-25 16:16:22.270038
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013523010537028313s
+	Energy: [1.26024141]
+Local start run timestamp: 2026-01-25 16:16:28.333683
+Local complete run timestamp: 2026-01-25 16:16:28.346036
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.012352325953543186s
+	Energy: [0.97659446]
+Local start run timestamp: 2026-01-25 16:16:36.418230
+Local complete run timestamp: 2026-01-25 16:16:36.431515
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013284987770020962s
+	Energy: [0.95641996]
+Opt. iteration 7: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 1.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:16:42.493709
+Local complete run timestamp: 2026-01-25 16:16:42.505953
+	Terms: ('IIII', array([1.87270059])), complete_time=0.012242957018315792s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:16:54.604789
+Local complete run timestamp: 2026-01-25 16:16:54.617867
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01307715568691492s
+	Energy: [2.37657918]
+Local start run timestamp: 2026-01-25 16:17:00.676523
+Local complete run timestamp: 2026-01-25 16:17:00.687981
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.011457676999270916s
+	Energy: [1.64458523]
+Local start run timestamp: 2026-01-25 16:17:08.762765
+Local complete run timestamp: 2026-01-25 16:17:08.774871
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.012106280773878098s
+	Energy: [1.36321575]
+Local start run timestamp: 2026-01-25 16:17:16.853934
+Local complete run timestamp: 2026-01-25 16:17:16.867556
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013620803132653236s
+	Energy: [1.61128539]
+Local start run timestamp: 2026-01-25 16:17:24.943982
+Local complete run timestamp: 2026-01-25 16:17:24.957554
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.013571007177233696s
+	Energy: [1.6877227]
+Local start run timestamp: 2026-01-25 16:17:33.027901
+Local complete run timestamp: 2026-01-25 16:17:33.038410
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.010508398525416851s
+	Energy: [1.48036421]
+Local start run timestamp: 2026-01-25 16:17:39.098206
+Local complete run timestamp: 2026-01-25 16:17:39.111492
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013285897672176361s
+	Energy: [1.24649665]
+Local start run timestamp: 2026-01-25 16:17:47.187610
+Local complete run timestamp: 2026-01-25 16:17:47.200891
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.013280900195240974s
+	Energy: [2.29844792]
+Local start run timestamp: 2026-01-25 16:17:55.279632
+Local complete run timestamp: 2026-01-25 16:17:55.293350
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.013717351481318474s
+	Energy: [1.84528147]
+Local start run timestamp: 2026-01-25 16:18:01.359862
+Local complete run timestamp: 2026-01-25 16:18:01.372309
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.012446681037545204s
+	Energy: [1.83498922]
+Local start run timestamp: 2026-01-25 16:18:07.438387
+Local complete run timestamp: 2026-01-25 16:18:07.450813
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.012425599619746208s
+	Energy: [2.34904144]
+Local start run timestamp: 2026-01-25 16:18:13.511557
+Local complete run timestamp: 2026-01-25 16:18:13.524922
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.013364722952246666s
+	Energy: [2.76526276]
+Local start run timestamp: 2026-01-25 16:18:21.598215
+Local complete run timestamp: 2026-01-25 16:18:21.611323
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013106520287692547s
+	Energy: [2.69519085]
+Local start run timestamp: 2026-01-25 16:18:27.677466
+Local complete run timestamp: 2026-01-25 16:18:27.691580
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.014113737270236015s
+	Energy: [2.4224534]
+Local start run timestamp: 2026-01-25 16:18:33.757157
+Local complete run timestamp: 2026-01-25 16:18:33.769220
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.012062769383192062s
+	Energy: [2.4224534]
+Opt. iteration 8: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 3.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:18:39.822814
+Local complete run timestamp: 2026-01-25 16:18:39.834132
+	Terms: ('IIII', array([1.87270059])), complete_time=0.011317415162920952s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:18:45.898481
+Local complete run timestamp: 2026-01-25 16:18:45.911107
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012625087052583694s
+	Energy: [2.7568649]
+Local start run timestamp: 2026-01-25 16:18:51.978972
+Local complete run timestamp: 2026-01-25 16:18:51.990287
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.01131450291723013s
+	Energy: [2.02487096]
+Local start run timestamp: 2026-01-25 16:18:58.055718
+Local complete run timestamp: 2026-01-25 16:18:58.068808
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.01308906264603138s
+	Energy: [0.92932593]
+Local start run timestamp: 2026-01-25 16:19:10.177644
+Local complete run timestamp: 2026-01-25 16:19:10.191531
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013887232169508934s
+	Energy: [1.21015948]
+Local start run timestamp: 2026-01-25 16:19:18.272218
+Local complete run timestamp: 2026-01-25 16:19:18.285503
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.013284144923090935s
+	Energy: [1.48470984]
+Local start run timestamp: 2026-01-25 16:19:28.379822
+Local complete run timestamp: 2026-01-25 16:19:28.393847
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.014024085365235806s
+	Energy: [1.29884228]
+Local start run timestamp: 2026-01-25 16:19:34.462908
+Local complete run timestamp: 2026-01-25 16:19:34.477081
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.014172930270433426s
+	Energy: [0.47597494]
+Local start run timestamp: 2026-01-25 16:19:40.544247
+Local complete run timestamp: 2026-01-25 16:19:40.560036
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.015788502991199493s
+	Energy: [1.69022727]
+Local start run timestamp: 2026-01-25 16:19:46.628456
+Local complete run timestamp: 2026-01-25 16:19:46.642444
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.013988101854920387s
+	Energy: [2.02302138]
+Local start run timestamp: 2026-01-25 16:19:52.705638
+Local complete run timestamp: 2026-01-25 16:19:52.718660
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013020697049796581s
+	Energy: [2.01972786]
+Local start run timestamp: 2026-01-25 16:19:58.783412
+Local complete run timestamp: 2026-01-25 16:19:58.795849
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.01243696827441454s
+	Energy: [1.48627744]
+Local start run timestamp: 2026-01-25 16:20:04.857344
+Local complete run timestamp: 2026-01-25 16:20:04.869732
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012387723661959171s
+	Energy: [1.84422778]
+Local start run timestamp: 2026-01-25 16:20:10.936022
+Local complete run timestamp: 2026-01-25 16:20:10.949467
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013444238342344761s
+	Energy: [2.12663879]
+Local start run timestamp: 2026-01-25 16:20:17.011938
+Local complete run timestamp: 2026-01-25 16:20:17.026258
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.014318721368908882s
+	Energy: [1.82480935]
+Local start run timestamp: 2026-01-25 16:20:25.103743
+Local complete run timestamp: 2026-01-25 16:20:25.116198
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.012454207986593246s
+	Energy: [1.71660069]
+Opt. iteration 9: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 2.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:20:31.178582
+Local complete run timestamp: 2026-01-25 16:20:31.190100
+	Terms: ('IIII', array([1.87270059])), complete_time=0.011516864411532879s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:20:37.249633
+Local complete run timestamp: 2026-01-25 16:20:37.261979
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012345158495008945s
+	Energy: [3.07060062]
+Local start run timestamp: 2026-01-25 16:20:45.330674
+Local complete run timestamp: 2026-01-25 16:20:45.342565
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.011890113353729248s
+	Energy: [2.02384928]
+Local start run timestamp: 2026-01-25 16:20:51.401074
+Local complete run timestamp: 2026-01-25 16:20:51.413221
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.01214662566781044s
+	Energy: [0.20991408]
+Local start run timestamp: 2026-01-25 16:20:57.475224
+Local complete run timestamp: 2026-01-25 16:20:57.488273
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013048368506133556s
+	Energy: [0.55627546]
+Local start run timestamp: 2026-01-25 16:21:03.549090
+Local complete run timestamp: 2026-01-25 16:21:03.561742
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012651846744120121s
+	Energy: [0.94938165]
+Local start run timestamp: 2026-01-25 16:21:11.635197
+Local complete run timestamp: 2026-01-25 16:21:11.648438
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.013240940868854523s
+	Energy: [0.7716458]
+Local start run timestamp: 2026-01-25 16:21:19.730719
+Local complete run timestamp: 2026-01-25 16:21:19.744992
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.014272199012339115s
+	Energy: [0.13933721]
+Local start run timestamp: 2026-01-25 16:21:25.810240
+Local complete run timestamp: 2026-01-25 16:21:25.822915
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.012673917226493359s
+	Energy: [1.53392404]
+Local start run timestamp: 2026-01-25 16:21:31.885750
+Local complete run timestamp: 2026-01-25 16:21:31.898432
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.012681704014539719s
+	Energy: [2.54646782]
+Local start run timestamp: 2026-01-25 16:21:37.962330
+Local complete run timestamp: 2026-01-25 16:21:37.976205
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.01387418620288372s
+	Energy: [2.50982742]
+Local start run timestamp: 2026-01-25 16:21:44.039651
+Local complete run timestamp: 2026-01-25 16:21:44.052193
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.012541540898382664s
+	Energy: [0.91917527]
+Local start run timestamp: 2026-01-25 16:21:52.128913
+Local complete run timestamp: 2026-01-25 16:21:52.141400
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012486514635384083s
+	Energy: [2.22611021]
+Local start run timestamp: 2026-01-25 16:22:00.218443
+Local complete run timestamp: 2026-01-25 16:22:00.231258
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.012813911773264408s
+	Energy: [2.64441826]
+Local start run timestamp: 2026-01-25 16:22:08.312638
+Local complete run timestamp: 2026-01-25 16:22:08.325675
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013036531396210194s
+	Energy: [2.30986032]
+Local start run timestamp: 2026-01-25 16:22:16.404618
+Local complete run timestamp: 2026-01-25 16:22:16.418204
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013584265485405922s
+	Energy: [2.12278772]
+Opt. iteration 10: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  3.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:22:22.488142
+Local complete run timestamp: 2026-01-25 16:22:22.501371
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013227909803390503s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:22:30.585659
+Local complete run timestamp: 2026-01-25 16:22:30.599390
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.013730311766266823s
+	Energy: [3.20370062]
+Local start run timestamp: 2026-01-25 16:22:36.666707
+Local complete run timestamp: 2026-01-25 16:22:36.680390
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.013683021999895573s
+	Energy: [2.44242692]
+Local start run timestamp: 2026-01-25 16:22:42.748249
+Local complete run timestamp: 2026-01-25 16:22:42.761880
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013631394132971764s
+	Energy: [0.88591486]
+Local start run timestamp: 2026-01-25 16:22:50.844733
+Local complete run timestamp: 2026-01-25 16:22:50.859026
+	Terms: ('IZII', array([0.7800932])), complete_time=0.014292414300143719s
+	Energy: [1.16206786]
+Local start run timestamp: 2026-01-25 16:22:56.927719
+Local complete run timestamp: 2026-01-25 16:22:56.942359
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.014640591107308865s
+	Energy: [1.53177487]
+Local start run timestamp: 2026-01-25 16:23:03.011253
+Local complete run timestamp: 2026-01-25 16:23:03.025959
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.01470558438450098s
+	Energy: [1.39818256]
+Local start run timestamp: 2026-01-25 16:23:11.106766
+Local complete run timestamp: 2026-01-25 16:23:11.122223
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.015456350520253181s
+	Energy: [0.51468289]
+Local start run timestamp: 2026-01-25 16:23:17.192089
+Local complete run timestamp: 2026-01-25 16:23:17.206502
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014410657808184624s
+	Energy: [1.09776446]
+Local start run timestamp: 2026-01-25 16:23:23.272839
+Local complete run timestamp: 2026-01-25 16:23:23.286712
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.013872832991182804s
+	Energy: [0.48882204]
+Local start run timestamp: 2026-01-25 16:23:29.355527
+Local complete run timestamp: 2026-01-25 16:23:29.369267
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013739708811044693s
+	Energy: [0.49787922]
+Local start run timestamp: 2026-01-25 16:23:37.450411
+Local complete run timestamp: 2026-01-25 16:23:37.462982
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.012570292688906193s
+	Energy: [0.18750806]
+Local start run timestamp: 2026-01-25 16:23:43.528835
+Local complete run timestamp: 2026-01-25 16:23:43.543400
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.014564244076609612s
+	Energy: [-0.15379342]
+Local start run timestamp: 2026-01-25 16:23:49.610065
+Local complete run timestamp: 2026-01-25 16:23:49.623545
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013479054905474186s
+	Energy: [-0.1113256]
+Local start run timestamp: 2026-01-25 16:23:55.689541
+Local complete run timestamp: 2026-01-25 16:23:55.702428
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.012886449694633484s
+	Energy: [-0.26587682]
+Local start run timestamp: 2026-01-25 16:24:01.769099
+Local complete run timestamp: 2026-01-25 16:24:01.782891
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013791547156870365s
+	Energy: [-0.19434906]
+Opt. iteration 11: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 1.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:24:09.864188
+Local complete run timestamp: 2026-01-25 16:24:09.878365
+	Terms: ('IIII', array([1.87270059])), complete_time=0.01417599804699421s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:24:17.961075
+Local complete run timestamp: 2026-01-25 16:24:17.977588
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01651276182383299s
+	Energy: [2.60475061]
+Local start run timestamp: 2026-01-25 16:24:24.045735
+Local complete run timestamp: 2026-01-25 16:24:24.059237
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.013501500710844994s
+	Energy: [1.66779836]
+Local start run timestamp: 2026-01-25 16:24:32.136602
+Local complete run timestamp: 2026-01-25 16:24:32.149942
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013339529745280743s
+	Energy: [0.49442774]
+Local start run timestamp: 2026-01-25 16:24:38.216705
+Local complete run timestamp: 2026-01-25 16:24:38.229881
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013175321742892265s
+	Energy: [0.64888619]
+Local start run timestamp: 2026-01-25 16:24:44.296810
+Local complete run timestamp: 2026-01-25 16:24:44.311158
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.014347236603498459s
+	Energy: [0.88599786]
+Local start run timestamp: 2026-01-25 16:24:52.391747
+Local complete run timestamp: 2026-01-25 16:24:52.405205
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.013457867316901684s
+	Energy: [0.78435154]
+Local start run timestamp: 2026-01-25 16:25:00.486019
+Local complete run timestamp: 2026-01-25 16:25:00.498799
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.012779315933585167s
+	Energy: [0.40323404]
+Local start run timestamp: 2026-01-25 16:25:08.577223
+Local complete run timestamp: 2026-01-25 16:25:08.590055
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.01283122319728136s
+	Energy: [1.77978741]
+Local start run timestamp: 2026-01-25 16:25:14.656035
+Local complete run timestamp: 2026-01-25 16:25:14.670341
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014306049793958664s
+	Energy: [1.92140193]
+Local start run timestamp: 2026-01-25 16:25:24.767454
+Local complete run timestamp: 2026-01-25 16:25:24.780954
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013499243184924126s
+	Energy: [1.91913763]
+Local start run timestamp: 2026-01-25 16:25:32.862847
+Local complete run timestamp: 2026-01-25 16:25:32.875526
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.012678738683462143s
+	Energy: [0.78434311]
+Local start run timestamp: 2026-01-25 16:25:38.938516
+Local complete run timestamp: 2026-01-25 16:25:38.953527
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.015010898001492023s
+	Energy: [0.70942327]
+Local start run timestamp: 2026-01-25 16:25:47.031040
+Local complete run timestamp: 2026-01-25 16:25:47.044111
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013071049004793167s
+	Energy: [0.89628169]
+Local start run timestamp: 2026-01-25 16:25:57.132829
+Local complete run timestamp: 2026-01-25 16:25:57.145858
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013028382323682308s
+	Energy: [0.70900197]
+Local start run timestamp: 2026-01-25 16:26:05.222912
+Local complete run timestamp: 2026-01-25 16:26:05.235560
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.012647615745663643s
+	Energy: [0.69066152]
+Opt. iteration 12: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  4.04706167
+ 2.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:26:13.311010
+Local complete run timestamp: 2026-01-25 16:26:13.324230
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013219681568443775s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:26:21.404472
+Local complete run timestamp: 2026-01-25 16:26:21.419601
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.015127288177609444s
+	Energy: [2.88045776]
+Local start run timestamp: 2026-01-25 16:26:27.488943
+Local complete run timestamp: 2026-01-25 16:26:27.503455
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.014512160792946815s
+	Energy: [2.09722424]
+Local start run timestamp: 2026-01-25 16:26:33.571656
+Local complete run timestamp: 2026-01-25 16:26:33.584949
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013292303308844566s
+	Energy: [0.70833656]
+Local start run timestamp: 2026-01-25 16:26:41.665368
+Local complete run timestamp: 2026-01-25 16:26:41.679418
+	Terms: ('IZII', array([0.7800932])), complete_time=0.014049162156879902s
+	Energy: [1.00633216]
+Local start run timestamp: 2026-01-25 16:26:47.747662
+Local complete run timestamp: 2026-01-25 16:26:47.761543
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.01388058252632618s
+	Energy: [1.34328033]
+Local start run timestamp: 2026-01-25 16:26:53.830331
+Local complete run timestamp: 2026-01-25 16:26:53.843140
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.012809202075004578s
+	Energy: [1.16612531]
+Local start run timestamp: 2026-01-25 16:26:59.910095
+Local complete run timestamp: 2026-01-25 16:26:59.924387
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.014291039668023586s
+	Energy: [0.10939041]
+Local start run timestamp: 2026-01-25 16:27:05.990839
+Local complete run timestamp: 2026-01-25 16:27:06.005017
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014177469536662102s
+	Energy: [1.34768733]
+Local start run timestamp: 2026-01-25 16:27:12.072594
+Local complete run timestamp: 2026-01-25 16:27:12.087479
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014884352684020996s
+	Energy: [1.33352588]
+Local start run timestamp: 2026-01-25 16:27:18.158048
+Local complete run timestamp: 2026-01-25 16:27:18.171676
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013627474196255207s
+	Energy: [1.33373173]
+Local start run timestamp: 2026-01-25 16:27:30.287012
+Local complete run timestamp: 2026-01-25 16:27:30.301314
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.014300954528152943s
+	Energy: [0.01465433]
+Local start run timestamp: 2026-01-25 16:27:38.385414
+Local complete run timestamp: 2026-01-25 16:27:38.398389
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012974586337804794s
+	Energy: [0.730555]
+Local start run timestamp: 2026-01-25 16:27:44.465181
+Local complete run timestamp: 2026-01-25 16:27:44.478881
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013699082657694817s
+	Energy: [0.96412802]
+Local start run timestamp: 2026-01-25 16:27:50.545283
+Local complete run timestamp: 2026-01-25 16:27:50.558027
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.012743444181978703s
+	Energy: [0.66957157]
+Local start run timestamp: 2026-01-25 16:27:56.629612
+Local complete run timestamp: 2026-01-25 16:27:56.644111
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.014498702250421047s
+	Energy: [0.6989163]
+Opt. iteration 13: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 3.61519568 0.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:28:02.712935
+Local complete run timestamp: 2026-01-25 16:28:02.726631
+	Terms: ('IIII', array([1.87270059])), complete_time=0.01369637530297041s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:28:08.795952
+Local complete run timestamp: 2026-01-25 16:28:08.810888
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01493497472256422s
+	Energy: [3.27975777]
+Local start run timestamp: 2026-01-25 16:28:14.880415
+Local complete run timestamp: 2026-01-25 16:28:14.893425
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.013009519316256046s
+	Energy: [2.53312395]
+Local start run timestamp: 2026-01-25 16:28:24.990316
+Local complete run timestamp: 2026-01-25 16:28:25.004287
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013970759697258472s
+	Energy: [0.80898751]
+Local start run timestamp: 2026-01-25 16:28:31.068217
+Local complete run timestamp: 2026-01-25 16:28:31.082962
+	Terms: ('IZII', array([0.7800932])), complete_time=0.014743638224899769s
+	Energy: [1.07889976]
+Local start run timestamp: 2026-01-25 16:28:37.151294
+Local complete run timestamp: 2026-01-25 16:28:37.165339
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.014045157469809055s
+	Energy: [1.43768716]
+Local start run timestamp: 2026-01-25 16:28:43.232540
+Local complete run timestamp: 2026-01-25 16:28:43.247051
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.014510991051793098s
+	Energy: [1.27737639]
+Local start run timestamp: 2026-01-25 16:28:49.313766
+Local complete run timestamp: 2026-01-25 16:28:49.327133
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.01336660236120224s
+	Energy: [0.38521496]
+Local start run timestamp: 2026-01-25 16:28:55.392781
+Local complete run timestamp: 2026-01-25 16:28:55.406962
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.01418149471282959s
+	Energy: [1.77980178]
+Local start run timestamp: 2026-01-25 16:29:05.500738
+Local complete run timestamp: 2026-01-25 16:29:05.515863
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.015124252066016197s
+	Energy: [2.1409188]
+Local start run timestamp: 2026-01-25 16:29:11.586246
+Local complete run timestamp: 2026-01-25 16:29:11.599506
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013259570114314556s
+	Energy: [2.13289085]
+Local start run timestamp: 2026-01-25 16:29:17.666422
+Local complete run timestamp: 2026-01-25 16:29:17.680675
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.014252201654016972s
+	Energy: [0.78471615]
+Local start run timestamp: 2026-01-25 16:29:23.748783
+Local complete run timestamp: 2026-01-25 16:29:23.764432
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.015647873282432556s
+	Energy: [1.04277337]
+Local start run timestamp: 2026-01-25 16:29:33.852888
+Local complete run timestamp: 2026-01-25 16:29:33.866346
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.01345852017402649s
+	Energy: [1.274223]
+Local start run timestamp: 2026-01-25 16:29:39.933073
+Local complete run timestamp: 2026-01-25 16:29:39.946388
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.01331399753689766s
+	Energy: [0.9814848]
+Local start run timestamp: 2026-01-25 16:29:46.010760
+Local complete run timestamp: 2026-01-25 16:29:46.024531
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.01377075631171465s
+	Energy: [0.96131031]
+Opt. iteration 14: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 1.66708299 0.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:29:54.104461
+Local complete run timestamp: 2026-01-25 16:29:54.117824
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013362657278776169s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:30:00.180631
+Local complete run timestamp: 2026-01-25 16:30:00.193291
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012660364620387554s
+	Energy: [2.6903149]
+Local start run timestamp: 2026-01-25 16:30:06.258243
+Local complete run timestamp: 2026-01-25 16:30:06.272930
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.014687267132103443s
+	Energy: [2.00956053]
+Local start run timestamp: 2026-01-25 16:30:12.340042
+Local complete run timestamp: 2026-01-25 16:30:12.354298
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.014255160465836525s
+	Energy: [0.27943751]
+Local start run timestamp: 2026-01-25 16:30:20.437012
+Local complete run timestamp: 2026-01-25 16:30:20.450266
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013253401964902878s
+	Energy: [0.57587293]
+Local start run timestamp: 2026-01-25 16:30:26.518072
+Local complete run timestamp: 2026-01-25 16:30:26.533289
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.01521668117493391s
+	Energy: [0.93310038]
+Local start run timestamp: 2026-01-25 16:30:32.599620
+Local complete run timestamp: 2026-01-25 16:30:32.614528
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.01490808930248022s
+	Energy: [0.76117289]
+Local start run timestamp: 2026-01-25 16:30:40.699404
+Local complete run timestamp: 2026-01-25 16:30:40.713009
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013604960404336452s
+	Energy: [-0.49478252]
+Local start run timestamp: 2026-01-25 16:30:46.774516
+Local complete run timestamp: 2026-01-25 16:30:46.788534
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.014018147252500057s
+	Energy: [0.76154785]
+Local start run timestamp: 2026-01-25 16:30:52.849924
+Local complete run timestamp: 2026-01-25 16:30:52.864960
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.015035592950880527s
+	Energy: [1.05893833]
+Local start run timestamp: 2026-01-25 16:30:58.925872
+Local complete run timestamp: 2026-01-25 16:30:58.941187
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.015314213931560516s
+	Energy: [1.0564682]
+Local start run timestamp: 2026-01-25 16:31:05.007296
+Local complete run timestamp: 2026-01-25 16:31:05.021320
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.01402360200881958s
+	Energy: [0.06716015]
+Local start run timestamp: 2026-01-25 16:31:11.088744
+Local complete run timestamp: 2026-01-25 16:31:11.101388
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012644251808524132s
+	Energy: [0.47505704]
+Local start run timestamp: 2026-01-25 16:31:17.169240
+Local complete run timestamp: 2026-01-25 16:31:17.182662
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013421677984297276s
+	Energy: [0.80418266]
+Local start run timestamp: 2026-01-25 16:31:23.252766
+Local complete run timestamp: 2026-01-25 16:31:23.264633
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.011866598390042782s
+	Energy: [0.59508395]
+Local start run timestamp: 2026-01-25 16:31:29.328766
+Local complete run timestamp: 2026-01-25 16:31:29.342751
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.013985170051455498s
+	Energy: [0.47770506]
+Opt. iteration 15: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 1.57121998 0.57618226]
+Local start run timestamp: 2026-01-25 16:31:37.413655
+Local complete run timestamp: 2026-01-25 16:31:37.427156
+	Terms: ('IIII', array([1.87270059])), complete_time=0.013500924222171307s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:31:45.501564
+Local complete run timestamp: 2026-01-25 16:31:45.515622
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.01405781228095293s
+	Energy: [2.06284346]
+Local start run timestamp: 2026-01-25 16:31:51.577036
+Local complete run timestamp: 2026-01-25 16:31:51.589448
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.01241212897002697s
+	Energy: [1.50652806]
+Local start run timestamp: 2026-01-25 16:31:57.647799
+Local complete run timestamp: 2026-01-25 16:31:57.660912
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013112163171172142s
+	Energy: [1.59034025]
+Local start run timestamp: 2026-01-25 16:32:03.720885
+Local complete run timestamp: 2026-01-25 16:32:03.733614
+	Terms: ('IZII', array([0.7800932])), complete_time=0.012728537432849407s
+	Energy: [1.83997007]
+Local start run timestamp: 2026-01-25 16:32:09.797030
+Local complete run timestamp: 2026-01-25 16:32:09.811024
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.013994473032653332s
+	Energy: [1.80253139]
+Local start run timestamp: 2026-01-25 16:32:15.875811
+Local complete run timestamp: 2026-01-25 16:32:15.890373
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.014560960233211517s
+	Energy: [1.67590911]
+Local start run timestamp: 2026-01-25 16:32:21.953493
+Local complete run timestamp: 2026-01-25 16:32:21.967471
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013976320624351501s
+	Energy: [1.15620343]
+Local start run timestamp: 2026-01-25 16:32:28.031019
+Local complete run timestamp: 2026-01-25 16:32:28.044603
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.01358374860137701s
+	Energy: [2.22618815]
+Local start run timestamp: 2026-01-25 16:32:34.110154
+Local complete run timestamp: 2026-01-25 16:32:34.124695
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014541219919919968s
+	Energy: [2.31823758]
+Local start run timestamp: 2026-01-25 16:32:40.193945
+Local complete run timestamp: 2026-01-25 16:32:40.207708
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.013762512244284153s
+	Energy: [2.30671026]
+Local start run timestamp: 2026-01-25 16:32:46.273624
+Local complete run timestamp: 2026-01-25 16:32:46.286894
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.013269338756799698s
+	Energy: [3.02444356]
+Local start run timestamp: 2026-01-25 16:32:54.367839
+Local complete run timestamp: 2026-01-25 16:32:54.381167
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.013327273540198803s
+	Energy: [3.46563815]
+Local start run timestamp: 2026-01-25 16:33:00.445886
+Local complete run timestamp: 2026-01-25 16:33:00.458531
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.01264491118490696s
+	Energy: [3.45077442]
+Local start run timestamp: 2026-01-25 16:33:06.520734
+Local complete run timestamp: 2026-01-25 16:33:06.533282
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.012547834776341915s
+	Energy: [3.22349321]
+Local start run timestamp: 2026-01-25 16:33:16.631933
+Local complete run timestamp: 2026-01-25 16:33:16.645951
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.014017715118825436s
+	Energy: [3.1703059]
+Opt. iteration 16: running with params [2.17665249 3.98675708 2.29962679 1.8807411  0.49014701 0.49007124
+ 0.18247505 2.72117262 1.8884585  2.22447561 0.0646681  3.04706167
+ 2.61519568 0.66708299 0.57121998 1.57618226]
+Local start run timestamp: 2026-01-25 16:33:22.718482
+Local complete run timestamp: 2026-01-25 16:33:22.733388
+	Terms: ('IIII', array([1.87270059])), complete_time=0.014904684387147427s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:33:28.805328
+Local complete run timestamp: 2026-01-25 16:33:28.818677
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.013348349370062351s
+	Energy: [2.66179347]
+Local start run timestamp: 2026-01-25 16:33:34.886432
+Local complete run timestamp: 2026-01-25 16:33:34.901119
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.01468657422810793s
+	Energy: [2.03227868]
+Local start run timestamp: 2026-01-25 16:33:42.984047
+Local complete run timestamp: 2026-01-25 16:33:42.996893
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.012845560908317566s
+	Energy: [0.48773979]
+Local start run timestamp: 2026-01-25 16:33:49.063417
+Local complete run timestamp: 2026-01-25 16:33:49.076552
+	Terms: ('IZII', array([0.7800932])), complete_time=0.013135169632732868s
+	Energy: [0.74673073]
+Local start run timestamp: 2026-01-25 16:33:55.142468
+Local complete run timestamp: 2026-01-25 16:33:55.154957
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012488537468016148s
+	Energy: [1.14451676]
+Local start run timestamp: 2026-01-25 16:34:03.235736
+Local complete run timestamp: 2026-01-25 16:34:03.248623
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.01288639660924673s
+	Energy: [0.98362515]
+Local start run timestamp: 2026-01-25 16:34:11.328443
+Local complete run timestamp: 2026-01-25 16:34:11.341388
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.012944871559739113s
+	Energy: [-0.34162435]
+Local start run timestamp: 2026-01-25 16:34:17.407531
+Local complete run timestamp: 2026-01-25 16:34:17.421223
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.01369150634855032s
+	Energy: [1.04094018]
+Local start run timestamp: 2026-01-25 16:34:27.514321
+Local complete run timestamp: 2026-01-25 16:34:27.528558
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.014235693030059338s
+	Energy: [1.39497647]
+Local start run timestamp: 2026-01-25 16:34:33.595882
+Local complete run timestamp: 2026-01-25 16:34:33.608743
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.012860571034252644s
+	Energy: [1.39621154]
+Local start run timestamp: 2026-01-25 16:34:41.691841
+Local complete run timestamp: 2026-01-25 16:34:41.705879
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.014037418179214s
+	Energy: [0.64938095]
+Local start run timestamp: 2026-01-25 16:34:49.790570
+Local complete run timestamp: 2026-01-25 16:34:49.804208
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.013637535274028778s
+	Energy: [0.97403358]
+Local start run timestamp: 2026-01-25 16:34:55.870732
+Local complete run timestamp: 2026-01-25 16:34:55.884432
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.013698945753276348s
+	Energy: [1.3031592]
+Local start run timestamp: 2026-01-25 16:35:03.963549
+Local complete run timestamp: 2026-01-25 16:35:03.976978
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013428683392703533s
+	Energy: [1.09951524]
+Local start run timestamp: 2026-01-25 16:35:10.043043
+Local complete run timestamp: 2026-01-25 16:35:10.055688
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.012644530273973942s
+	Energy: [0.98213635]
+Opt. iteration 17: running with params [ 2.23023191  4.11884276  2.09190042  1.6538366   0.36842715  0.2947322
+ -0.23469472  2.41080793  1.51663222  2.20326353 -0.09045808  2.89068643
+  2.41911667  0.54418001  0.04088999  0.37695199]
+Local start run timestamp: 2026-01-25 16:35:16.130776
+Local complete run timestamp: 2026-01-25 16:35:16.145957
+	Terms: ('IIII', array([1.87270059])), complete_time=0.015179941430687904s
+	Energy: [1.87270059]
+Local start run timestamp: 2026-01-25 16:35:26.236051
+Local complete run timestamp: 2026-01-25 16:35:26.248820
+	Terms: ('IIIZ', array([4.75357153])), complete_time=0.012767896056175232s
+	Energy: [2.94700776]
+Local start run timestamp: 2026-01-25 16:35:34.321707
+Local complete run timestamp: 2026-01-25 16:35:34.334579
+	Terms: ('IIZI', array([3.65996971])), complete_time=0.012871791608631611s
+	Energy: [2.31749297]
+Local start run timestamp: 2026-01-25 16:35:40.398325
+Local complete run timestamp: 2026-01-25 16:35:40.411636
+	Terms: ('IIZZ', array([2.99329242])), complete_time=0.013310550712049007s
+	Energy: [1.01840406]
+Local start run timestamp: 2026-01-25 16:35:50.498818
+Local complete run timestamp: 2026-01-25 16:35:50.511315
+	Terms: ('IZII', array([0.7800932])), complete_time=0.012496736831963062s
+	Energy: [1.2664737]
+Local start run timestamp: 2026-01-25 16:35:56.577300
+Local complete run timestamp: 2026-01-25 16:35:56.590273
+	Terms: ('IZIZ', array([0.7799726])), complete_time=0.012973284348845482s
+	Energy: [1.64866027]
+Local start run timestamp: 2026-01-25 16:36:02.657300
+Local complete run timestamp: 2026-01-25 16:36:02.670571
+	Terms: ('IZZI', array([0.29041806])), complete_time=0.01327050942927599s
+	Energy: [1.50984044]
+Local start run timestamp: 2026-01-25 16:36:10.749172
+Local complete run timestamp: 2026-01-25 16:36:10.762343
+	Terms: ('IZZZ', array([4.33088073])), complete_time=0.013169522397220135s
+	Energy: [0.80823776]
+Local start run timestamp: 2026-01-25 16:36:18.837050
+Local complete run timestamp: 2026-01-25 16:36:18.849275
+	Terms: ('ZIII', array([3.00557506])), complete_time=0.012224345467984676s
+	Energy: [1.99844549]
+Local start run timestamp: 2026-01-25 16:36:26.928211
+Local complete run timestamp: 2026-01-25 16:36:26.940211
+	Terms: ('ZIIZ', array([3.54036289])), complete_time=0.011998884379863739s
+	Energy: [1.55235976]
+Local start run timestamp: 2026-01-25 16:36:32.999628
+Local complete run timestamp: 2026-01-25 16:36:33.012197
+	Terms: ('ZIZI', array([0.10292247])), complete_time=0.01256905123591423s
+	Energy: [1.55627081]
+Local start run timestamp: 2026-01-25 16:36:39.076044
+Local complete run timestamp: 2026-01-25 16:36:39.089954
+	Terms: ('ZIZZ', array([4.84954926])), complete_time=0.01390978042036295s
+	Energy: [0.54756457]
+Local start run timestamp: 2026-01-25 16:36:47.166932
+Local complete run timestamp: 2026-01-25 16:36:47.179723
+	Terms: ('ZZII', array([4.1622132])), complete_time=0.012790998443961143s
+	Energy: [0.54756457]
+Local start run timestamp: 2026-01-25 16:36:53.239635
+Local complete run timestamp: 2026-01-25 16:36:53.253002
+	Terms: ('ZZIZ', array([1.06169555])), complete_time=0.01336691714823246s
+	Energy: [0.77689081]
+Local start run timestamp: 2026-01-25 16:37:01.330887
+Local complete run timestamp: 2026-01-25 16:37:01.344137
+	Terms: ('ZZZI', array([0.90912484])), complete_time=0.013249743729829788s
+	Energy: [0.63324908]
+Local start run timestamp: 2026-01-25 16:37:09.422795
+Local complete run timestamp: 2026-01-25 16:37:09.435335
+	Terms: ('ZZZZ', array([0.91702255])), complete_time=0.0125395767390728s
+	Energy: [0.63508313]
+------------------------------------------
+Converged energy: %.6f -0.33453532909112205
+Elapsed time: %.6fs 6.327916252000001
+------------------------------------------
+[SBATCH] Sun 25-01-2026 16:03:21.082: Start execution
+[SBATCH] Sun 25-01-2026 16:37:20.460: Finished execution
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to execute (ms): 2039378
+[SBATCH] -------------------------------------------------
+
+[SBATCH] Sun 25-01-2026 16:37:20.465: Unloading mqss-qoffload env
+[SBATCH] Sun 25-01-2026 16:37:20.474: Finished unloading mqss-qoffload env
+[SBATCH] -------------------------------------------------
+[SBATCH] Elapsed time to unload mqss-qoffload env (ms): 11
+[SBATCH] -------------------------------------------------
+

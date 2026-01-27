@@ -159,9 +159,9 @@ def run_circuit(params, num_qubits, backend, num_shots, basis=None, draw_flag=Fa
     start_run_time = perf_counter()
     # assume some delay here between submission and execution start
     job = backend.run(circuit, shots=num_shots)
+    result = job.result()
     local_complete_run_time = datetime.now()
     end_run_time = perf_counter()
-    result = job.result()
 
     print(f"Local start run timestamp: {local_start_run_time}")
     print(f"Local complete run timestamp: {local_complete_run_time}")
@@ -294,7 +294,7 @@ if __name__ == "__main__":
                         help="The amount of numbers/qubits we want to randomly generate")
     parser.add_argument("-sho", "--shots", type=int, default=1000, 
                         help="The numbers of shots we want to run the circuit with")
-    parser.add_argument("-max", "--maxiter", type=int, default=100, 
+    parser.add_argument("-max", "--maxiter", type=int, default=10, 
                         help="The maximum number of iterations for optimization")
     args = vars(parser.parse_args())
 

@@ -11,7 +11,11 @@ from .types import (
     ReportConfig,
 )
 from .circuit_generator import CircuitGenerator
-from .benchmark_executor import BenchmarkExecutor, DefaultBenchmarkExecutor
+from .benchmark_executor import (
+    BenchmarkExecutor,
+    DefaultBenchmarkExecutor,
+    HybridBenchmarkExecutor,
+)
 from .benchmark_analyzer import BenchmarkAnalyzer, DefaultAnalyzer
 from .benchmark import Benchmark
 from .benchmark_registry import BenchmarkRegistry
@@ -32,6 +36,7 @@ __all__ = [
     "CircuitGenerator",
     "BenchmarkExecutor",
     "DefaultBenchmarkExecutor",
+    "HybridBenchmarkExecutor",
     "BenchmarkAnalyzer",
     "DefaultAnalyzer",
     "Benchmark",
@@ -41,4 +46,3 @@ __all__ = [
     "AdapterRegistry",
     "DeviceAdapter",
 ]
-

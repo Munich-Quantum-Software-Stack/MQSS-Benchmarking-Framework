@@ -39,7 +39,7 @@ class RandomizedBenchmarkingGenerator(CircuitGenerator):
 
         n_lengths = len(lengths)
         for idx, circ in enumerate(experiment.circuits()):
-            seq_idx = idx // n_lengths # compute sequence index
+            seq_idx = idx // n_lengths  # compute sequence index
             length = circ.metadata["xval"]  # Qiskit stores the length in metadata
             circuits.append(
                 CircuitSpec(
@@ -53,13 +53,15 @@ class RandomizedBenchmarkingGenerator(CircuitGenerator):
                     },
                 )
             )
-                
+
         return circuits
 
 
 class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
     @override
-    def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
+    def analyze(
+        self, execution_results: List[ExecutionResult], context: RunContext
+    ) -> AnalysisResult:
         num_qubits = int(context.params["num_qubits"])
         zero_state = "0" * num_qubits
         grouped_survivals: Dict[int, List[float]] = defaultdict(list)
@@ -69,18 +71,24 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
             length = int(result.metadata["length"])
             total = sum(counts.values())
             if total == 0:
-                raise ValueError("Randomized Benchmarking analysis failed: zero total counts encountered.")
+                raise ValueError(
+                    "Randomized Benchmarking analysis failed: zero total counts encountered."
+                )
             survival = counts.get(zero_state, 0) / total
             grouped_survivals[length].append(float(survival))
 
         if not grouped_survivals:
-            raise ValueError("Randomized Benchmarking analysis failed: no survival data found.")
+            raise ValueError(
+                "Randomized Benchmarking analysis failed: no survival data found."
+            )
 
         lengths = sorted(grouped_survivals.keys())
-        mean_survivals = [float(np.mean(grouped_survivals[length])) for length in lengths]
+        mean_survivals = [
+            float(np.mean(grouped_survivals[length])) for length in lengths
+        ]
 
         def decay_model(clifford_lengths, amp, depolarizing, offset):
-            return amp * (depolarizing ** clifford_lengths) + offset
+            return amp * (depolarizing**clifford_lengths) + offset
 
         Ls = np.array(lengths, dtype=float)
         ys = np.array(mean_survivals, dtype=float)
@@ -94,7 +102,7 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         _, p_decay, _ = popt
         dimension = 2**num_qubits
         avg_gate_error = ((dimension - 1) / dimension) * (1 - float(p_decay))
-        
+
         artifacts = {}
         if context.report_config.analysis.visualization.enabled:
             plot_filename = self._plot(lengths, mean_survivals, context)
@@ -109,7 +117,9 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
             artifacts=artifacts,
         )
 
-    def _plot(self, lengths: List[int], survivals: List[float], context: RunContext) -> None:
+    def _plot(
+        self, lengths: List[int], survivals: List[float], context: RunContext
+    ) -> None:
         backend_name = context.adapter.get_backend_name()
         plt.figure()
         if backend_name:
@@ -122,10 +132,13 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         plt.xticks(lengths)
         plt.plot(lengths, survivals, marker="o", linestyle="-")
 
-        filename = make_output_filepath(context.benchmark_key, context.run_dir, tag="decay_plot")
+        filename = make_output_filepath(
+            context.benchmark_key, context.run_dir, tag="decay_plot"
+        )
         plt.savefig(filename)
 
         return filename
+
 
 @BenchmarkRegistry.register_benchmark
 class RandomizedBenchmarkingBenchmark(Benchmark):
@@ -135,14 +148,18 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
     generator = RandomizedBenchmarkingGenerator
     executor = DefaultBenchmarkExecutor
     analyzer = RandomizedBenchmarkingAnalyzer
-    supported_adapters: Tuple[str, ...] = ("mqss_qiskit",)
+    supported_adapters: Tuple[str, ...] = ("mqss_qiskit", "qiskit_simulator")
     category = BenchmarkCategory.HARDWARE
-    
+
     @override
     def validate_params(self, params: Dict[str, Any]) -> None:
         if not params:
-            raise ValueError(f"Parameters must be provided for '{self.registry_key()}' benchmark.")
+            raise ValueError(
+                f"Parameters must be provided for '{self.registry_key()}' benchmark."
+            )
         required_params = ["num_qubits", "lengths", "num_sequences"]
         missing = [field for field in required_params if field not in params]
         if missing:
-            raise ValueError(f"Missing required parameters for '{self.registry_key()}': {missing}")
+            raise ValueError(
+                f"Missing required parameters for '{self.registry_key()}': {missing}"
+            )

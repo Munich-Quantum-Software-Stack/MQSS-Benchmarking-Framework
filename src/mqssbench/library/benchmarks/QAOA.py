@@ -162,7 +162,7 @@ class QAOABenchmark(Benchmark):
     executor = HybridBenchmarkExecutor
     analyzer = QAOAAnalyzer
     supported_adapters: Tuple[str, ...] = ("mqss_qiskit", "qiskit_simulator")
-    category = BenchmarkCategory.HARDWARE
+    category = BenchmarkCategory.ALGORITHM
 
     @override
     def validate_params(self, params: Dict[str, Any]) -> None:

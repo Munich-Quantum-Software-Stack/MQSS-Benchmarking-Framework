@@ -1,6 +1,6 @@
 import logging
 from typing import override
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer.primitives import SamplerV2
 from ....framework.adapter import DeviceAdapter
 from ....framework.adapter_registry import AdapterRegistry
@@ -63,22 +63,32 @@ class QiskitSimulatorAdapter(DeviceAdapter):
             built_circuit = circuit()
         else:
             built_circuit = circuit
+        transpiled_circuit = transpile(
+            built_circuit,
+            basis_gates=["u", "cx"],
+            optimization_level=0,
+        )
 
         # print(f"Running circuit on backend {self._backend_name} ...")
         # print("circuit", built_circuit)
 
-        if not isinstance(built_circuit, QuantumCircuit):
+        if not isinstance(transpiled_circuit, QuantumCircuit):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")
 
         backend = self._get_backend()
         if self._shots is not None:
-            job = backend.run([built_circuit], shots=self._shots)
+            job = backend.run([transpiled_circuit], shots=self._shots)
         else:
-            job = backend.run([built_circuit])
+            job = backend.run([transpiled_circuit])
 
         result = job.result()
-        counts = result[0].data.c.get_counts()
-
+        try:
+            counts = result[0].data.c.get_counts()
+        except Exception as e:
+            logger.error(
+                f"Error getting counts from result: {e}, trying accessing the attribute meas instead of c"
+            )
+            counts = result[0].data.meas.get_counts()
         job_id = job.job_id()
 
         return ExecutionResult(

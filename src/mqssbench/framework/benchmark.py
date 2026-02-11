@@ -9,15 +9,17 @@ from .utils import validate_benchmark_registry_key
 
 from .types import BenchmarkCategory, RunContext, BenchmarkResult
 from .circuit_generator import CircuitGenerator
-from .benchmark_executor import BenchmarkExecutor
+from .benchmark_executor import BenchmarkExecutor, HybridBenchmarkExecutor
 from .benchmark_analyzer import BenchmarkAnalyzer
 
-ComponentT = TypeVar("ComponentT", CircuitGenerator, BenchmarkExecutor, BenchmarkAnalyzer)
+ComponentT = TypeVar(
+    "ComponentT", CircuitGenerator, BenchmarkExecutor, BenchmarkAnalyzer
+)
 
 
 class Benchmark(ABC):
     """Abstract base class for benchmarks."""
-    
+
     # Class-level attributes that must be defined by subclasses
     origin: str
     source: str
@@ -44,7 +46,7 @@ class Benchmark(ABC):
     def validate_params(self, params: Dict[str, Any]) -> None:
         """Validate benchmark parameters."""
         ...
-    
+
     def validate_adapter(self, adapter_name: str) -> None:
         """Validate that the adapter is supported."""
         if self.supported_adapters:
@@ -68,19 +70,23 @@ class Benchmark(ABC):
         circuits = generator.generate(self.context.params)
 
         executor = self._instantiate_component(self.executor, BenchmarkExecutor)
-        excecution_results = executor.run(circuits, self.context)
+
+        if isinstance(executor, HybridBenchmarkExecutor):
+            excecution_results = executor.run(generator, self.context)
+        else:
+            excecution_results = executor.run(circuits, self.context)
 
         analysis_result = None
-        if(self.context.report_config.analysis.enabled):
+        if self.context.report_config.analysis.enabled:
             analyzer = self._instantiate_component(self.analyzer, BenchmarkAnalyzer)
             analysis_result = analyzer.analyze(excecution_results, self.context)
 
         return BenchmarkResult(
-            run_id = self.context.run_id,
-            benchmark_key = self.context.benchmark_key,
-            params = self.context.params,
-            execution_results = excecution_results,
-            analysis_result = analysis_result
+            run_id=self.context.run_id,
+            benchmark_key=self.context.benchmark_key,
+            params=self.context.params,
+            execution_results=excecution_results,
+            analysis_result=analysis_result,
         )
 
     def _instantiate_component(
@@ -101,11 +107,22 @@ class Benchmark(ABC):
     def _validate_attributes(cls) -> None:
         """Validate benchmark class attributes."""
 
-        required_attrs = ["origin", "source", "name", "generator", "executor", "analyzer", "supported_adapters", "category"]
+        required_attrs = [
+            "origin",
+            "source",
+            "name",
+            "generator",
+            "executor",
+            "analyzer",
+            "supported_adapters",
+            "category",
+        ]
         for attr in required_attrs:
             if attr not in cls.__dict__:
-                raise TypeError(f"Benchmark class '{cls.__name__}' must define '{attr}' at the class level.")
-        
+                raise TypeError(
+                    f"Benchmark class '{cls.__name__}' must define '{attr}' at the class level."
+                )
+
         validate_benchmark_registry_key(cls.registry_key())
 
         if not issubclass(cls.generator, CircuitGenerator):

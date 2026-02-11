@@ -2,11 +2,11 @@ benchmark: core/native/randomized_benchmarking
 
 benchmark_params: # benchamark specific params
   num_qubits: 2
-  lengths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  num_sequences: 10
+  lengths: [2, 4, 8, 16, 32, 64, 128]
+  num_sequences: 20
 
-adapter: mqss_qiskit
-backend: QExa20
+adapter: qiskit_simulator
+#backend: QExa20 
 
 credentials:
   mqss_token: ""

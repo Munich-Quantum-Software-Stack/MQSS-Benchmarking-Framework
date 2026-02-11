@@ -3,17 +3,18 @@
 from abc import ABC, abstractmethod
 from .types import ProfilingConfig, RunContext, ExecutionResult
 
-# TODO: refactor to not using raw config here, instead use dedicated AdapterConfig dataclass
 
 class DeviceAdapter(ABC):
     """Abstract base class for MQSS adapters."""
 
-    name: str # Unique name for the adapter class. Child classes must define this attribute
+    name: str  # Unique name for the adapter class. Child classes must define this attribute
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         # Validate class attributes
-        if "name" not in cls.__dict__ or not isinstance(getattr(cls, "name", None), str):
+        if "name" not in cls.__dict__ or not isinstance(
+            getattr(cls, "name", None), str
+        ):
             raise TypeError(
                 f"{cls.__name__}: missing or invalid 'name' class attribute."
             )
@@ -34,9 +35,10 @@ class DeviceAdapter(ABC):
         ...
 
     @abstractmethod
-    def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> ExecutionResult: 
+    def execute_circuit(
+        self, context: RunContext, circuit, num_qubits=None, transpile_mode=True
+    ) -> ExecutionResult:
         """Execute a circuit on the backend."""
         ...
 
         # TODO: add batch circuits running for efficiency
-

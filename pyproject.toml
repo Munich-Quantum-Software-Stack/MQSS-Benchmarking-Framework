@@ -1,7 +1,7 @@
 [project]
 name = "mqss-benchmarking-framework"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "Automated and reproducible benchmarking framework for quantum computing workflows."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

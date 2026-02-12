@@ -1,0 +1,43 @@
+# .github/workflows/publish.yml
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*" # Trigger on version tags
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install UV
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+        shell: bash
+
+      - name: Add UV to the environment
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+        shell: bash
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+      
+      - name: Generate lock file
+        run: uv lock
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish package
+        env:
+          PYPI_USERNAME: __token__
+          PYPI_PASSWORD: ${{ secrets.MQSS_PYPI_API_TOKEN }}
+        run: uv publish -v -u ${PYPI_USERNAME} -p ${PYPI_PASSWORD}

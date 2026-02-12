@@ -1,0 +1,41 @@
+name: CI
+
+on: [push]
+
+env:
+  PIP_EXTRA_INDEX_URL: https://pypi.org/simple
+  MQSS_TOKEN: ${{ vars.MQSS_TOKEN }}
+
+jobs:
+  setup:
+      name: Setup Environment
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+
+        - name: Install UV
+          run: curl -LsSf https://astral.sh/uv/install.sh | sh
+          shell: bash
+
+        - name: Add UV to the environment
+          run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+          shell: bash
+
+        - name: Install the project
+          run: uv sync --all-extras --dev
+
+        - name: Check UV installation
+          run: uv --version
+          shell: bash
+
+        - name: List the project dependencies
+          run: uv pip list
+        - name: Install Ruff
+          run: uv pip install ruff
+
+        - name: Run Ruff Linter
+          run: uv run ruff check .
+
+        - name: Run Pytest
+          run: uv run pytest -s --maxfail=1 --disable-warnings

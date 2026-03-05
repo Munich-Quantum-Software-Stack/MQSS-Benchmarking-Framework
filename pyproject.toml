@@ -18,25 +18,6 @@ dependencies = [
     "dacite>=1.9.2",
     "pytest-cov>=7.0.0",
 ]
-
-# for PyPy
-[project.optional-dependencies]
-dev = [
-    "ruff",
-    "pylint",
-    "pytest", 
-    "pytest-cov"
-]
-
-# for uv
-[tool.uv]
-dev-dependencies = [
-    "ruff",
-    "pylint",
-    "pytest",
-    "pytest-cov",
-]
-
 [project.scripts]
 mqssbench = "mqssbench.cli.__main__:main"
 
@@ -45,7 +26,17 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[dependency-groups]
+dev = ["ruff", "pylint", "pytest", "pytest-cov"]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-autorefs>=1.4.1",
+    "mkdocs-material>=9.6.9",
+    "mkdocstrings[python]>=0.29.0",
+    "pytest>=8.3.3",
+]

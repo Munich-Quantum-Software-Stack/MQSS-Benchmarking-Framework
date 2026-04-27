@@ -1,7 +1,6 @@
 import logging
 from typing import override
-from qiskit import QuantumCircuit
-from qiskit import transpile
+from qiskit import QuantumCircuit, compiler
 from ....framework.adapter import DeviceAdapter
 from mqss.qiskit_adapter import MQSSQiskitAdapter
 from ....framework.adapter_registry import AdapterRegistry
@@ -101,23 +100,19 @@ class QiskitAdapter(DeviceAdapter):
             built_circuit = circuit
 
         print(f"Running circuit on backend {self._backend_name} ...")
-        print("circuit", built_circuit)
+        print("Circuit\n", built_circuit)
 
         if not isinstance(built_circuit, QuantumCircuit):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")
 
-        # TODO: consider exploring alternatives to transpilation here
+        backend = self._get_backend()
+
         # Transpile to basic gates to avoid unsupported custom instructions errors (a conservative basis set compatible with most backends)
         if transpile_mode is True:
-            transpiled_circuit = transpile(
-                built_circuit,
-                basis_gates=["u", "cx"],
-                optimization_level=0,
-            )
+            transpiled_circuit = compiler.transpile(built_circuit, backend, optimization_level=3)
         else:
             transpiled_circuit = built_circuit
 
-        backend = self._get_backend()
         if self._shots is not None:
             job = backend.run(transpiled_circuit, shots=self._shots)
         else:

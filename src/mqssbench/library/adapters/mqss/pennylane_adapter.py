@@ -93,7 +93,7 @@ class PennyLaneAdapter(DeviceAdapter):
         # TODO: for now implement transpile_mode, later consider exploring alternatives to transpilation here
         
         print(f"Running circuit on backend {self._backend_name} ...")
-        print(circuit)
+        print("Circuit\n", circuit)
 
         # Build qnode
         if callable(circuit):

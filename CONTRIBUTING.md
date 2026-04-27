@@ -67,11 +67,21 @@ Examples (based on existing branches in this repo):
 
 ## How to Test
 
-### Run tests locally
+### Run Tests
+
+To run tests locally:
 
 ```bash
 uv run pytest
 ```
+
+### Test Coverage
+
+To run tests with coverage locally:
+
+```bash
+uv run pytest --cov=src --cov-report=term-missing
+````
 
 Notes specific to this repo:
 

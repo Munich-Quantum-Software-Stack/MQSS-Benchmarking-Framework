@@ -117,14 +117,10 @@ benchmark_params:
 
 # Adapter configuration
 adapter: <ADAPTER_NAME>
-backend: <BACKEND>
-
-# Credentials for the adapter or backend
-credentials:
-  <CREDENTIAL_KEY>: <CREDENTIAL_VALUE>
-
-# Number of measurement shots
-shots: <NUM_SHOTS>
+adapter_params:
+  <ADAPTER_PARAM_1>: <VALUE_1>
+  <ADAPTER_PARAM_2>: <VALUE_2>
+  <ADAPTER_PARAM_3>: <VALUE_3>
 
 # output directory
 output_dir: <PATH>
@@ -170,12 +166,13 @@ benchmark_params:
   num_sequences: 2
 
 adapter: mqss_qiskit
-backend: QExa20
-
-credentials:
-  mqss_token: ""
-
-shots: 1000
+adapter_params:
+  backend: QExa20
+  backend_params:
+    queued: true
+  credentials:
+    mqss_token: ""
+  shots: 1000
 
 output_dir: "./results"
 
@@ -209,10 +206,11 @@ Example of a multi benchmark config:
     lengths: [2, 4, 8]
     num_sequences: 2
   adapter: mqss_qiskit
-  backend: QExa20
-  credentials:
-    mqss_token: ""
-  shots: 200
+  adapter_params:
+    backend: QExa20
+    credentials:
+      mqss_token: ""
+    shots: 200
   output_dir: "./results"
   storage:
     enabled: true
@@ -226,10 +224,11 @@ Example of a multi benchmark config:
     depth: 3
     trials: 2
   adapter: mqss_qiskit
-  backend: QExa20
-  credentials:
-    mqss_token: ""
-  shots: 200
+  adapter_params:
+    backend: QExa20
+    credentials:
+      mqss_token: ""
+    shots: 200
   output_dir: "./results"
   storage:
     enabled: true
@@ -257,15 +256,15 @@ config = {
   },
 
   "adapter": "mqss_qiskit",
-  "backend": "QExa20",
-
-  "credentials": {
-    "mqss_token": ""
+  "adapter_params": {
+    "backend": "QExa20",
+    "credentials": {
+      "mqss_token": ""
+    },
+    "shots": 1000
   },
 
-  "shots": 1000,
-
-  "output_dir": "./results"
+  "output_dir": "./results",
 
   "report": {
     "analysis": {

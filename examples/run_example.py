@@ -14,9 +14,11 @@ config = {
         "trials": 2
     },
     "adapter": "mqss_qiskit",
-    "backend": "QExa20",
-    "credentials": {"mqss_token": ""},
-    "shots": 200,
+    "adapter_params": {
+        "backend": "QExa20",
+        "credentials": {"mqss_token": ""},
+        "shots": 200,
+    },
     "output_dir": "./results",
     "storage": {
         "enabled": True,

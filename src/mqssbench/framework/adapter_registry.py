@@ -49,12 +49,12 @@ class AdapterRegistry:
 
         return adapter_cls
 
-    def _get(self, adapter_name: str, config: Dict[str, Any]) -> DeviceAdapter:
+    def _get(self, adapter_name: str, adapter_params: Dict[str, Any]) -> DeviceAdapter:
         """Instantiate and return an adapter by adapter name."""
         self._validate_adapter_name(adapter_name)
         try:
             adapter_cls = self._registry[adapter_name]
-            return adapter_cls(config)  # instantiate with config
+            return adapter_cls(adapter_params)  # instantiate with adapter parameters
         except KeyError:
             available = ", ".join(sorted(self._registry.keys())) or "none"
             raise ValueError(f"No adapter registered for adapter name '{adapter_name}'. available: {available}")
@@ -78,9 +78,9 @@ class AdapterRegistry:
         return cls()._register(adapter_cls)
 
     @classmethod
-    def get_adapter(cls, adapter_name: str, config: Dict[str, Any]) -> DeviceAdapter:
+    def get_adapter(cls, adapter_name: str, adapter_params: Dict[str, Any]) -> DeviceAdapter:
         """Get an adapter instance by adapter name."""
-        return cls()._get(adapter_name, config)
+        return cls()._get(adapter_name, adapter_params)
 
     @classmethod
     def list_adapters(cls) -> List[str]:

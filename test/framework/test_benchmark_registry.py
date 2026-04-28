@@ -245,12 +245,12 @@ def test_end_to_end_benchmark_run_via_registry():
     class DummyAdapter(DeviceAdapter):
         name = "dummy_adapter"
 
-        def __init__(self, config):
-            if config is None:
-                config = {}
-            if not isinstance(config, dict):
-                raise TypeError("config must be a dict")
-            self.config = config
+        def __init__(self, adapter_params):
+            if adapter_params is None:
+                adapter_params = {}
+            if not isinstance(adapter_params, dict):
+                raise TypeError("adapter_params must be a dict")
+            self.adapter_params = adapter_params
             self._calls = []
 
         @classmethod
@@ -351,12 +351,12 @@ def test_benchmark_runner_integration(temp_output_dir):
     class DummyAdapter(DeviceAdapter):
         name = "dummy_adapter"
 
-        def __init__(self, config):
-            if config is None:
-                config = {}
-            if not isinstance(config, dict):
-                raise TypeError("config must be a dict")
-            self.config = config
+        def __init__(self, adapter_params):
+            if adapter_params is None:
+                adapter_params = {}
+            if not isinstance(adapter_params, dict):
+                raise TypeError("adapter_params must be a dict")
+            self.adapter_params = adapter_params
 
         @classmethod
         def validate_profiling_config(cls, profiling_config):
@@ -405,6 +405,7 @@ def test_benchmark_runner_integration(temp_output_dir):
         "benchmark": bench_key,
         "benchmark_params": {},
         "adapter": "dummy_adapter",
+        "adapter_params": {},
         "profiling": {},
         "output_dir": temp_output_dir,  # injected temp dir for the test
         "report": {"analysis": {"enabled": True}},

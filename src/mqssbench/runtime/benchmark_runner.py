@@ -26,7 +26,9 @@ class BenchmarkRunner:
         adapter_name = self.config.get("adapter")
         if not adapter_name:
             raise ValueError("The 'adapter' field is mandatory in the benchmark configuration.")
-        adapter = AdapterRegistry.get_adapter(adapter_name, self.config)
+        adapter = AdapterRegistry.get_adapter(
+            adapter_name, self.config.get("adapter_params", {})
+        )
 
         # get and validate benchmark key
         benchmark_key = self._resolve_benchmark_key()

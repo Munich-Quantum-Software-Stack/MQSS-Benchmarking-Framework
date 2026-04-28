@@ -19,7 +19,7 @@ from ...framework import (
 )
 
 
-class RandomizedBenchmarkingGenerator(CircuitGenerator):
+class TranspiledRandomizedBenchmarkingGenerator(CircuitGenerator):
     @override
     def generate(self, params: Dict[str, Any]) -> List[CircuitSpec]:
         from qiskit_experiments.library.randomized_benchmarking import StandardRB
@@ -28,7 +28,7 @@ class RandomizedBenchmarkingGenerator(CircuitGenerator):
         lengths = list(params["lengths"])
         num_sequences = int(params["num_sequences"])
         circuits: List[CircuitSpec] = []
-        seed = 41
+        seed = 42
 
         experiment = StandardRB(
             physical_qubits=list(range(num_qubits)),
@@ -57,7 +57,7 @@ class RandomizedBenchmarkingGenerator(CircuitGenerator):
         return circuits
 
 
-class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
+class TranspiledRandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
     @override
     def analyze(
         self, execution_results: List[ExecutionResult], context: RunContext
@@ -127,10 +127,8 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         else:
             plt.title("Randomized Benchmarking")
         plt.xscale("log")
-
-        lengths_str = [int(x) for x in lengths]
-        plt.xticks(lengths, labels=[str(x) for x in lengths_str])
-        # plt.gca().set_xticks(lengths)
+        plt.xticks(lengths, labels=lengths)
+        plt.gca().set_xticks(lengths)
         plt.yscale("linear")
         plt.xlabel("Clifford Length")
         plt.ylabel("Mean Survival Probability")
@@ -150,13 +148,13 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
 
 
 @BenchmarkRegistry.register_benchmark
-class RandomizedBenchmarkingBenchmark(Benchmark):
+class TranspiledRandomizedBenchmarkingBenchmark(Benchmark):
     origin = "core"
     source = "native"
-    name = "randomized_benchmarking"
-    generator = RandomizedBenchmarkingGenerator
+    name = "transpiled_randomized_benchmarking"
+    generator = TranspiledRandomizedBenchmarkingGenerator
     executor = DefaultBenchmarkExecutor
-    analyzer = RandomizedBenchmarkingAnalyzer
+    analyzer = TranspiledRandomizedBenchmarkingAnalyzer
     supported_adapters: Tuple[str, ...] = ("mqss_qiskit", "qiskit_simulator")
     category = BenchmarkCategory.HARDWARE
 

@@ -106,18 +106,17 @@ class QiskitAdapter(DeviceAdapter):
         if not isinstance(built_circuit, QuantumCircuit):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")
 
-        # TODO: consider exploring alternatives to transpilation here
+        backend = self._get_backend()
         # Transpile to basic gates to avoid unsupported custom instructions errors (a conservative basis set compatible with most backends)
         if transpile_mode is True:
             transpiled_circuit = transpile(
                 built_circuit,
-                basis_gates=["u", "cx"],
-                optimization_level=0,
+                backend=backend,
+                optimization_level=3,
             )
         else:
             transpiled_circuit = built_circuit
 
-        backend = self._get_backend()
         if self._shots is not None:
             job = backend.run(transpiled_circuit, shots=self._shots)
         else:
@@ -126,9 +125,9 @@ class QiskitAdapter(DeviceAdapter):
         job_result = job.result()
         counts = job_result.get_counts()
         if MQSS_QISKIT_PROFILING_ENABLED:
-            profiling_data = getattr(job_result, "job_profiler_metrics", None)
+            profiling_data = {"depth": transpiled_circuit.depth()}
         else:
-            profiling_data = None
+            profiling_data = {"depth": transpiled_circuit.depth()}
         return ExecutionResult(
             job_id=job_id,
             counts=counts,

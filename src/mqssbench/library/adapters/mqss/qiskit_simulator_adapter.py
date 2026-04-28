@@ -84,15 +84,21 @@ class QiskitSimulatorAdapter(DeviceAdapter):
         result = job.result()
         try:
             counts = result[0].data.c.get_counts()
-        except Exception as e:
-            logger.error(
-                f"Error getting counts from result: {e}, trying accessing the attribute meas instead of c"
-            )
-            counts = result[0].data.meas.get_counts()
+        except Exception:
+
+            try:
+                counts = result[0].data.meas.get_counts()
+            except Exception as e2:
+                logger.error(
+                    f"Error getting counts from result: {e2}, returning empty counts"
+                )
+                counts = {}
         job_id = job.job_id()
 
         return ExecutionResult(
             job_id=job_id,
             counts=counts,
-            profiling_metrics=ProfilingMetrics(params=None),
+            profiling_metrics=ProfilingMetrics(
+                params={"depth": transpiled_circuit.depth()}
+            ),
         )

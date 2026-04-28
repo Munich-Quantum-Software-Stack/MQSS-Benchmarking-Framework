@@ -105,7 +105,7 @@ class QiskitAdapter(DeviceAdapter):
             built_circuit = circuit
 
         print(f"Running circuit on backend {self._backend_name} ...")
-        print("circuit", built_circuit)
+        logger.info("circuit\n%s", built_circuit)
 
         if not isinstance(built_circuit, QuantumCircuit):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")

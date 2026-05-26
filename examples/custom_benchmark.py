@@ -76,9 +76,11 @@ if __name__ == "__main__":
         "benchmark": "user/my_examples/custom_benchmark",
         "benchmark_params": {"num_qubits": 1, "depth": 3},
         "adapter": "mqss_qiskit",
-        "backend": "QExa20",
-        "credentials": {"mqss_token": ""},
-        "shots": 200,
+        "adapter_params": {
+            "backend": "QExa20",
+            "credentials": {"mqss_token": ""},
+            "shots": 200,
+        },
         "output_dir": "./results",
     }
 

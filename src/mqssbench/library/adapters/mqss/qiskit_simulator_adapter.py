@@ -18,13 +18,17 @@ logger = logging.getLogger(__name__)
 class QiskitSimulatorAdapter(DeviceAdapter):
     name = "qiskit_simulator"
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, adapter_params):
+        self.adapter_params = adapter_params
         self._backend_name = "qiskit_simulator"
-        if not isinstance(config, dict):
-            raise TypeError("config must be a dict")
+        if not isinstance(adapter_params, dict):
+            raise TypeError("adapter_params must be a dict")
 
-        self._shots = int(config["shots"]) if config.get("shots") is not None else 1024
+        self._shots = int(adapter_params["shots"]) if adapter_params.get("shots") is not None else 1024
+        backend_params = adapter_params.get("backend_params") or {}
+        if not isinstance(backend_params, dict):
+            raise TypeError("adapter_params.backend_params must be a dict")
+        self._backend_params = dict(backend_params)
         # Adapter and backend will be created lazily in _get_backend()
 
     def _get_backend(self):
@@ -76,10 +80,11 @@ class QiskitSimulatorAdapter(DeviceAdapter):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")
 
         backend = self._get_backend()
+        backend_params = dict(self._backend_params)
         if self._shots is not None:
-            job = backend.run([transpiled_circuit], shots=self._shots)
+            job = backend.run([transpiled_circuit], shots=self._shots, **backend_params)
         else:
-            job = backend.run([transpiled_circuit])
+            job = backend.run([transpiled_circuit], **backend_params)
 
         result = job.result()
         try:

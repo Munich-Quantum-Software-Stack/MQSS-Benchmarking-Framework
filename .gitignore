@@ -33,3 +33,4 @@ results/
 
 # System files
 .DS_Store
+.coverage

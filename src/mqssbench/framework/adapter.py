@@ -19,8 +19,8 @@ class DeviceAdapter(ABC):
                 f"{cls.__name__}: missing or invalid 'name' class attribute."
             )
 
-    def __init__(self, config):
-        """Initialize the adapter with the given configuration."""
+    def __init__(self, adapter_params):
+        """Initialize the adapter with the given adapter parameters."""
         pass
 
     @abstractmethod

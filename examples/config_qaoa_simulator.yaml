@@ -11,11 +11,10 @@ benchmark_params: # benchamark specific params
   
 adapter: qiskit_simulator
 
-
-credentials:
-  mqss_token: ""
-
-shots: 1024
+adapter_params:
+  credentials:
+    mqss_token: ""
+  shots: 1024
 
 output_dir: "./results"
 

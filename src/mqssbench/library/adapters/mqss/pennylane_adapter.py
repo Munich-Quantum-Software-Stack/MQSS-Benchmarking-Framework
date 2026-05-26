@@ -15,19 +15,19 @@ MQSS_PENNYLANE_PROFILING_ENABLED = False
 class PennyLaneAdapter(DeviceAdapter):
     name = "mqss_pennylane"
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, adapter_params):
+        self.adapter_params = adapter_params
         
-        if not isinstance(config, dict):
-            raise TypeError("config must be a dict")
+        if not isinstance(adapter_params, dict):
+            raise TypeError("adapter_params must be a dict")
         
-        self._backend_name = str(config.get("backend", "")).strip()
+        self._backend_name = str(adapter_params.get("backend", "")).strip()
         if self._backend_name is None or self._backend_name == "":
                 self._backend_name = (MQSS_BACKEND).strip()
         if not self._backend_name:
             raise ValueError("Missing required config: backend or MQSS_BACKEND")
         
-        credentials = config.get("credentials") or {}
+        credentials = adapter_params.get("credentials") or {}
         self._token = str(credentials.get("mqss_token") if isinstance(credentials, dict) else None).strip()
         if self._token is None or self._token == "":
             self._token = (MQSS_TOKEN).strip()
@@ -36,7 +36,7 @@ class PennyLaneAdapter(DeviceAdapter):
                 "Missing required config: credentials.mqss_token or MQSS_TOKEN"
             )
         
-        self._shots = int(config["shots"]) if config.get("shots") is not None else None
+        self._shots = int(adapter_params["shots"]) if adapter_params.get("shots") is not None else None
         # Device will be created lazily in _get_device() when needed
 
     def _get_device(self, num_qubits):
@@ -93,7 +93,7 @@ class PennyLaneAdapter(DeviceAdapter):
         # TODO: for now implement transpile_mode, later consider exploring alternatives to transpilation here
         
         print(f"Running circuit on backend {self._backend_name} ...")
-        print(circuit)
+        logger.info("circuit\n%s", circuit)
 
         # Build qnode
         if callable(circuit):

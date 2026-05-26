@@ -22,19 +22,19 @@ MQSS_QISKIT_PROFILING_ENABLED = True
 class QiskitAdapter(DeviceAdapter):
     name = "mqss_qiskit"
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, adapter_params):
+        self.adapter_params = adapter_params
 
-        if not isinstance(config, dict):
-            raise TypeError("config must be a dict")
+        if not isinstance(adapter_params, dict):
+            raise TypeError("adapter_params must be a dict")
 
-        self._backend_name = str(config.get("backend", "")).strip()
+        self._backend_name = str(adapter_params.get("backend", "")).strip()
         if self._backend_name is None or self._backend_name == "":
             self._backend_name = (MQSS_BACKEND).strip()
         if not self._backend_name:
             raise ValueError("Missing required config: backend or MQSS_BACKEND")
 
-        credentials = config.get("credentials") or {}
+        credentials = adapter_params.get("credentials") or {}
         self._token = str(
             credentials.get("mqss_token") if isinstance(credentials, dict) else None
         ).strip()
@@ -45,7 +45,11 @@ class QiskitAdapter(DeviceAdapter):
                 "Missing required config: credentials.mqss_token or MQSS_TOKEN"
             )
 
-        self._shots = int(config["shots"]) if config.get("shots") is not None else None
+        self._shots = int(adapter_params.get("shots")) if adapter_params.get("shots") is not None else None
+        backend_params = adapter_params.get("backend_params") or {}
+        if not isinstance(backend_params, dict):
+            raise TypeError("adapter_params.backend_params must be a dict")
+        self._backend_params = dict(backend_params)
         # Adapter and backend will be created lazily in _get_backend()
 
     def _get_backend(self):
@@ -101,27 +105,26 @@ class QiskitAdapter(DeviceAdapter):
             built_circuit = circuit
 
         print(f"Running circuit on backend {self._backend_name} ...")
-        print("circuit", built_circuit)
+        logger.info("circuit\n%s", built_circuit)
 
         if not isinstance(built_circuit, QuantumCircuit):
             raise TypeError("circuit must be a Qiskit QuantumCircuit")
 
-        # TODO: consider exploring alternatives to transpilation here
-        # Transpile to basic gates to avoid unsupported custom instructions errors (a conservative basis set compatible with most backends)
+        backend = self._get_backend()
+        # Transpile for this backend so the basis matches what the device supports
         if transpile_mode is True:
             transpiled_circuit = transpile(
                 built_circuit,
-                basis_gates=["u", "cx"],
+                backend=backend,
                 optimization_level=0,
             )
         else:
             transpiled_circuit = built_circuit
-
-        backend = self._get_backend()
+        backend_params = dict(self._backend_params)
         if self._shots is not None:
-            job = backend.run(transpiled_circuit, shots=self._shots)
+            job = backend.run(transpiled_circuit, shots=self._shots, **backend_params)
         else:
-            job = backend.run(transpiled_circuit)
+            job = backend.run(transpiled_circuit, **backend_params)
         job_id = job.job_id()
         job_result = job.result()
         counts = job_result.get_counts()

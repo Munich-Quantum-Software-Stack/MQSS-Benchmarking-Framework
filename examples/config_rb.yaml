@@ -6,12 +6,11 @@ benchmark_params: # benchamark specific params
   num_sequences: 10
 
 adapter: mqss_qiskit
-backend: QExa20
-
-credentials:
-  mqss_token: ""
-
-shots: 1024
+adapter_params:
+  backend: QExa20
+  credentials:
+    mqss_token: ""
+  shots: 1024
 
 output_dir: "./results"
 

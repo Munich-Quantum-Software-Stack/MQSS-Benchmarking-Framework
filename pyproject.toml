@@ -16,6 +16,7 @@ dependencies = [
     "pyyaml>=6.0.3",
     "colorama>=0.4.6",
     "dacite>=1.9.2",
+    "pytest-cov>=7.0.0",
 ]
 
 # for PyPy

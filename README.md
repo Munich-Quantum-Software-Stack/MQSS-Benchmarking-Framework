@@ -1,315 +1,84 @@
-<a href="https://gitmoji.dev">
-  <img
-    src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"
-    alt="Gitmoji"
-  />
-</a>
+<!----------------------------------------------------------------------------
+Copyright 2026 Munich Quantum Software Stack Project
+
+Licensed under the Apache License, Version 2.0 with LLVM Exceptions (the
+"License"); you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://github.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/blob/develop/LICENSE
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+-------------------------------------------------------------------------- -->
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/develop/docs/_static/mqss_logo_dark.svg" width="20%">
+    <img src="https://raw.githubusercontent.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/develop/docs/_static/mqss_logo.svg" width="20%">
+  </picture>
+</p>
 
 # MQSS Benchmarking Framework
 
-## Overview
+<p align="center">
+  <a href="https://munich-quantum-software-stack.github.io/MQSS-Benchmarking-Framework/">
+  <img style="min-width: 200px !important; width: 30%;" src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNi4wIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTk2IDBDNDMgMCAwIDQzIDAgOTZMMCA0MTZjMCA1MyA0MyA5NiA5NiA5NmwyODggMCAzMiAwYzE3LjcgMCAzMi0xNC4zIDMyLTMycy0xNC4zLTMyLTMyLTMybDAtNjRjMTcuNyAwIDMyLTE0LjMgMzItMzJsMC0zMjBjMC0xNy43LTE0LjMtMzItMzItMzJMMzg0IDAgOTYgMHptMCAzODRsMjU2IDAgMCA2NEw5NiA0NDhjLTE3LjcgMC0zMi0xNC4zLTMyLTMyczE0LjMtMzIgMzItMzJ6bTMyLTI0MGMwLTguOCA3LjItMTYgMTYtMTZsMTkyIDBjOC44IDAgMTYgNy4yIDE2IDE2cy03LjIgMTYtMTYgMTZsLTE5MiAwYy04LjggMC0xNi03LjItMTYtMTZ6bTE2IDQ4bDE5MiAwYzguOCAwIDE2IDcuMiAxNiAxNnMtNy4yIDE2LTE2IDE2bC0xOTIgMGMtOC44IDAtMTYtNy4yLTE2LTE2czcuMi0xNiAxNi0xNnoiLz48L3N2Zz4=" alt="Documentation" />
+  </a>
+</p>
 
-MQSS Benchmarking Framework is an automated and reproducable tool for uniting Quantum Computing Benchmarks. It has 4 main pillars:
+The **MQSS Benchmarking Framework** is a general-purpose, platform-agnostic, extensible quantum benchmarking framework designed to serve as the central orchestration and integration layer for the quantum benchmarking ecosystem. It provides a unified infrastructure that brings together benchmarks, hardware backends, simulators, circuit providers, benchmark suites, and benchmarking frameworks under a single, consistent environment, covering the full spectrum of benchmarking experiments.
 
-- Hardware Benchmarks
-- Software Benchmarks
-- Simulator Benchmarks
-- Algorithmic Benchmarks
+MQSS Benchmarking Framework is built around a principled architecture based on a registry-driven component system, abstract interfaces for extensible components, and a plugin discovery mechanism. This design allows benchmarks, hardware backends, and tools to be integrated as first-class components within the framework. The framework is under active development, with an initial core library already in place and more components planned as the architecture evolves.
 
-## 🛠️ Installation
 
-This project leverages [uv](https://github.com/astral-sh/uv) for dependency management and reproducibility, making setup and collaboration straightforward.
-To get started, ensure you have Python installed. Then, follow these steps to set up your environment using `uv`:
+## FAQ
 
-1. **Install uv** (if you don't have it already):
+### What is MQSS?
 
-   ```bash
-   pip install uv
-   ```
+_MQSS_ stands for _Munich Quantum Software Stack_ and is a project of the _Munich Quantum Valley_
+initiative. It is jointly developed by the _Munich Quantum Valley (MQV) gGmbH_, _Leibniz
+Supercomputing Centre (LRZ)_, the _Chair for Design Automation (CDA)_, and the _Chair of Computer
+Architecture and Parallel Systems (CAPS)_ at TUM. It provides a comprehensive compilation and
+runtime infrastructure for on-premise and remote quantum devices, support for modern compilation and
+optimization techniques, and enables both current and future high-level abstractions for quantum
+programming. This stack is designed to be capable of deployment in a variety of scenarios via
+flexible configuration options. This includes stand-alone scenarios for individual systems, cloud
+access to a variety of devices, as well as tight integration into HPC environments supporting
+quantum acceleration. Concrete instances of the _MQSS_ are deployed at the LRZ and MQV gGmbH,
+providing unified access to all of their quantum devices through multiple compatible access paths.
+This includes a web portal, command line access via web credentials, as well as the option for
+hybrid access with tight integration with HPC systems.It facilitates the connection between
+end-users and quantum computing platforms by its integration within HPC infrastructures, such as
+those found at the LRZ.
 
-2. **Sync your environment with the project's dependencies:**
+### Where can I find the getting started guide?
 
-   ```bash
-   uv sync
-   ```
+A step-by-step guide is available in the documentation site at [Getting Started](docs/user_guide/getting_started.md).
 
-## 🚀 Usage
+### How can I contribute to the project?
 
-MQSS Benchmarking Framework can be used in two ways: through a simple command-line interface or directly as a Python library.
+Contribution guidelines are available in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## 💻 CLI Usage
 
-After installation, the command `mqssbench` becomes available system-wide.
+### Under which license is MQSS Benchmarking Framework released?
 
-### Listing benchmarks
+**MQSS Benchmarking Framework** is released under the Apache License v2.0. See
+[LICENSE](https://github.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/blob/develop/LICENSE.md) for
+more information. Any contribution to the project is assumed to be under the same license.
 
-```bash
-mqssbench list
-```
+## Contact
 
-This prints every benchmark registered under the `origin/source/name` structure, including internal, external and user-defined benchmarks.
+The development of this project is led by the QCT department at the LRZ and the QSI department at
+MQV gGmbH. You can also always reach us at
+[mqss@munich-quantum-valley.de](mailto:mqss@munich-quantum-valley.de).
 
-### Running benchmarks
-
-```bash
-mqssbench run --config path/to/config.yaml
-```
-
-The `--config` file may contain either:
-1. a single benchmark configuration (dict)
-2. or a list of benchmark configurations (each a full config dict)
-
-When a list is provided, mqssbench runs each benchmark sequentially using the same execution engine.
-
-In development setups, you can run the CLI commands through `uv`:
-
-```bash
-uv run mqssbench list
-uv run mqssbench run --config path/to/config.yaml
-```
-
-To explore all available commands and options:
-
-```bash
-mqssbench --help
-```
-
-### Verbosity and logging
-
-The CLI supports adjustable logging verbosity for debugging and inspection.
-
-By default, only warnings and errors are shown.
-
-Increase verbosity by repeating the `-v` / `--verbose` flag:
-
-- No `-v` → WARNING (default)
-- `-v` → INFO
-- `-vv` → DEBUG
-
-Examples:
-```bash
-mqssbench -v run --config path/to/config.yaml
-mqssbench -vv run --config path/to/config.yaml
-```
-
-Benchmark results are printed to standard output, while logs are sent to standard error.
-
-### Configuration file format
-
-A typical benchmark configuration file follows the structure shown below:
-
-```yaml
-# Benchmark configuration template
-
-# Specify the benchmark to run. Two formats are supported:
-# 1. String format: "origin/source/name"
-# 2. Structured format:
-#      origin: <ORIGIN>
-#      source: <SOURCE>
-#      name: <BENCHMARK_NAME>
-benchmark: <ORIGIN>/<SOURCE>/<BENCHMARK_NAME>
-
-# Benchmark specific parameters
-benchmark_params:
-  <PARAM_1>: <VALUE_1>
-  <PARAM_2>: <VALUE_2>
-  <PARAM_3>: <VALUE_3>
-
-# Adapter configuration
-adapter: <ADAPTER_NAME>
-adapter_params:
-  <ADAPTER_PARAM_1>: <VALUE_1>
-  <ADAPTER_PARAM_2>: <VALUE_2>
-  <ADAPTER_PARAM_3>: <VALUE_3>
-
-# output directory
-output_dir: <PATH>
-
-# Controls what is generated (analysis, visualizations, reports)
-report:
-  analysis:
-    enabled: <true_or_false>
-      visualization: <true_or_false>
-        enabled: <true_or_false>
-        show: <true_or_false>
-
-# Controls how results are persisted
-storage:
-  enabled: <true_or_false>
-  type: <STORAGE_TYPE>  # "file" or "sqlite"
-  file:
-    format: <FILE_FORMAT> #"json"
-  sqlite: # this will be implemeted in future
-    db_path: <DATABASE_PATH>
-
-# Profiling controls
-profiling:
-  enabled: <true_or_false>
-  metrics:
-    # List of profiling metrics. If omitted, all supported metrics are collected.
-    # Available metrics depend on your selected adaptor.
-    # For example, for MQSS adaptors, these are valid metrics:
-    #   mqp_api, quantum_database, quantum_job_runner, isv_job_runner,
-    #   quantum_daemon_job_runner, generator, scheduler, pass_runner,
-    #   transpiler, submitter, pass_selection, knitter, job_execution
-    - <METRIC_1>
-    - <METRIC_2>
-```
-
-Example of a Single benchmark config:
-```yaml
-benchmark: core/native/randomized_benchmarking
-
-benchmark_params:
-  num_qubits: 2
-  lengths: [2, 4, 8, 16]
-  num_sequences: 2
-
-adapter: mqss_qiskit
-adapter_params:
-  backend: QExa20
-  backend_params:
-    queued: true
-  credentials:
-    mqss_token: ""
-  shots: 1000
-
-output_dir: "./results"
-
-report:
-  analysis:
-    enabled: true
-    visualization:
-      enabled: true
-      show: false
-
-storage:
-  enabled: true
-  type: "file" 
-  file:
-    format: "json"
-
-profiling:
-  enabled: true
-  metrics:
-    - transpiler
-    - submitter
-```
-
-
-Example of a multi benchmark config:
-
-```yaml
-- benchmark: core/native/randomized_benchmarking
-  benchmark_params:
-    num_qubits: 2
-    lengths: [2, 4, 8]
-    num_sequences: 2
-  adapter: mqss_qiskit
-  adapter_params:
-    backend: QExa20
-    credentials:
-      mqss_token: ""
-    shots: 200
-  output_dir: "./results"
-  storage:
-    enabled: true
-    type: "file" 
-    file:
-      format: "json"
-
-- benchmark: core/native/quantum_volume
-  benchmark_params:
-    num_qubits: 3
-    depth: 3
-    trials: 2
-  adapter: mqss_qiskit
-  adapter_params:
-    backend: QExa20
-    credentials:
-      mqss_token: ""
-    shots: 200
-  output_dir: "./results"
-  storage:
-    enabled: true
-    type: "file" 
-    file:
-      format: "json"
-```
-
-## 🧩 Python API Usage
-
-MQSS Benchmarking Framework can also be used directly as a Python library when more control is needed.
-
-```python
-from mqssbench.runtime import BenchmarkManager
-
-list_of_benchmarks = BenchmarkManager.get_available_benchmarks()
-
-config = {
-  "benchmark": "core/native/randomized_benchmarking",
-
-  "benchmark_params": {
-    "num_qubits": 2,
-    "lengths": [2, 4, 8, 16],
-    "num_sequences": 2
-  },
-
-  "adapter": "mqss_qiskit",
-  "adapter_params": {
-    "backend": "QExa20",
-    "credentials": {
-      "mqss_token": ""
-    },
-    "shots": 1000
-  },
-
-  "output_dir": "./results",
-
-  "report": {
-    "analysis": {
-      "enabled": True,
-      "visualization": {
-        "enabled": True
-      }
-    }
-  },
-
-  "storage": {
-    "enabled": True,
-    "type": "file",
-    "file": {
-      "format": "json"
-    }
-  },
-  
-  "profiling": {
-    "enabled": True,
-    "metrics": ["transpiler", "submitter"]
-  }
-}
-
-benchmark_manager = BenchmarkManager(config)
-benchmark_manager.dispatch()
-```
-
-The `benchmark` field must always follow the strict `origin/source/name` format. For example:
-
-- Core native benchmark: `core/native/quantum_volume` - uses `native` (native provider) as source
-- Core provider benchmark: `core/mqt_bench/vqe_su2` - uses `mqt_bench` (a circuit provider) as source
-- User defined benchmark: `user/my_source/my_benchmark_name` — uses `my_source` (arbitrary user source), can also leverage circuit providers
-
-Both CLI and Python API share the same execution engine, registry system, and adapter logic.
-
-### Latest supported adapters
-- Qiskit Adapter (config value `mqss_qiskit`)
-- Pennylane Adapter (config value `mqss_pennylane`)
-
-A complete list of configuration options will be listed and constantly updated for the upcoming releases
-
-## 🛠️ Upcoming Features
-- Integration of the [Toolchain Project]([https://pages.github.com/](https://gitlab.lrz.de/qcbm/benchmark-comparison)) to the Framework for Simulator Benchmarks
-- Improving the benchmark set for all types of benchmarks
-## 📝 Contributing
-
-Feel free to open issues or submit pull requests to improve this project!
+Please try to use the publicly accessible GitHub channels
+([issues](https://github.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/issues),
+[discussions](https://github.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/discussions),
+[pull requests](https://github.com/Munich-Quantum-Software-Stack/MQSS-Benchmarking-Framework/pulls)) to allow for a
+transparent and open discussion as much as possible.

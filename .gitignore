@@ -18,8 +18,8 @@ mqssbench.db
 results/
 *.png
 # But allow PNGs in docs
-!docs/_static/*.png
-!docs/_static/**/*.png
+!docs/assets/*.png
+!docs/assets/**/*.png
 
 # .vscode
 

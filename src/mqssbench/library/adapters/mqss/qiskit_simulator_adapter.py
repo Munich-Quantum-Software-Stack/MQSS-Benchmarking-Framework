@@ -24,7 +24,11 @@ class QiskitSimulatorAdapter(DeviceAdapter):
         if not isinstance(adapter_params, dict):
             raise TypeError("adapter_params must be a dict")
 
-        self._shots = int(adapter_params["shots"]) if adapter_params.get("shots") is not None else 1024
+        self._shots = (
+            int(adapter_params["shots"])
+            if adapter_params.get("shots") is not None
+            else 1024
+        )
         backend_params = adapter_params.get("backend_params") or {}
         if not isinstance(backend_params, dict):
             raise TypeError("adapter_params.backend_params must be a dict")
@@ -90,8 +94,9 @@ class QiskitSimulatorAdapter(DeviceAdapter):
         try:
             counts = result[0].data.c.get_counts()
         except Exception as e:
-            logger.error(
-                f"Error getting counts from result: {e}, trying accessing the attribute meas instead of c"
+            logger.debug(
+                "Error accessing result.data.c (%s), falling back to meas",
+                e,
             )
             counts = result[0].data.meas.get_counts()
         job_id = job.job_id()

@@ -167,7 +167,7 @@ benchmark_params:
 
 adapter: mqss_qiskit
 adapter_params:
-  backend: QExa20
+  backend: <backend_name>
   backend_params:
     queued: true
   credentials:
@@ -207,7 +207,7 @@ Example of a multi benchmark config:
     num_sequences: 2
   adapter: mqss_qiskit
   adapter_params:
-    backend: QExa20
+    backend: <backend_name>
     credentials:
       mqss_token: ""
     shots: 200
@@ -225,7 +225,7 @@ Example of a multi benchmark config:
     trials: 2
   adapter: mqss_qiskit
   adapter_params:
-    backend: QExa20
+    backend: <backend>
     credentials:
       mqss_token: ""
     shots: 200
@@ -257,9 +257,9 @@ config = {
 
   "adapter": "mqss_qiskit",
   "adapter_params": {
-    "backend": "QExa20",
+    "backend": "<<backend_name>>",
     "credentials": {
-      "mqss_token": ""
+      "mqss_token": "<<token>>"
     },
     "shots": 1000
   },
@@ -307,9 +307,9 @@ Both CLI and Python API share the same execution engine, registry system, and ad
 
 A complete list of configuration options will be listed and constantly updated for the upcoming releases
 
-## 🛠️ Upcoming Features
+<!-- ## 🛠️ Upcoming Features
 - Integration of the [Toolchain Project]([https://pages.github.com/](https://gitlab.lrz.de/qcbm/benchmark-comparison)) to the Framework for Simulator Benchmarks
-- Improving the benchmark set for all types of benchmarks
+- Improving the benchmark set for all types of benchmarks -->
 
 ---
 

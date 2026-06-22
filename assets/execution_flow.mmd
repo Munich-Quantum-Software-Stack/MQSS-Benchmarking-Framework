@@ -1,0 +1,36 @@
+flowchart TD
+
+    subgraph Init["Initialization"]
+        INIT["Initialize System"]
+        REG["Auto Registration"]
+        MODS["Built-in Modules"]
+        REGISTRY["Central Registry"]
+
+        INIT --> REG --> MODS --> REGISTRY
+    end
+
+    CLI["CLI Entry"] --> MANAGER["Benchmark Manager"]
+
+    subgraph Commands["Command Handling"]
+        MANAGER --> LIST["List Commands"]
+        LIST --> REGISTRY
+
+        MANAGER --> RUNNER["Benchmark Runner"]
+    end
+
+    RUNNER --> CONFIG["Parse Config"]
+    CONFIG --> REGISTRY
+
+    REGISTRY --> COMPONENTS["Resolve Components"]
+    COMPONENTS --> BENCH["Benchmark"]
+
+    subgraph Core["Benchmark Execution"]
+        BENCH --> GEN["Circuit Generator"]
+        GEN --> EXEC["Executor"]
+        EXEC --> RESULTS["Raw Results"]
+        RESULTS --> ANALYZER["Result Analyzer"]
+        ANALYZER --> METRICS["Metrics Output"]
+    end
+
+    METRICS --> RETURN["Return Results"]
+    RETURN --> STORAGE["Storage (Optional)"]

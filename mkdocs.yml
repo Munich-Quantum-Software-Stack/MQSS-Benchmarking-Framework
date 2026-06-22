@@ -16,11 +16,19 @@ nav:
     - Getting Started: user_guide/getting_started.md
   - Development Guide:
     - Contributing to the Project: development_guide/contributing.md
-  # - API Documentation:
-      # - MQSSPennylaneBackend: api/MQSSPennylaneBackend.md
-      # - MQSSPennylaneDevice: api/MQSSPennylaneDevice.md
-      # - MQPJob: api/MQPJob.md
-  - Change Log: CHANGELOG.md
+  - API Documentation:
+    - Benchmark: api/framework/benchmark.md
+    - Adapter: api/framework/adapter.md
+    - Benchmark Executor: api/framework/benchmark_executor.md
+    - Provider: api/framework/provider.md
+    - Benchmark Analyzer: api/framework/benchmark_analyzer.md
+    - Types: api/framework/types.md
+    - Registry: 
+      - Adapter Registry: api/registry/adapter_registry.md
+      - Benchmark Registry: api/registry/benchmark_registry.md
+      - Provider Registry: api/registry/provider_registry.md
+
+  #- Change Log: CHANGELOG.md
   - Contact: contact.md
 
 
@@ -61,6 +69,7 @@ plugins:
             show_if_no_docstring: false
             show_root_full_path: true
             show_signature_annotations: true
+            signature_crossrefs: true 
   - autorefs
 
 markdown_extensions:

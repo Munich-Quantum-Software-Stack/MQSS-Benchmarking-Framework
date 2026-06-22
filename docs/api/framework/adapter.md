@@ -1,0 +1,3 @@
+# Adapter
+
+::: mqssbench.framework.adapter

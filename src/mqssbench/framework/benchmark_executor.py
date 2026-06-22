@@ -1,4 +1,10 @@
-"""Benchmark executor abstraction."""
+"""Executors that run quantum circuits and collect results.
+
+Three executor types are available:
+- ``BenchmarkExecutor``: base class for custom executors.
+- ``DefaultBenchmarkExecutor``: runs circuits sequentially via the adapter.
+- ``HybridBenchmarkExecutor``: iterative optimization loop (variational algorithms).
+"""
 
 from abc import ABC, abstractmethod
 from typing import List
@@ -12,7 +18,13 @@ from datetime import datetime
 
 
 class BenchmarkExecutor(ABC):
-    """Abstract base class for benchmark executors."""
+    """Base class for benchmark executors.
+
+    Executors receive circuits or generators and produce execution results.
+    Each executor encapsulates a specific execution strategy.
+    The ``context`` is available during execution for accessing the adapter,
+    parameters, and other run metadata.
+    """
 
     def __init__(self, context: RunContext):
         self.context = context
@@ -26,7 +38,12 @@ class BenchmarkExecutor(ABC):
 
 
 class DefaultBenchmarkExecutor(BenchmarkExecutor):
-    """Default implementation of benchmark executor."""
+    """Sequential circuit executor.
+
+    Takes a list of ``CircuitSpec`` objects and runs them sequentially using
+    the adapter from the ``context``. Preserves circuit metadata in each result.
+    Suitable for non-adaptive benchmarks.
+    """
 
     def run(
         self, circuits: List[CircuitSpec], context: RunContext

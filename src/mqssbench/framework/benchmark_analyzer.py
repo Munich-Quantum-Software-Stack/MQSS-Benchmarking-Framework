@@ -1,4 +1,8 @@
-"""Benchmark analyzer abstraction."""
+"""Analyzers that process raw execution results into insights and visualizations.
+
+Analyzers aggregate measurement counts, compute probabilities, and optionally
+generate plots. The base class is subclassed for benchmark-specific analysis logic.
+"""
 
 from abc import ABC, abstractmethod
 from typing import List, override
@@ -9,7 +13,12 @@ from .types import RunContext, ExecutionResult, AnalysisResult
 from .utils import make_output_filepath
 
 class BenchmarkAnalyzer(ABC):
-    """Abstract base class for benchmark analyzers."""
+    """Base class for execution result analyzers.
+
+    Receives a list of ``ExecutionResult`` objects (circuit measurements and metrics)
+    and produces an ``AnalysisResult`` with aggregated metrics and optional artifacts.
+    Subclasses implement benchmark-specific analysis logic (e.g., fidelity, overlap).
+    """
     
     def __init__(self, context: RunContext):
         self.context = context
@@ -21,7 +30,12 @@ class BenchmarkAnalyzer(ABC):
 
 
 class DefaultAnalyzer(BenchmarkAnalyzer):
-    """ Default benchmark analyzer for aggregating execution results."""
+    """Standard result aggregator and visualizer.
+
+    Combines all measurement counts, computes outcome probabilities, identifies
+    the most frequent bitstring, and optionally generates a probability bar plot.
+    Returns metrics and plot artifacts for the benchmark report.
+    """
 
     @override
     def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:

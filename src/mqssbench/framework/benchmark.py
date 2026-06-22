@@ -18,7 +18,33 @@ ComponentT = TypeVar(
 
 
 class Benchmark(ABC):
-    """Abstract base class for benchmarks."""
+    """Base class for all benchmarks.
+
+    Subclasses must define the following class-level attributes:
+    - ``origin``, ``source``, ``name``: used to build the benchmark registry key
+        with ``registry_key()`` (format: "origin/source/name").
+    - ``generator``, ``executor``, ``analyzer``: classes used during ``run()``
+        to generate circuits, execute them, and analyze results.
+    - ``supported_adapters``: tuple of adapter names (empty tuple = no restriction).
+    - ``category``: a ``BenchmarkCategory`` instance describing the benchmark type.
+
+    Implementations must override ``validate_params(self, params)`` to validate
+    benchmark-specific parameters.
+
+    Optionally override ``validate_context`` to perform context-specific checks.
+
+    The ``run()`` method performs the common workflow: validate inputs,
+    instantiate components, execute the benchmark, optionally run analysis,
+    and return a ``BenchmarkResult``.
+
+    Helper methods:
+    - ``registry_key()``: returns the stable registry key string.
+    - ``_instantiate_component()``: ensures a component is a class and a
+        subclass of the expected type, then instantiates it with the current
+        ``context``.
+    - ``_validate_attributes()``: verifies all required class attributes and
+        types at subclass definition time.
+    """
 
     # Class-level attributes that must be defined by subclasses
     origin: str

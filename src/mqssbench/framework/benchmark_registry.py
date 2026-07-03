@@ -7,16 +7,16 @@ from typing import Dict, List, Optional, Type
 
 from .utils import validate_benchmark_registry_key
 
-from .benchmark import Benchmark
+from .benchmark_pipeline import BenchmarkPipeline
 from .types import RunContext, VALID_ORIGINS
 
 
 class BenchmarkRegistry:
-    """Registry for managing benchmark classes."""
+    """Registry for managing benchmark pipeline classes."""
 
     _instance: Optional[BenchmarkRegistry] = None
     _lock = threading.RLock() # for thread safety
-    _registry: Dict[str, Type[Benchmark]] = {}
+    _registry: Dict[str, Type[BenchmarkPipeline]] = {}
 
     def __new__(cls) -> BenchmarkRegistry:
         if cls._instance is None:
@@ -32,11 +32,11 @@ class BenchmarkRegistry:
         """Validate that the identifier follows the origin/source/name format."""
         validate_benchmark_registry_key(identifier)
 
-    def _register(self, benchmark_cls: Type[Benchmark]) -> Type[Benchmark]:
-        """Register a benchmark class in the registry."""
-        if not issubclass(benchmark_cls, Benchmark):
-            raise TypeError("Only Benchmark subclasses can be registered.")
-        key = benchmark_cls.registry_key()
+    def _register(self, pipeline_cls: Type[BenchmarkPipeline]) -> Type[BenchmarkPipeline]:
+        """Register a benchmark pipeline class in the registry."""
+        if not issubclass(pipeline_cls, BenchmarkPipeline):
+            raise TypeError("Only BenchmarkPipeline subclasses can be registered.")
+        key = pipeline_cls.registry_key()
         self._validate_key(key)
 
         with self._lock:
@@ -44,13 +44,13 @@ class BenchmarkRegistry:
                 raise ValueError(f"Benchmark '{key}' already registered.")
             # copy-on-write for safe lookups during writes
             new_map = dict(self._registry)
-            new_map[key] = benchmark_cls
+            new_map[key] = pipeline_cls
             self._registry = new_map
 
-        return benchmark_cls
+        return pipeline_cls
 
-    def _get(self, identifier: str) -> Type[Benchmark]:
-        """Get a registered benchmark class by its identifier."""
+    def _get(self, identifier: str) -> Type[BenchmarkPipeline]:
+        """Get a registered benchmark pipeline class by its identifier."""
         self._validate_key(identifier)
         try:
             return self._registry[identifier]
@@ -59,10 +59,10 @@ class BenchmarkRegistry:
                 f"Benchmark '{identifier}' is not registered."
             )
 
-    def _instantiate(self, identifier: str, context: RunContext) -> Benchmark:
-        """Instantiate a benchmark by its identifier with the given context."""
-        benchmark_cls = self._get(identifier)
-        return benchmark_cls(context)
+    def _instantiate(self, identifier: str, context: RunContext) -> BenchmarkPipeline:
+        """Instantiate a benchmark pipeline by its identifier with the given context."""
+        pipeline_cls = self._get(identifier)
+        return pipeline_cls(context)
 
     def _list_all(self) -> List[str]:
         """List all registered benchmark identifiers."""
@@ -85,9 +85,9 @@ class BenchmarkRegistry:
     # Public API
 
     @classmethod
-    def register_benchmark(cls, benchmark_cls: Type[Benchmark]) -> Type[Benchmark]:
+    def register_benchmark(cls, pipeline_cls: Type[BenchmarkPipeline]) -> Type[BenchmarkPipeline]:
         """
-        Decorator to register a Benchmark subclass with the BenchmarkRegistry.
+        Decorator to register a BenchmarkPipeline subclass with the BenchmarkRegistry.
 
         Example usage:
             @BenchmarkRegistry.register_benchmark
@@ -96,23 +96,22 @@ class BenchmarkRegistry:
                 source = "my_lib"
                 name = "my_benchmark"
         """
-        return cls()._register(benchmark_cls)
+        return cls()._register(pipeline_cls)
 
     @classmethod
-    def get_benchmark_class(cls, identifier: str) -> Type[Benchmark]:
-        """Get a registered benchmark class by identifier (added class method for convenience)."""
+    def get_benchmark_class(cls, identifier: str) -> Type[BenchmarkPipeline]:
+        """Get a registered benchmark pipeline class by identifier."""
         return cls()._get(identifier)
 
     @classmethod
-    def get_benchmark_instance(cls, identifier: str, context: RunContext) -> Benchmark:
-        """Instantiate a benchmark by identifier (added class method for convenience)."""
+    def get_benchmark_instance(cls, identifier: str, context: RunContext) -> BenchmarkPipeline:
+        """Instantiate a benchmark pipeline by identifier."""
         return cls()._instantiate(identifier, context)
 
     @classmethod
     def list_benchmarks(cls, origin: Optional[str] = None) -> List[str]:
-        """List registered benchmarks, optionally filtered by origin (added class method for convenience)."""
+        """List registered benchmarks, optionally filtered by origin."""
         instance = cls()
         if origin is None:
             return instance._list_all()
         return instance._list_by_origin(origin)
-

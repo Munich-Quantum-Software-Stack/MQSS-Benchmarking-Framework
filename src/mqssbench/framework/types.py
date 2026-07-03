@@ -23,6 +23,13 @@ class BenchmarkCategory(StrEnum):
     ALGORITHM = auto()
     SIMULATOR = auto()
 
+class BenchmarkRunStatus(StrEnum):
+    """Run status classification for benchmarks."""
+
+    PENDING = auto()
+    RUNNING = auto()
+    COMPLETED = auto()
+    FAILED = auto()
 
 CircuitType = Any
 
@@ -160,12 +167,14 @@ class AnalysisResult:
 
 
 @dataclass(frozen=True)
-class BenchmarkResult:
-    """Final result from a benchmark run."""
+class PipelineResult:
+    """Result from executing a benchmark pipeline."""
 
     run_id: str
     benchmark_key: str
-    params: Dict[str, Any] = field(default_factory=dict)  # benchmark parameters
+    category: str
+    status: BenchmarkRunStatus
+    params: Dict[str, Any] = field(default_factory=dict)
     execution_results: list[ExecutionResult] = field(default_factory=list)
     analysis_result: Optional[AnalysisResult] = None
     metadata: Dict[str, Any] = field(default_factory=dict)

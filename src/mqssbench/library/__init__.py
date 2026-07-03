@@ -1,8 +1,8 @@
 """Library module containing concrete benchmark, adapter, and provider implementations."""
 
-from .loader import auto_import_builtin_library
+from .loader import load_plugins
 
 # Automatically register all builtin library modules
-auto_import_builtin_library()
+load_plugins()
 
 __all__ = []  

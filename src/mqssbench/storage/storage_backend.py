@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from mqssbench.framework.types import BenchmarkResult, RunContext, StorageConfig
+from mqssbench.framework.types import PipelineResult, RunContext, StorageConfig
 
 class StorageError(Exception):
     pass
@@ -18,7 +18,7 @@ class StorageBackend(ABC):
         pass
 
     @abstractmethod
-    def save_result(self, result: BenchmarkResult) -> str:
+    def save_result(self, result: PipelineResult) -> str:
         """
         Persist the structured result (and return the path or URI to file, DB, etc.).
         Must be atomic: either succeed fully or raise StorageError.

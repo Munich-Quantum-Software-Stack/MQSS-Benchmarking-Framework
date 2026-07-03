@@ -28,7 +28,7 @@ This document explains how to propose and implement changes in a way that fits a
 ```bash
 pip install uv
 uv sync --all-extras --dev
-````
+```
 
 ## Branching & Workflow
 
@@ -81,7 +81,7 @@ To run tests with coverage locally:
 
 ```bash
 uv run pytest --cov=src --cov-report=term-missing
-````
+```
 
 Notes specific to this repo:
 

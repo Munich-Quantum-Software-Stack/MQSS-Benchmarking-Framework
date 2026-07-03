@@ -5,7 +5,7 @@ from ..framework import BenchmarkRegistry
 from ..framework import ProviderRegistry
 from ..framework import AdapterRegistry
 from .benchmark_runner import BenchmarkRunner
-from ..framework.types import BenchmarkResult
+from ..framework.types import PipelineResult
 
 
 class BenchmarkManager:
@@ -41,9 +41,9 @@ class BenchmarkManager:
         # implement validation logic (with pydantic, jsonschema or similar)
         return
 
-    def dispatch(self) -> List[BenchmarkResult]:
+    def dispatch(self) -> List[PipelineResult]:
         """
-        Run one or more benchmarks and return a list of BenchmarkResult objects.
+        Run one or more benchmarks and return a list of PipelineResult objects.
         """
         self._validate_config()
 
@@ -56,7 +56,7 @@ class BenchmarkManager:
         else:
             bench_list = [self.config]
 
-        results: List[BenchmarkResult] = []
+        results: List[PipelineResult] = []
         for conf in bench_list:
             if not isinstance(conf, dict):
                 raise TypeError("Each benchmark config must be a dict")

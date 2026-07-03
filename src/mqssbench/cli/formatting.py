@@ -1,18 +1,20 @@
 from __future__ import annotations
 from colorama import Fore, Style, init as colorama_init
 from typing import Iterable, List, Optional
-from mqssbench.framework.types import BenchmarkResult, ExecutionResult
+from mqssbench.framework.types import PipelineResult, ExecutionResult
 
 # needed for Windows
 colorama_init(autoreset=True)
 
-def format_benchmark_result(result: BenchmarkResult) -> str:
-    """Return a clean, colored, human readable string for BenchmarkResult."""
+def format_benchmark_result(result: PipelineResult) -> str:
+    """Return a clean, colored, human readable string for PipelineResult."""
     parts = []
 
     # header
     parts.append(f"{Fore.CYAN}{Style.BRIGHT}Run ID: {Style.RESET_ALL}{result.run_id}")
     parts.append(f"{Fore.CYAN}{Style.BRIGHT}Benchmark: {Style.RESET_ALL}{result.benchmark_key}")
+    parts.append(f"{Fore.CYAN}{Style.BRIGHT}Category: {Style.RESET_ALL}{result.category}")
+    parts.append(f"{Fore.CYAN}{Style.BRIGHT}Status: {Style.RESET_ALL}{result.status}")
 
     # parameters
     if result.params:

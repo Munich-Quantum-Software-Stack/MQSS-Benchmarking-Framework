@@ -7,7 +7,8 @@ from .types import (
     RunContext,
     ExecutionResult,
     AnalysisResult,
-    BenchmarkResult,
+    PipelineResult,
+#    BenchmarkResult,
     ReportConfig,
 )
 from .circuit_generator import CircuitGenerator
@@ -17,6 +18,7 @@ from .benchmark_executor import (
     HybridBenchmarkExecutor,
 )
 from .benchmark_analyzer import BenchmarkAnalyzer, DefaultAnalyzer
+from .benchmark_pipeline import BenchmarkPipeline
 from .benchmark import Benchmark
 from .benchmark_registry import BenchmarkRegistry
 from .provider import CircuitProvider
@@ -31,7 +33,7 @@ __all__ = [
     "RunContext",
     "ExecutionResult",
     "AnalysisResult",
-    "BenchmarkResult",
+#    "BenchmarkResult",
     "ReportConfig",
     "CircuitGenerator",
     "BenchmarkExecutor",
@@ -39,6 +41,8 @@ __all__ = [
     "HybridBenchmarkExecutor",
     "BenchmarkAnalyzer",
     "DefaultAnalyzer",
+    "PipelineResult",
+    "BenchmarkPipeline",
     "Benchmark",
     "BenchmarkRegistry",
     "CircuitProvider",

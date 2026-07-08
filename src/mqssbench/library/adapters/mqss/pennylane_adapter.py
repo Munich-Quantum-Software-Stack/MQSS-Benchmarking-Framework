@@ -1,7 +1,6 @@
 import logging
-from typing import override, Callable, cast
+from typing import override
 from mqss.pennylane_adapter.device import MQSSPennylaneDevice
-from pennylane import QNode
 from ....framework.adapter import DeviceAdapter
 from ....framework.adapter_registry import AdapterRegistry
 from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS

@@ -18,6 +18,8 @@ class BenchmarkCategory(StrEnum):
     SOFTWARE = auto()
     ALGORITHM = auto()
     SIMULATOR = auto()
+    APPLICATION = auto()
+
 
 class BenchmarkRunStatus(StrEnum):
     """Run status classification for benchmarks."""

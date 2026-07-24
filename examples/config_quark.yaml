@@ -1,0 +1,25 @@
+# config file for a native QUARK config file.
+# Requires: quark-framework, quark-plugin-tsp
+
+benchmark: core/quark/workflow
+
+benchmark_params:
+  quark_config: examples/quark_raw_configs/config_quark_tsp.yml
+
+# Required by the runner, but unused in the classical QUARK pipeline.
+# TODO: Make the adapter optional or use a dedicated name for adapter-free configs.
+adapter: qiskit_simulator
+adapter_params:
+  shots: 1
+
+output_dir: "./results"
+
+report:
+  analysis:
+    enabled: true
+
+storage:
+  enabled: true
+  type: file
+  file:
+    format: json

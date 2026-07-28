@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import tempfile
 from typing import Any
-
+import importlib.util
+import subprocess
+import shutil
 import yaml
 
 from mqssbench.framework.benchmark_pipeline import BenchmarkPipeline
 from mqssbench.framework.types import PipelineResult, RunContext, AnalysisResult, BenchmarkRunStatus, BenchmarkCategory
+
+logger = logging.getLogger(__name__)
 
 try:
     from quark.benchmarking import (
@@ -113,6 +118,51 @@ def _merge_tree_metrics(tree_metrics: list[dict[str, Any]]) -> dict[str, Any]:
     return {"pipeline_trees": tree_metrics}
 
 
+def ensure_plugins_installed(plugins: list[str]) -> None:
+    """Install missing QUARK plugins using uv."""
+
+    missing = [
+        plugin
+        for plugin in plugins
+        if importlib.util.find_spec(plugin) is None
+    ]
+
+    if not missing:
+        return
+
+    packages = [plugin.replace("_", "-") for plugin in missing]
+
+    logger.info(
+        "Installing missing QUARK plugins: %s",
+        ", ".join(packages),
+    )
+
+    uv = shutil.which("uv")
+    if uv is None:
+        raise RuntimeError(
+            "uv is required to install missing QUARK plugins."
+        )
+        
+    subprocess.run(
+        ["uv", "pip", "install", *packages],
+        check=True,
+    )
+
+    logger.info("Successfully installed QUARK plugins.")
+
+    # Verify installation
+    still_missing = [
+        plugin
+        for plugin in plugins
+        if importlib.util.find_spec(plugin) is None
+    ]
+
+    if still_missing:
+        raise RuntimeError(
+            f"Unable to install QUARK plugins: {', '.join(still_missing)}"
+        )
+
+
 if _QUARK_AVAILABLE:
 
     class QUARKBenchmarkPipeline(BenchmarkPipeline):
@@ -137,6 +187,8 @@ if _QUARK_AVAILABLE:
 
         def run(self) -> PipelineResult:
             parsed = _parse_quark_config(self.quark_config)
+            # TODO: consider adding a cli explicit flag, like --install-plugins for this
+            ensure_plugins_installed(parsed.plugins)
             load_plugins(parsed.plugins)
 
             tree_results = [
@@ -145,9 +197,8 @@ if _QUARK_AVAILABLE:
             tree_metrics = [_metrics_from_tree_run(result) for result in tree_results]
 
             status = (
-                "interrupted"
-                if any(isinstance(r, InterruptedTreeRun) for r in tree_results)
-                else "completed"
+                BenchmarkRunStatus.FAILED if any(isinstance(r, InterruptedTreeRun) for r in tree_results)
+                else BenchmarkRunStatus.COMPLETED
             )
             return _base_pipeline_result(self.context, status, _merge_tree_metrics(tree_metrics))
 

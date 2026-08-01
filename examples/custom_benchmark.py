@@ -50,7 +50,6 @@ class CustomAnalyzer(BenchmarkAnalyzer):
         )
 
 
-@BenchmarkRegistry.register_benchmark
 class CustomBenchmark(Benchmark):
     origin = "user"
     source = "my_examples"
@@ -67,7 +66,14 @@ class CustomBenchmark(Benchmark):
             raise ValueError("num_qubits and depth required")
 
 
+def register() -> None:
+    """Plugin registration hook."""
+    BenchmarkRegistry.register_benchmark(CustomBenchmark)
+
+
 if __name__ == "__main__":
+    register()
+    
     available_benchmarks = BenchmarkManager.get_available_benchmarks()
     print("===== Available benchmarks =====")
     print(format_registry_lists(benchmarks=available_benchmarks)) 

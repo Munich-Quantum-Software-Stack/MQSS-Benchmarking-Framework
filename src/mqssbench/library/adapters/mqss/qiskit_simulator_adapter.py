@@ -14,7 +14,6 @@ from ....framework.types import (
 logger = logging.getLogger(__name__)
 
 
-@AdapterRegistry.register_adapter
 class QiskitSimulatorAdapter(DeviceAdapter):
     name = "qiskit_simulator"
 
@@ -106,3 +105,8 @@ class QiskitSimulatorAdapter(DeviceAdapter):
             counts=counts,
             profiling_metrics=ProfilingMetrics(params=None),
         )
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    AdapterRegistry.register_adapter(QiskitSimulatorAdapter)

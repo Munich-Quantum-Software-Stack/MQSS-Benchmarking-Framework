@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 MQSS_PENNYLANE_PROFILING_ENABLED = False
 
-@AdapterRegistry.register_adapter
 class PennyLaneAdapter(DeviceAdapter):
     name = "mqss_pennylane"
 
@@ -116,3 +115,8 @@ class PennyLaneAdapter(DeviceAdapter):
             counts=job_result_count,
             profiling_metrics=ProfilingMetrics(params=profiling_data),
         )
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    AdapterRegistry.register_adapter(PennyLaneAdapter)

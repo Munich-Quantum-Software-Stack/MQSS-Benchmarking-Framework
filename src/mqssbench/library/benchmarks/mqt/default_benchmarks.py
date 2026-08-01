@@ -75,5 +75,5 @@ def generate_and_register_mqt_default_benchmarks() -> None:
 
 
 def register() -> None:
-    """Register MQT Bench default benchmarks with the plugin system."""
+    """Plugin registration hook."""
     generate_and_register_mqt_default_benchmarks()

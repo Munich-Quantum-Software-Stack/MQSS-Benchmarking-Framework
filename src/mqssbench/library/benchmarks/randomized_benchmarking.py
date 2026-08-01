@@ -140,7 +140,6 @@ class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
         return filename
 
 
-@BenchmarkRegistry.register_benchmark
 class RandomizedBenchmarkingBenchmark(Benchmark):
     origin = "core"
     source = "native"
@@ -163,3 +162,8 @@ class RandomizedBenchmarkingBenchmark(Benchmark):
             raise ValueError(
                 f"Missing required parameters for '{self.registry_key()}': {missing}"
             )
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    BenchmarkRegistry.register_benchmark(RandomizedBenchmarkingBenchmark)

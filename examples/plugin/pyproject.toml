@@ -1,0 +1,16 @@
+[project]
+name = "mqssbench-example-plugin"
+version = "0.1.0"
+description = "Example MQSSBench plugin."
+readme = "README.md"
+requires-python = ">=3.12"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.entry-points."mqssbench"]
+mqssbench_example_plugin = "mqssbench_example_plugin:register"

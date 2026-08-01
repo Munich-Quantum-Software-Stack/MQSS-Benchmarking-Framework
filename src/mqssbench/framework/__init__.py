@@ -1,15 +1,14 @@
 """Framework module containing base classes and core abstractions."""
 
 from .types import (
-    VALID_ORIGINS,
     BenchmarkCategory,
     CircuitSpec,
     RunContext,
     ExecutionResult,
     AnalysisResult,
     PipelineResult,
-#    BenchmarkResult,
     ReportConfig,
+    ProfilingMetrics
 )
 from .circuit_generator import CircuitGenerator
 from .benchmark_executor import (
@@ -27,14 +26,13 @@ from .adapter_registry import AdapterRegistry
 from .adapter import DeviceAdapter
 
 __all__ = [
-    "VALID_ORIGINS",
     "BenchmarkCategory",
     "CircuitSpec",
     "RunContext",
     "ExecutionResult",
     "AnalysisResult",
-#    "BenchmarkResult",
     "ReportConfig",
+    "ProfilingMetrics",
     "CircuitGenerator",
     "BenchmarkExecutor",
     "DefaultBenchmarkExecutor",

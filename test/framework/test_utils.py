@@ -7,7 +7,7 @@ def test_valid_key():
 @pytest.mark.parametrize("bad", [
     "core/native",             # too few parts
     "core/native/too/many",    # too many parts
-    "unknown/source/name",     # invalid origin
+    "/source/name",            # empty origin
     "core//name",              # empty source
     "core/source/",            # empty name
     "user/ /name",             # white space

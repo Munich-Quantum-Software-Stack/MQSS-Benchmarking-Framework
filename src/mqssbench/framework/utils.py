@@ -1,4 +1,3 @@
-from .types import VALID_ORIGINS
 import os
 import re
 import sys
@@ -31,10 +30,8 @@ def validate_benchmark_registry_key(identifier: str) -> None:
             f"Benchmark identifier '{identifier}' must have exactly three segments: origin/source/name."
         )
     origin, source, name = parts
-    if origin not in VALID_ORIGINS:
-        raise ValueError(f"Origin '{origin}' must be one of {sorted(VALID_ORIGINS)}.")
-    if not source or not name:
-        raise ValueError("Source and name segments must be non-empty.")
+    if not origin or not source or not name:
+        raise ValueError("Origin, source, and name segments must be non-empty.")
 
 def make_output_filepath(
     benchmark_key: str,

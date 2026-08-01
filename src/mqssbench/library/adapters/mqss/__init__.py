@@ -1,3 +1,3 @@
-"""Generate MQSS adapter implementation."""
+"""MQSS adapter implementations."""
 
 __all__ = []

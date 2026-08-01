@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Tuple, override
 
-from ...framework import (
+from ....framework import (
     Benchmark,
     DefaultAnalyzer,
     BenchmarkCategory,
@@ -8,8 +8,8 @@ from ...framework import (
     CircuitSpec,
     DefaultBenchmarkExecutor,
     BenchmarkRegistry,
+    ProviderRegistry,
 )
-from ...framework import ProviderRegistry
 
 
 class MQTBenchGenerator(CircuitGenerator):
@@ -52,7 +52,6 @@ def _create_mqt_default_benchmark_class(bench_name: str) -> type:
             missing = [field for field in required_params if field not in params]
             if missing:
                 raise ValueError(f"Missing required parameters for '{self.registry_key()}': {missing}")
-            return None
 
     # Set a meaningful __name__ for better debugging and error messages
     MQTBenchmarkClass.__name__ = class_name
@@ -62,8 +61,8 @@ def _create_mqt_default_benchmark_class(bench_name: str) -> type:
     return MQTBenchmarkClass
 
 
-def auto_register_mqt_default_benchmarks():
-    """Auto-register all available MQT benchmarks from the provider."""
+def generate_and_register_mqt_default_benchmarks() -> None:
+    """Generate and register all available MQT benchmarks from the provider."""
     provider = ProviderRegistry.get_provider("mqt_bench")
     if provider is None:
         raise ValueError("MQT Bench provider is not registered.")
@@ -75,5 +74,6 @@ def auto_register_mqt_default_benchmarks():
         BenchmarkRegistry.register_benchmark(benchmark_cls)
 
 
-# Auto-register when module is imported
-auto_register_mqt_default_benchmarks()
+def register() -> None:
+    """Register MQT Bench default benchmarks with the plugin system."""
+    generate_and_register_mqt_default_benchmarks()

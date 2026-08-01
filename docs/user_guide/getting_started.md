@@ -298,6 +298,7 @@ The `benchmark` field must always follow the strict `origin/source/name` format.
 - Core native benchmark: `core/native/quantum_volume` - uses `native` (native provider) as source
 - Core provider benchmark: `core/mqt_bench/vqe_su2` - uses `mqt_bench` (a circuit provider) as source
 - User defined benchmark: `user/my_source/my_benchmark_name` — uses `my_source` (arbitrary user source), can also leverage circuit providers
+- Plugin benchmark: `example_plugin/native/example_benchmark` - provided by an installed third-party plugin
 
 Both CLI and Python API share the same execution engine, registry system, and adapter logic.
 

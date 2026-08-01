@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Type
 from .utils import validate_benchmark_registry_key
 
 from .benchmark_pipeline import BenchmarkPipeline
-from .types import RunContext, VALID_ORIGINS
+from .types import RunContext
 
 
 class BenchmarkRegistry:
@@ -70,8 +70,6 @@ class BenchmarkRegistry:
 
     def _list_by_origin(self, origin: str) -> List[str]:
         """List all registered benchmarks for a given origin."""
-        if origin not in VALID_ORIGINS:
-            raise ValueError(f"Origin '{origin}' must be one of {sorted(VALID_ORIGINS)}.")
         prefix = f"{origin}/"
         return sorted(key for key in self._registry if key.startswith(prefix))
 

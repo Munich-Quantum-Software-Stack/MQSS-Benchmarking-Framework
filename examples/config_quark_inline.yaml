@@ -1,10 +1,12 @@
 benchmark: core/quark/workflow
 
 benchmark_params:
-  quark_config: examples/quark_configs/config_quark_tsp.yml
+  quark_config: 
+    plugins: ["quark_plugin_tsp"]
+    pipeline:
+      - tsp_graph_provider: { nodes: 4, seed: 42 }
+      - classical_tsp_solver
 
-# Required by the runner, but unused in the classical QUARK pipeline.
-# TODO: Make the adapter optional or use a dedicated name for adapter-free configs.
 adapter: qiskit_simulator
 adapter_params:
   shots: 1

@@ -180,19 +180,19 @@ if _QUARK_AVAILABLE:
                     "QUARK benchmark params must include 'quark_config' "
                     "(file path)."
                 )
-            self.quark_config = quark_config
+            
+            self.parsed_config = _parse_quark_config(quark_config)
 
         def get_category(self) -> str:
             return BenchmarkCategory.APPLICATION
 
         def run(self) -> PipelineResult:
-            parsed = _parse_quark_config(self.quark_config)
             # TODO: consider adding a cli explicit flag, like --install-plugins for this
-            ensure_plugins_installed(parsed.plugins)
-            load_plugins(parsed.plugins)
+            ensure_plugins_installed(self.parsed_config.plugins)
+            load_plugins(self.parsed_config.plugins)
 
             tree_results = [
-                run_pipeline_tree(tree) for tree in parsed.pipeline_trees
+                run_pipeline_tree(tree) for tree in self.parsed_config.pipeline_trees
             ]
             tree_metrics = [_metrics_from_tree_run(result) for result in tree_results]
 
@@ -204,3 +204,18 @@ if _QUARK_AVAILABLE:
 
 else:
     QUARKBenchmarkPipeline = None  # type: ignore[misc, assignment]
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    if QUARKBenchmarkPipeline is None:
+        logger.debug("quark not installed; skipping QUARK pipeline registration")
+        return
+
+    from mqssbench.framework.benchmark_registry import BenchmarkRegistry
+
+    BenchmarkRegistry.register_benchmark(QUARKBenchmarkPipeline)
+
+
+# Temporary: register until upcoming plugin discovery changes handle this automatically.
+register()

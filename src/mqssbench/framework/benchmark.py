@@ -2,45 +2,61 @@
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import Any, Dict, Tuple, Type, TypeVar
 
 from .utils import validate_benchmark_registry_key
 
-from .types import BenchmarkCategory, RunContext, BenchmarkResult
+from .types import BenchmarkCategory, RunContext, PipelineResult, BenchmarkRunStatus
 from .circuit_generator import CircuitGenerator
 from .benchmark_executor import BenchmarkExecutor, HybridBenchmarkExecutor
 from .benchmark_analyzer import BenchmarkAnalyzer
+from .benchmark_pipeline import BenchmarkPipeline
 
 ComponentT = TypeVar(
     "ComponentT", CircuitGenerator, BenchmarkExecutor, BenchmarkAnalyzer
 )
 
 
-class Benchmark(ABC):
-    """Abstract base class for benchmarks."""
+class Benchmark(BenchmarkPipeline):
+    """Abstract base class for generator/executor/analyzer benchmarks.
+
+    Subclasses must define the following class-level attributes:
+    - ``generator``, ``executor``, ``analyzer``: classes used during ``run()``
+        to generate circuits, execute them, and analyze results.
+    - ``supported_adapters``: tuple of adapter names (empty tuple = no restriction).
+    - ``category``: a ``BenchmarkCategory`` instance describing the benchmark category.
+
+    Implementations must override ``validate_params(self, params)`` to validate
+    benchmark-specific parameters.
+
+    Optionally override ``validate_context`` to perform context-specific checks.
+
+    The ``run()`` method performs the common workflow: validate inputs,
+    instantiate components, execute the benchmark, optionally run analysis,
+    and return a ``BenchmarkResult``.
+
+    Helper methods:
+    - ``_instantiate_component()``: ensures a component is a class and a
+        subclass of the expected type, then instantiates it with the current
+        ``context``.
+    - ``_validate_attributes()``: verifies all required class attributes and
+        types at subclass definition time.
+    """   
 
     # Class-level attributes that must be defined by subclasses
-    origin: str
-    source: str
-    name: str
     generator: Type[CircuitGenerator]
     executor: Type[BenchmarkExecutor]
     analyzer: Type[BenchmarkAnalyzer]
     supported_adapters: Tuple[str, ...]  # Empty tuple means unrestricted
     category: BenchmarkCategory
 
-    def __init__(self, context: RunContext):
-        self.context = context
-
     def __init_subclass__(cls):
         super().__init_subclass__()
         cls._validate_attributes()
 
-    @classmethod
-    def registry_key(cls) -> str:
-        """Generate the registry key for this benchmark."""
-        return f"{cls.origin}/{cls.source}/{cls.name}"
+    def get_category(self) -> str:
+        return str(self.category)
 
     @abstractmethod
     def validate_params(self, params: Dict[str, Any]) -> None:
@@ -60,8 +76,8 @@ class Benchmark(ABC):
         """Validate the run context."""
         ...
 
-    def run(self) -> BenchmarkResult:
-        """Execute the benchmark."""
+    def run(self) -> PipelineResult:
+        """Run the benchmark pipeline."""
         self.validate_params(self.context.params)
         self.validate_adapter(self.context.adapter.name)
         self.validate_context(self.context)
@@ -72,20 +88,22 @@ class Benchmark(ABC):
         executor = self._instantiate_component(self.executor, BenchmarkExecutor)
 
         if isinstance(executor, HybridBenchmarkExecutor):
-            excecution_results = executor.run(generator, self.context)
+            execution_results = executor.run(generator, self.context)
         else:
-            excecution_results = executor.run(circuits, self.context)
+            execution_results = executor.run(circuits, self.context)
 
         analysis_result = None
         if self.context.report_config.analysis.enabled:
             analyzer = self._instantiate_component(self.analyzer, BenchmarkAnalyzer)
-            analysis_result = analyzer.analyze(excecution_results, self.context)
+            analysis_result = analyzer.analyze(execution_results, self.context)
 
-        return BenchmarkResult(
+        return PipelineResult(
             run_id=self.context.run_id,
             benchmark_key=self.context.benchmark_key,
+            category=self.get_category(),
+            status=BenchmarkRunStatus.COMPLETED,
             params=self.context.params,
-            execution_results=excecution_results,
+            execution_results=execution_results,
             analysis_result=analysis_result,
         )
 

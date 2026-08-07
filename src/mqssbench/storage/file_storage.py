@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
-from ..framework.types import BenchmarkResult, RunContext
+from ..framework.types import PipelineResult, RunContext
 from .storage_registry import register_storage
 from .storage_backend import StorageBackend, StorageError
 from ..framework.utils import atomic_write
@@ -13,7 +13,7 @@ class FileStorage(StorageBackend):
         self.results_path = Path(self.context.run_dir) / "results.json"
         self.results_path.parent.mkdir(parents=True, exist_ok=True)
 
-    def save_result(self, result: BenchmarkResult) -> str:
+    def save_result(self, result: PipelineResult) -> str:
         try:
             if self.config.file.format != "json":
                 raise StorageError(f"Unsupported format: {self.config.file.format}")
@@ -33,7 +33,7 @@ class FileStorage(StorageBackend):
         return None
 
 
-def serialize_result_json(context: RunContext, result: BenchmarkResult) -> dict:
+def serialize_result_json(context: RunContext, result: PipelineResult) -> dict:
     now = datetime.utcnow().isoformat() + "Z"
 
     return {
@@ -41,6 +41,8 @@ def serialize_result_json(context: RunContext, result: BenchmarkResult) -> dict:
         "timestamp_utc": now,
         "run_id": context.run_id,
         "benchmark_key": result.benchmark_key,
+        "category": result.category,
+        "status": result.status,
         "benchmark_params": result.params,
         "adapter": {"backend": context.adapter.get_backend_name()},
         "execution_results": [

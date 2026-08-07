@@ -8,6 +8,7 @@ ALLOWED_ROOT_PACKAGES = {
     "mqssbench.library.providers",
     "mqssbench.library.adapters",
     "mqssbench.library.benchmarks",
+    "mqssbench.library.pipelines",
 }
 
 MAX_DEPTH = 3  # to prevent excessively deep recursion
@@ -40,11 +41,15 @@ def _load_submodules(pkg, depth=0):
             _load_submodules(sub_pkg, depth + 1)
 
 
-def auto_import_builtin_library():
-    from . import providers, adapters, benchmarks
-    for pkg in (providers, adapters, benchmarks):
+def load_builtin_library():
+    from . import providers, adapters, benchmarks, pipelines
+    for pkg in (providers, adapters, benchmarks, pipelines):
         _load_submodules(pkg)
-    logger.info("Auto import of builtin library completed")
+    logger.info("Loading of builtin library completed")
 
+
+def load_plugins():
+    load_builtin_library()
+    
 
 # TODO: later add loading external plugins and plugin manager

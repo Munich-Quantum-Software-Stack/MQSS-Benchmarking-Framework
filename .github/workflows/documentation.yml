@@ -1,0 +1,57 @@
+name: Build and Deploy Docs
+
+on:
+  push:
+    branches:
+      - develop
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+       - name: Install UV
+          run: curl -LsSf https://astral.sh/uv/install.sh | sh
+          shell: bash
+
+        - name: Add UV to the environment
+          run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+          shell: bash
+
+        - name: Install the project
+          run: uv sync --all-extras --dev
+         
+      - name: Build documentation
+        run: |
+          mkdocs build
+
+      - name: Copy documentation to gh-pages branch
+        run: |
+          git clone --branch gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+          cp -rf build/docs/site/* gh-pages/
+
+      - name: Commit and push changes
+        run: |
+          cd gh-pages
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Update docs from GitHub Action" || echo "No changes to commit"
+          git push origin gh-pages
+
+      - name: Clean up
+        run: |
+          cd ..
+          rm -rf gh-pages
+          rm -rf build

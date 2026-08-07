@@ -1,11 +1,24 @@
-"""MQSS adapter base class."""
+"""Adapter interface for quantum backends.
+
+Adapters abstract quantum device execution, profiling, and result handling.
+Each adapter targets a specific backend (e.g., simulator, real quantum processor).
+"""
 
 from abc import ABC, abstractmethod
 from .types import ProfilingConfig, RunContext, ExecutionResult
 
 
 class DeviceAdapter(ABC):
-    """Abstract base class for MQSS adapters."""
+    """Abstract interface for quantum device backends.
+
+    Subclasses must define the ``name`` class attribute (unique string identifier).
+    The ``__init_subclass__`` hook validates this at class definition time.
+
+    Key methods:
+    - ``get_backend_name()``: returns backend identifier string.
+    - ``validate_profiling_config()``: validates profiling parameters for this backend.
+    - ``execute_circuit()``: runs a circuit and returns execution results with metrics.
+    """
 
     name: str  # Unique name for the adapter class. Child classes must define this attribute
 

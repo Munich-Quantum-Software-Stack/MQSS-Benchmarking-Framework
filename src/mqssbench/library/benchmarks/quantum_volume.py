@@ -80,7 +80,6 @@ class QuantumVolumeAnalyzer(BenchmarkAnalyzer):
             artifacts={},
         )
 
-@BenchmarkRegistry.register_benchmark
 class QuantumVolumeBenchmark(Benchmark):
     origin = "core"
     source = "native"
@@ -100,3 +99,8 @@ class QuantumVolumeBenchmark(Benchmark):
         if missing:
             raise ValueError(f"Missing required parameters for '{self.registry_key()}': {missing}")
         return None
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    BenchmarkRegistry.register_benchmark(QuantumVolumeBenchmark)

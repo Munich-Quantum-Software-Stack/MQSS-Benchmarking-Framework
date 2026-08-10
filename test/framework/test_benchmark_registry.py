@@ -175,12 +175,6 @@ def test_get_nonexistent_benchmark_raises_value_error():
         BenchmarkRegistry.get_benchmark_class("core/native/this_does_not_exist")
 
 
-def test_list_by_origin_invalid_origin_raises_value_error():
-    """Providing an invalid origin to list_benchmarks should raise ValueError."""
-    with pytest.raises(ValueError):
-        BenchmarkRegistry.list_benchmarks(origin="not_a_valid_origin")
-
-
 def test_register_non_pipeline_class_raises_type_error():
     """Passing a class that is not a BenchmarkPipeline subclass should raise TypeError."""
     class NotAPipeline:
@@ -216,7 +210,7 @@ def test_invalid_benchmark_definition_raises_on_subclassing():
 
     with pytest.raises(ValueError):
         class BadOriginBenchmark(Benchmark):
-            origin = "invalid_origin"  # not in VALID_ORIGINS
+            origin = ""  # should be non-empty
             source = "s"
             name = "n"
             generator = G2

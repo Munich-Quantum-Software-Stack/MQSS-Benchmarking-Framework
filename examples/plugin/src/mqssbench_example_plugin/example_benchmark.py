@@ -14,8 +14,8 @@ from mqssbench.framework import (
     AnalysisResult,
     BenchmarkRegistry,
 )
-from mqssbench.runtime.benchmark_manager import BenchmarkManager
-from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
+
+from . import PLUGIN_ORIGIN
 
 class CustomCircuitGenerator(CircuitGenerator):
     @override
@@ -50,14 +50,14 @@ class CustomAnalyzer(BenchmarkAnalyzer):
         )
 
 
-class CustomBenchmark(Benchmark):
-    origin = "user"
-    source = "my_examples"
-    name = "custom_benchmark"
+class ExampleBenchmark(Benchmark):
+    origin = PLUGIN_ORIGIN
+    source = "native"
+    name = "example_benchmark"
     generator = CustomCircuitGenerator
     executor = DefaultBenchmarkExecutor
     analyzer = CustomAnalyzer
-    supported_adapters: Tuple[str, ...] = ("mqss_qiskit",)
+    supported_adapters: Tuple[str, ...] = ("example_adapter", "mqss_qiskit")
     category = BenchmarkCategory.SOFTWARE
 
     @override
@@ -67,33 +67,4 @@ class CustomBenchmark(Benchmark):
 
 
 def register() -> None:
-    """Plugin registration hook."""
-    BenchmarkRegistry.register_benchmark(CustomBenchmark)
-
-
-if __name__ == "__main__":
-    register()
-    
-    available_benchmarks = BenchmarkManager.get_available_benchmarks()
-    print("===== Available benchmarks =====")
-    print(format_registry_lists(benchmarks=available_benchmarks)) 
-
-    config = {
-        "benchmark": "user/my_examples/custom_benchmark",
-        "benchmark_params": {"num_qubits": 1, "depth": 3},
-        "adapter": "mqss_qiskit",
-        "adapter_params": {
-            "backend": "QExa20",
-            "credentials": {"mqss_token": ""},
-            "shots": 200,
-        },
-        "output_dir": "./results",
-    }
-
-    manager = BenchmarkManager(config)
-    results = manager.dispatch()
-
-    print("===== Custom Benchmark Result =====")
-    for r in results:
-        print(format_benchmark_result(r))
-        print()  # blank line between runs
+    BenchmarkRegistry.register_benchmark(ExampleBenchmark)

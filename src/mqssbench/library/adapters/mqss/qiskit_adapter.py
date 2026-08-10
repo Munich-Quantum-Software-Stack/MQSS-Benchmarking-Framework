@@ -18,7 +18,6 @@ logger = logging.getLogger(__name__)
 MQSS_QISKIT_PROFILING_ENABLED = True
 
 
-@AdapterRegistry.register_adapter
 class QiskitAdapter(DeviceAdapter):
     name = "mqss_qiskit"
 
@@ -137,3 +136,8 @@ class QiskitAdapter(DeviceAdapter):
             counts=counts,
             profiling_metrics=ProfilingMetrics(params=profiling_data),
         )
+
+
+def register() -> None:
+    """Plugin registration hook."""
+    AdapterRegistry.register_adapter(QiskitAdapter)

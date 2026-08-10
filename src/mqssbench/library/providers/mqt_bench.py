@@ -7,7 +7,6 @@ from ...framework.provider import (
 from ...framework import ProviderRegistry
 logger = logging.getLogger(__name__)
 
-@ProviderRegistry.register_provider
 class MQTBenchProvider(CircuitProvider):
     name = "mqt_bench"
 
@@ -49,3 +48,7 @@ class MQTBenchProvider(CircuitProvider):
 
         return get_benchmark(benchmark=circuit_name, level=level_enum, circuit_size=num_qubits)
 
+
+def register() -> None:
+    """Plugin registration hook."""
+    ProviderRegistry.register_provider(MQTBenchProvider)

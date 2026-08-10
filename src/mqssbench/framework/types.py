@@ -11,10 +11,6 @@ if TYPE_CHECKING:
     from mqssbench.framework.adapter import DeviceAdapter
 
 
-# Valid origins for benchmarks
-VALID_ORIGINS = frozenset({"core", "user"})
-
-
 class BenchmarkCategory(StrEnum):
     """Category classification for benchmarks."""
 

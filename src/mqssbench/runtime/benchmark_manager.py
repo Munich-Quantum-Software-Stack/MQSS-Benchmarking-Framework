@@ -6,7 +6,10 @@ from ..framework import ProviderRegistry
 from ..framework import AdapterRegistry
 from .benchmark_runner import BenchmarkRunner
 from ..framework.types import PipelineResult
+from mqssbench.plugins import load_plugins
 
+# Load built-in and installed plugins
+load_plugins()
 
 class BenchmarkManager:
     @staticmethod

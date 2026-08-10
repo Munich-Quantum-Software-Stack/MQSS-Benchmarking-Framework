@@ -1,0 +1,28 @@
+benchmark: example_plugin/native/example_benchmark
+
+benchmark_params:
+  num_qubits: 1
+  depth: 3
+
+adapter: example_adapter
+
+adapter_params:
+  shots: 1024
+
+output_dir: ./results
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: false
+      show: false
+
+storage:
+  enabled: true
+  type: "file" 
+  file:
+    format: "json"
+
+profiling:
+  enabled: false

@@ -1,7 +1,6 @@
 import logging
-from typing import override, Callable, cast
+from typing import override
 from mqss.pennylane_adapter.device import MQSSPennylaneDevice
-from pennylane import QNode
 from ....framework.adapter import DeviceAdapter
 from ....framework.adapter_registry import AdapterRegistry
 from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
@@ -87,6 +86,9 @@ class PennyLaneAdapter(DeviceAdapter):
         if num_qubits is None:
             raise ValueError("num_qubits must be provided to create PennyLane device")
         
+        if not callable(circuit):
+            raise ValueError("circuit must be a callable function")
+
         device = self._get_device(num_qubits)
 
         # TODO: for now implement transpile_mode, later consider exploring alternatives to transpilation here
@@ -94,15 +96,22 @@ class PennyLaneAdapter(DeviceAdapter):
         print(f"Running circuit on backend {self._backend_name} ...")
         logger.info("circuit\n%s", circuit)
 
-        # Build qnode
-        if callable(circuit):
-            # cast circuit so pyright knows it's callable and returns QNode
-            circuit = cast(Callable[..., QNode], circuit)
-            qnode = circuit(device)
-        else:
-            qnode = circuit
+        result = None
 
-        job_result_count = qnode()
+        try:
+            result_obj = circuit(device)
+        except TypeError:
+            result_obj = circuit()
+
+        if callable(result_obj):
+            result = result_obj()
+        else:
+            result = result_obj
+
+        job_result_count = {}
+        if isinstance(result, dict):
+            job_result_count = result
+
         # TODO: implement storing job id in pennylane
         if MQSS_PENNYLANE_PROFILING_ENABLED:
             # To be implemented: get profiling data from job_profiler_metrics

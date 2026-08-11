@@ -30,7 +30,7 @@ jobs:
         shell: bash
 
       - name: Install the project
-        run: uv sync --all-extras --dev
+        run: uv sync --all-groups --all-extras
          
       - name: Build documentation
         run: |

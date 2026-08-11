@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -734,10 +734,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.types.BenchmarkResult" class="md-nav__link">
+  <a href="#mqssbench.framework.types.BenchmarkRunStatus" class="md-nav__link">
     <span class="md-ellipsis">
       
-        BenchmarkResult
+        BenchmarkRunStatus
       
     </span>
   </a>
@@ -760,6 +760,17 @@
     <span class="md-ellipsis">
       
         ExecutionResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqssbench.framework.types.PipelineResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PipelineResult
       
     </span>
   </a>
@@ -1063,10 +1074,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.types.BenchmarkResult" class="md-nav__link">
+  <a href="#mqssbench.framework.types.BenchmarkRunStatus" class="md-nav__link">
     <span class="md-ellipsis">
       
-        BenchmarkResult
+        BenchmarkRunStatus
       
     </span>
   </a>
@@ -1089,6 +1100,17 @@
     <span class="md-ellipsis">
       
         ExecutionResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqssbench.framework.types.PipelineResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PipelineResult
       
     </span>
   </a>
@@ -1300,22 +1322,20 @@
 
 
 
-<h2 id="mqssbench.framework.types.BenchmarkResult" class="doc doc-heading">
-            <span class="doc doc-object-name doc-class-name">BenchmarkResult</span>
+<h2 id="mqssbench.framework.types.BenchmarkRunStatus" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">BenchmarkRunStatus</span>
 
 
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#mqssbench.framework.types.BenchmarkResult" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#mqssbench.framework.types.BenchmarkRunStatus" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="enum.StrEnum">StrEnum</span></code></p>
 
 
 
-        <p>Final result from a benchmark run.</p>
+        <p>Run status classification for benchmarks.</p>
 
 
 
@@ -1416,6 +1436,56 @@
 
 
         <p>Result from executing a circuit.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="mqssbench.framework.types.PipelineResult" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">PipelineResult</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#mqssbench.framework.types.PipelineResult" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Result from executing a benchmark pipeline.</p>
 
 
 

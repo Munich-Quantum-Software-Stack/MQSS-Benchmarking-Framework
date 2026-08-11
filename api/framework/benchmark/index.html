@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -584,17 +584,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark.Benchmark.registry_key" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        registry_key
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mqssbench.framework.benchmark.Benchmark.run" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1015,17 +1004,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark.Benchmark.registry_key" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        registry_key
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mqssbench.framework.benchmark.Benchmark.run" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1135,18 +1113,16 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="abc.ABC">ABC</span></code></p>
+              Bases: <code><span title="mqssbench.framework.benchmark_pipeline.BenchmarkPipeline">BenchmarkPipeline</span></code></p>
 
 
 
-        <p>Base class for all benchmarks.</p>
+        <p>Abstract base class for generator/executor/analyzer benchmarks.</p>
 <p>Subclasses must define the following class-level attributes:
-- <code>origin</code>, <code>source</code>, <code>name</code>: used to build the benchmark registry key
-    with <code>registry_key()</code> (format: "origin/source/name").
 - <code>generator</code>, <code>executor</code>, <code>analyzer</code>: classes used during <code>run()</code>
     to generate circuits, execute them, and analyze results.
 - <code>supported_adapters</code>: tuple of adapter names (empty tuple = no restriction).
-- <code>category</code>: a <code>BenchmarkCategory</code> instance describing the benchmark type.</p>
+- <code>category</code>: a <code>BenchmarkCategory</code> instance describing the benchmark category.</p>
 <p>Implementations must override <code>validate_params(self, params)</code> to validate
 benchmark-specific parameters.</p>
 <p>Optionally override <code>validate_context</code> to perform context-specific checks.</p>
@@ -1154,7 +1130,6 @@ benchmark-specific parameters.</p>
 instantiate components, execute the benchmark, optionally run analysis,
 and return a <code>BenchmarkResult</code>.</p>
 <p>Helper methods:
-- <code>registry_key()</code>: returns the stable registry key string.
 - <code>_instantiate_component()</code>: ensures a component is a class and a
     subclass of the expected type, then instantiates it with the current
     <code>context</code>.
@@ -1185,46 +1160,22 @@ and return a <code>BenchmarkResult</code>.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="mqssbench.framework.benchmark.Benchmark.registry_key" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">registry_key</span>
-
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-<a href="#mqssbench.framework.benchmark.Benchmark.registry_key" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">registry_key</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><span title="str">str</span></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Generate the registry key for this benchmark.</p>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
 <h3 id="mqssbench.framework.benchmark.Benchmark.run" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">run</span>
 
 
 <a href="#mqssbench.framework.benchmark.Benchmark.run" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="BenchmarkResult
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="PipelineResult
 
 
   
       dataclass
-   (mqssbench.framework.types.BenchmarkResult)" href="../types/#mqssbench.framework.types.BenchmarkResult">BenchmarkResult</a></span>
+   (mqssbench.framework.types.PipelineResult)" href="../types/#mqssbench.framework.types.PipelineResult">PipelineResult</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Execute the benchmark.</p>
+        <p>Run the benchmark pipeline.</p>
 
 
     </div>

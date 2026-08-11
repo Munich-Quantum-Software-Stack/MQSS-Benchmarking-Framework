@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -1117,7 +1117,7 @@
 
 
 
-        <p>Registry for managing benchmark classes.</p>
+        <p>Registry for managing benchmark pipeline classes.</p>
 
 
 
@@ -1152,12 +1152,14 @@
   </span>
 
 <a href="#mqssbench.framework.benchmark_registry.BenchmarkRegistry.get_benchmark_class" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_benchmark_class</span><span class="p">(</span><span class="n">identifier</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="Benchmark (mqssbench.framework.benchmark.Benchmark)" href="../../framework/benchmark/#mqssbench.framework.benchmark.Benchmark">Benchmark</a></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_benchmark_class</span><span class="p">(</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><span title="mqssbench.framework.benchmark_pipeline.BenchmarkPipeline">BenchmarkPipeline</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Get a registered benchmark class by identifier (added class method for convenience).</p>
+        <p>Get a registered benchmark pipeline class by identifier.</p>
 
 
     </div>
@@ -1183,12 +1185,12 @@
   
       dataclass
    (mqssbench.framework.types.RunContext)" href="../../framework/types/#mqssbench.framework.types.RunContext">RunContext</a></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="Benchmark (mqssbench.framework.benchmark.Benchmark)" href="../../framework/benchmark/#mqssbench.framework.benchmark.Benchmark">Benchmark</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="mqssbench.framework.benchmark_pipeline.BenchmarkPipeline">BenchmarkPipeline</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Instantiate a benchmark by identifier (added class method for convenience).</p>
+        <p>Instantiate a benchmark pipeline by identifier.</p>
 
 
     </div>
@@ -1212,7 +1214,7 @@
 
     <div class="doc doc-contents ">
 
-        <p>List registered benchmarks, optionally filtered by origin (added class method for convenience).</p>
+        <p>List registered benchmarks, optionally filtered by origin.</p>
 
 
     </div>
@@ -1232,13 +1234,13 @@
 
 <a href="#mqssbench.framework.benchmark_registry.BenchmarkRegistry.register_benchmark" class="headerlink" title="Permanent link">&para;</a></h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">register_benchmark</span><span class="p">(</span>
-    <span class="n">benchmark_cls</span><span class="p">:</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="Benchmark (mqssbench.framework.benchmark.Benchmark)" href="../../framework/benchmark/#mqssbench.framework.benchmark.Benchmark">Benchmark</a></span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="Benchmark (mqssbench.framework.benchmark.Benchmark)" href="../../framework/benchmark/#mqssbench.framework.benchmark.Benchmark">Benchmark</a></span><span class="p">]</span>
+    <span class="n">pipeline_cls</span><span class="p">:</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><span title="mqssbench.framework.benchmark_pipeline.BenchmarkPipeline">BenchmarkPipeline</span></span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Type">Type</span></span><span class="p">[</span><span class="n"><span title="mqssbench.framework.benchmark_pipeline.BenchmarkPipeline">BenchmarkPipeline</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Decorator to register a Benchmark subclass with the BenchmarkRegistry.</p>
+        <p>Decorator to register a BenchmarkPipeline subclass with the BenchmarkRegistry.</p>
 
 
 <details class="example-usage" open>

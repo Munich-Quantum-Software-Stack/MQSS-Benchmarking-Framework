@@ -215,7 +215,3 @@ def register() -> None:
     from mqssbench.framework.benchmark_registry import BenchmarkRegistry
 
     BenchmarkRegistry.register_benchmark(QUARKBenchmarkPipeline)
-
-
-# Temporary: register until upcoming plugin discovery changes handle this automatically.
-register()

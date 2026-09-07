@@ -1,0 +1,32 @@
+benchmark: core/native/lih_vqe
+
+benchmark_params: # benchmark specific params
+  parameters: [0.1, 0.2, 0.3, 0.4]  # initial RY angles, 2 layers x 2 qubits
+  bond_length: 1.5474  # angstrom (STO-3G, minimal 2e/2o active space)
+
+adapter: mqss_qiskit
+adapter_params:
+  backend: EQE1
+  credentials:
+    mqss_token: ""
+  shots: 4096
+
+output_dir: "./results"
+
+# Controls what is generated
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: true
+
+# Controls how results are persisted
+storage:
+  enabled: true
+  type: "file"  # "file" or "sqlite"
+  file:
+    format: "json"
+
+profiling:
+  enabled: true

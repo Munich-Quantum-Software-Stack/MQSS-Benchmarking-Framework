@@ -19,6 +19,9 @@ MQSS_VALID_PROFILING_METRICS = frozenset({
     "pass_selection",
     "knitter",
     "job_execution",
+    "queue_time",
+    "quantum_execution",
+    "classical_execution",
 })
 
 # environment variables

@@ -5,6 +5,7 @@ import sys
 
 from mqssbench.runtime.benchmark_manager import BenchmarkManager
 from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
+from mqssbench.profiling import Profiler
 
 logger = logging.getLogger(__name__)
 
@@ -56,11 +57,30 @@ def cli_list():
     )
     print(formatted)
 
+def cli_profile(results_path: str, execution_index: int, make_plot: bool, output: str, show: bool):
+    profiler = Profiler.from_file(results_path)
+    print(profiler.report(execution_index=execution_index))
+
+    if not make_plot:
+        return
+
+    plot_path = profiler.plot(execution_index=execution_index, output_path=output, show=show)
+    if plot_path is None:
+        print("\nNo numeric profiling metrics available to plot.")
+        return
+
+    print(f"\nPlot saved to: {plot_path}")
+
+    pie_path = profiler.plot_pie(execution_index=execution_index, show=show)
+    if pie_path:
+        print(f"Pie chart saved to: {pie_path}")
+
 def main():
     EXAMPLES = """Examples:
     mqssbench list
     mqssbench run --config path/to/config.yaml
     mqssbench -v run --config path/to/config.yaml
+    mqssbench profile path/to/results.json
     """
 
     parser = argparse.ArgumentParser(
@@ -87,6 +107,19 @@ def main():
         help="List available benchmarks, circuit providers, and adapters"
     )
 
+    profile_parser = subparsers.add_parser(
+        "profile",
+        help="Profile a completed run's job cycle (queue/compile/quantum/classical breakdown)"
+    )
+    profile_parser.add_argument("results", help="Path to a saved results.json file")
+    profile_parser.add_argument(
+        "--execution", type=int, default=0,
+        help="Index of the execution result to profile (default: 0)"
+    )
+    profile_parser.add_argument("--no-plot", action="store_true", help="Skip generating a plot")
+    profile_parser.add_argument("--output", help="Path to save the plot (default: alongside the results file)")
+    profile_parser.add_argument("--show", action="store_true", help="Open the generated plot")
+
     args = parser.parse_args()
 
     setup_logging(args.verbose)
@@ -95,6 +128,8 @@ def main():
         cli_run(args.config)
     elif args.command == "list":
         cli_list()
+    elif args.command == "profile":
+        cli_profile(args.results, args.execution, not args.no_plot, args.output, args.show)
     else:
         parser.print_help()
 

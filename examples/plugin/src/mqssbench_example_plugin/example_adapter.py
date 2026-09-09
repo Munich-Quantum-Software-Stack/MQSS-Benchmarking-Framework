@@ -1,7 +1,7 @@
 from mqssbench.framework import (
     AdapterRegistry,
     DeviceAdapter,
-    ExecutionResult,
+    CircuitExecutionResult,
     ProfilingMetrics,
 )
 
@@ -39,7 +39,7 @@ class ExampleAdapter(DeviceAdapter):
             "1": shots - int(shots * 0.8),
         }
 
-        return ExecutionResult(
+        return CircuitExecutionResult(
             job_id="example-job",
             counts=counts,
             profiling_metrics=ProfilingMetrics(params={}),

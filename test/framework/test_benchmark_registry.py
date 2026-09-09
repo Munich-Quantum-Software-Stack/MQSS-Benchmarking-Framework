@@ -19,7 +19,7 @@ from mqssbench.framework.benchmark_analyzer import BenchmarkAnalyzer, DefaultAna
 from mqssbench.framework.types import (
     RunContext,
     ReportConfig,
-    ExecutionResult,
+    CircuitExecutionResult,
     ProfilingMetrics,
     CircuitSpec,
     BenchmarkCategory,
@@ -255,7 +255,7 @@ def test_end_to_end_benchmark_run_via_registry():
         def get_backend_name(self) -> str:
             return "dummy-backend"
 
-        def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> ExecutionResult:
+        def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> CircuitExecutionResult:
             if callable(circuit):
                 built = circuit()
             else:
@@ -263,7 +263,7 @@ def test_end_to_end_benchmark_run_via_registry():
 
             self._calls.append({"built": built, "num_qubits": num_qubits})
 
-            return ExecutionResult(
+            return CircuitExecutionResult(
                 job_id="dummy_job_id",
                 counts={"0": 10, "1": 5},
                 profiling_metrics=ProfilingMetrics(params={"dummy_metric": 42}),
@@ -361,8 +361,8 @@ def test_benchmark_runner_integration(temp_output_dir):
         def get_backend_name(self) -> str:
             return "dummy-backend"
 
-        def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> ExecutionResult:
-            return ExecutionResult(
+        def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> CircuitExecutionResult:
+            return CircuitExecutionResult(
                 job_id="dummy_job_id",
                 counts={"0": 2, "1": 3},
                 profiling_metrics=ProfilingMetrics(params={"dummy": 1}),

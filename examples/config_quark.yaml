@@ -2,6 +2,8 @@ benchmark: core/quark/workflow
 
 benchmark_params:
   quark_config: examples/quark_configs/config_quark_tsp.yml
+  install_plugins: true
+  failfast: false
 
 # Required by the runner, but unused in the classical QUARK pipeline.
 # TODO: Make the adapter optional or use a dedicated name for adapter-free configs.
@@ -14,6 +16,9 @@ output_dir: "./results"
 report:
   analysis:
     enabled: true
+    visualization:
+      enabled: true
+      show: true
 
 storage:
   enabled: true

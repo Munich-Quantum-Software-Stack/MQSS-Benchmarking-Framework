@@ -6,6 +6,8 @@ benchmark_params:
     pipeline:
       - tsp_graph_provider: { nodes: 4, seed: 42 }
       - classical_tsp_solver
+  install_plugins: true
+  failfast: false
 
 adapter: qiskit_simulator
 adapter_params:
@@ -16,6 +18,9 @@ output_dir: "./results"
 report:
   analysis:
     enabled: true
+    visualization:
+      enabled: true
+      show: false
 
 storage:
   enabled: true

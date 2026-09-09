@@ -1,10 +1,42 @@
 from __future__ import annotations
 from colorama import Fore, Style, init as colorama_init
 from typing import Iterable, List, Optional
-from mqssbench.framework.types import PipelineResult, ExecutionResult
+from mqssbench.framework.types import PipelineResult, CircuitExecutionResult, PipelineEngineExecutionResult
 
 # needed for Windows
 colorama_init(autoreset=True)
+
+
+def _format_execution_entry(entry, idx: int) -> list[str]:
+    """Format either a standard ExecutionResult or a generic pipeline record."""
+    lines = [f"  {Fore.GREEN}Execution {idx + 1}:{Style.RESET_ALL}"]
+
+    if isinstance(entry, CircuitExecutionResult):
+        lines.append(f"    Job ID: {entry.job_id}")
+        lines.append("    Counts:")
+        for state, count in entry.counts.items():
+            lines.append(f"      {state}: {count}")
+
+        if entry.profiling_metrics and entry.profiling_metrics.params:
+            lines.append("    Profiling:")
+            for pkey, pval in entry.profiling_metrics.params.items():
+                lines.append(f"      {pkey}: {pval}")
+        return lines
+
+    if isinstance(entry, PipelineEngineExecutionResult):
+        lines.append(f"    Pipeline: {entry.pipeline}")
+        lines.append(f"    Pipeline Status: {entry.pipeline_status}")
+        payload = entry.payload
+        if isinstance(payload, dict):
+            if "result" in payload:
+                lines.append(f"    Result: {payload['result']}")
+            if "runtime" in payload:
+                lines.append(f"    Runtime: {payload['runtime']}")
+        return lines
+
+    lines.append(f"    Payload: {entry}")
+    return lines
+
 
 def format_benchmark_result(result: PipelineResult) -> str:
     """Return a clean, colored, human readable string for PipelineResult."""
@@ -25,20 +57,11 @@ def format_benchmark_result(result: PipelineResult) -> str:
     # execution results
     if result.execution_results:
         parts.append(f"{Fore.GREEN}Execution Results:{Style.RESET_ALL}")
-        exec_results: Iterable[ExecutionResult] = result.execution_results.values() \
+        exec_results: Iterable = result.execution_results.values() \
             if isinstance(result.execution_results, dict) else result.execution_results
 
         for idx, ex in enumerate(exec_results):
-            parts.append(f"  {Fore.GREEN}Execution {idx + 1}:{Style.RESET_ALL}")
-            parts.append(f"    Job ID: {ex.job_id}")
-            parts.append("    Counts:")
-            for state, count in ex.counts.items():
-                parts.append(f"      {state}: {count}")
-
-            if ex.profiling_metrics and ex.profiling_metrics.params:
-                parts.append("    Profiling:")
-                for pkey, pval in ex.profiling_metrics.params.items():
-                    parts.append(f"      {pkey}: {pval}")
+            parts.extend(_format_execution_entry(ex, idx))
 
     # analysis
     if result.analysis_result:

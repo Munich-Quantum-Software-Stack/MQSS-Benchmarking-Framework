@@ -9,7 +9,7 @@ from ...framework import (
     CircuitSpec,
     HybridBenchmarkExecutor,
     RunContext,
-    ExecutionResult,
+    CircuitExecutionResult,
     AnalysisResult,
     BenchmarkRegistry,
 )
@@ -104,7 +104,7 @@ def maxcut_expectation(counts: dict, edges: list[tuple[int, int]]) -> float:
 class QAOAAnalyzer(BenchmarkAnalyzer):
     @override
     def analyze(
-        self, execution_results: List[ExecutionResult], context: RunContext
+        self, execution_results: List[CircuitExecutionResult], context: RunContext
     ) -> AnalysisResult:
 
         for result in execution_results:

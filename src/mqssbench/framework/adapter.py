@@ -5,7 +5,7 @@ Each adapter targets a specific backend (e.g., simulator, real quantum processor
 """
 
 from abc import ABC, abstractmethod
-from .types import ProfilingConfig, RunContext, ExecutionResult
+from .types import ProfilingConfig, RunContext, CircuitExecutionResult
 
 
 class DeviceAdapter(ABC):
@@ -50,7 +50,7 @@ class DeviceAdapter(ABC):
     @abstractmethod
     def execute_circuit(
         self, context: RunContext, circuit, num_qubits=None, transpile_mode=True
-    ) -> ExecutionResult:
+    ) -> CircuitExecutionResult:
         """Execute a circuit on the backend."""
         ...
 

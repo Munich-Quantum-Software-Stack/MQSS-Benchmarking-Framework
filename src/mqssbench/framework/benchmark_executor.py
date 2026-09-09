@@ -11,7 +11,7 @@ from typing import List
 
 from mqssbench.framework.circuit_generator import CircuitGenerator
 
-from .types import CircuitSpec, ProfilingMetrics, RunContext, ExecutionResult
+from .types import CircuitSpec, ProfilingMetrics, RunContext, CircuitExecutionResult
 from scipy.optimize import minimize
 import time
 from datetime import datetime
@@ -32,7 +32,7 @@ class BenchmarkExecutor(ABC):
     @abstractmethod
     def run(
         self, circuits: List[CircuitSpec], context: RunContext
-    ) -> List[ExecutionResult]:
+    ) -> List[CircuitExecutionResult]:
         """Execute the provided circuits."""
         ...
 
@@ -47,9 +47,9 @@ class DefaultBenchmarkExecutor(BenchmarkExecutor):
 
     def run(
         self, circuits: List[CircuitSpec], context: RunContext
-    ) -> List[ExecutionResult]:
+    ) -> List[CircuitExecutionResult]:
         """Execute circuits using the adapter from context."""
-        results: List[ExecutionResult] = []
+        results: List[CircuitExecutionResult] = []
         for spec in circuits:
             circuit_payload = spec.circuit
             if "num_qubits" not in spec.metadata:
@@ -58,7 +58,7 @@ class DefaultBenchmarkExecutor(BenchmarkExecutor):
                 )
             num_qubits = spec.metadata["num_qubits"]
 
-            run_result: ExecutionResult
+            run_result: CircuitExecutionResult
             if callable(circuit_payload):
                 run_result = context.adapter.execute_circuit(
                     context, circuit_payload, num_qubits=num_qubits
@@ -69,7 +69,7 @@ class DefaultBenchmarkExecutor(BenchmarkExecutor):
                 )
 
             # set metadata in in new instance for immutability
-            run_result = ExecutionResult(
+            run_result = CircuitExecutionResult(
                 job_id=run_result.job_id,
                 counts=run_result.counts,
                 profiling_metrics=run_result.profiling_metrics,
@@ -100,16 +100,16 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
 
     def run(
         self, generator: CircuitGenerator, context: RunContext
-    ) -> List[ExecutionResult]:
+    ) -> List[CircuitExecutionResult]:
         """Execute hybrid circuits using the adapter from context."""
-        results: List[ExecutionResult] = []
+        results: List[CircuitExecutionResult] = []
         context.params["expval"] = []
         iteration = 0
         iteration_times: list[float] = []
         computation_times: list[float] = []
         execution_start_times: list[str] = []
         execution_end_times: list[str] = []
-        objective_values: list[ExecutionResult] = []
+        objective_values: list[CircuitExecutionResult] = []
 
         def objective(x):
             start = time.time()
@@ -173,7 +173,7 @@ class HybridBenchmarkExecutor(BenchmarkExecutor):
         )
 
         # set metadata in in new instance for immutability
-        run_result = ExecutionResult(
+        run_result = CircuitExecutionResult(
             job_id=objective_values[-1].job_id,
             counts=objective_values[-1].counts,
             profiling_metrics=profiling_metrics,

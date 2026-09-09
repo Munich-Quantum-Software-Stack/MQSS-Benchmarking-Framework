@@ -4,7 +4,7 @@ from mqss.pennylane_adapter.device import MQSSPennylaneDevice
 from ....framework.adapter import DeviceAdapter
 from ....framework.adapter_registry import AdapterRegistry
 from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
-from ....framework.types import ProfilingConfig, RunContext, ProfilingMetrics, ExecutionResult
+from ....framework.types import ProfilingConfig, RunContext, ProfilingMetrics, CircuitExecutionResult
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ class PennyLaneAdapter(DeviceAdapter):
             )
 
     @override
-    def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> ExecutionResult:
+    def execute_circuit(self, context: RunContext, circuit, num_qubits=None, transpile_mode=True) -> CircuitExecutionResult:
         """Given a PennyLane circuit, run it using the PennylaneAdapter
 
         Args:
@@ -119,7 +119,7 @@ class PennyLaneAdapter(DeviceAdapter):
             ...
         else:
             profiling_data = None
-        return ExecutionResult(
+        return CircuitExecutionResult(
             job_id=None,
             counts=job_result_count,
             profiling_metrics=ProfilingMetrics(params=profiling_data),

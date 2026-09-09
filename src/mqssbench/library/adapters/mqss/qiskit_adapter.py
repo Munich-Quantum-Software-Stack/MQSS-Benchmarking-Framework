@@ -9,7 +9,7 @@ from ....framework.types import (
     ProfilingConfig,
     RunContext,
     ProfilingMetrics,
-    ExecutionResult,
+    CircuitExecutionResult,
 )
 from .config import MQSS_TOKEN, MQSS_BACKEND, MQSS_VALID_PROFILING_METRICS
 
@@ -86,7 +86,7 @@ class QiskitAdapter(DeviceAdapter):
     @override
     def execute_circuit(
         self, context: RunContext, circuit, num_qubits=None, transpile_mode=True
-    ) -> ExecutionResult:
+    ) -> CircuitExecutionResult:
         """Given a Qiskit circuit, run it using the QiskitAdapter
 
         Args:
@@ -131,7 +131,7 @@ class QiskitAdapter(DeviceAdapter):
             profiling_data = getattr(job_result, "job_profiler_metrics", None)
         else:
             profiling_data = None
-        return ExecutionResult(
+        return CircuitExecutionResult(
             job_id=job_id,
             counts=counts,
             profiling_metrics=ProfilingMetrics(params=profiling_data),

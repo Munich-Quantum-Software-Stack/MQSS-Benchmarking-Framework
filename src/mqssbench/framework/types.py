@@ -18,6 +18,8 @@ class BenchmarkCategory(StrEnum):
     SOFTWARE = auto()
     ALGORITHM = auto()
     SIMULATOR = auto()
+    APPLICATION = auto()
+
 
 class BenchmarkRunStatus(StrEnum):
     """Run status classification for benchmarks."""
@@ -143,7 +145,7 @@ class ProfilingMetrics:
 
 
 @dataclass(frozen=True)
-class ExecutionResult:
+class CircuitExecutionResult:
     """Result from executing a circuit."""
 
     job_id: str
@@ -152,6 +154,18 @@ class ExecutionResult:
     metadata: Dict[str, Any] = field(default_factory=dict)
     exp_value: Optional[float] = None  # expected value, if applicable
     optimal_params: Optional[list[float]] = None  # optimal params, if applicable
+
+
+@dataclass(frozen=True)
+class PipelineEngineExecutionResult:
+    """Execution record for pipeline engines."""
+
+    pipeline: str
+    pipeline_status: str    # defined as string to allow for more flexible from engine side in this stage
+    payload: Dict[str, Any] = field(default_factory=dict)
+
+
+ExecutionResult = CircuitExecutionResult | PipelineEngineExecutionResult
 
 
 @dataclass(frozen=True)

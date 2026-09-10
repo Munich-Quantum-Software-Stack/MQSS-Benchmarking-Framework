@@ -1,0 +1,29 @@
+benchmark: core/quark/workflow
+
+benchmark_params:
+  quark_config: 
+    plugins: ["quark_plugin_tsp"]
+    pipeline:
+      - tsp_graph_provider: { nodes: 4, seed: 42 }
+      - classical_tsp_solver
+  install_plugins: true
+  failfast: false
+
+adapter: qiskit_simulator
+adapter_params:
+  shots: 1
+
+output_dir: "./results"
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: true
+      show: false
+
+storage:
+  enabled: true
+  type: file
+  file:
+    format: json

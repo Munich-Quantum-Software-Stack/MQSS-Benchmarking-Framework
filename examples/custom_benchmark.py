@@ -10,7 +10,7 @@ from mqssbench.framework import (
     CircuitSpec,
     DefaultBenchmarkExecutor,
     RunContext,
-    ExecutionResult,
+    CircuitExecutionResult,
     AnalysisResult,
     BenchmarkRegistry,
 )
@@ -37,7 +37,7 @@ class CustomCircuitGenerator(CircuitGenerator):
 
 class CustomAnalyzer(BenchmarkAnalyzer):
     @override
-    def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
+    def analyze(self, execution_results: List[CircuitExecutionResult], context: RunContext) -> AnalysisResult:
         result = execution_results[0]
         counts = result.counts
         total = sum(counts.values())

@@ -9,6 +9,7 @@ from pathlib import Path
 
 if TYPE_CHECKING:
     from mqssbench.framework.adapter import DeviceAdapter
+    from mqssbench.framework.checkpoint import CheckpointState
 
 
 class BenchmarkCategory(StrEnum):
@@ -124,6 +125,8 @@ class RunContext:
     report_config: ReportConfig = field(default_factory=ReportConfig)
     profiling: Optional[ProfilingConfig] = field(default_factory=ProfilingConfig)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    checkpoint_path: Optional[str] = None
+    resume_state: Optional["CheckpointState"] = None
 
 
 @dataclass(frozen=True)
@@ -152,6 +155,7 @@ class ExecutionResult:
     metadata: Dict[str, Any] = field(default_factory=dict)
     exp_value: Optional[float] = None  # expected value, if applicable
     optimal_params: Optional[list[float]] = None  # optimal params, if applicable
+    circuit_depth: Optional[int] = None  # depth of the transpiled circuit, if applicable
 
 
 @dataclass(frozen=True)

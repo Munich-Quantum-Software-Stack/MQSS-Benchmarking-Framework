@@ -4,6 +4,8 @@ import logging
 import sys
 
 from mqssbench.runtime.benchmark_manager import BenchmarkManager
+from mqssbench.runtime.benchmark_runner import BenchmarkRunner
+from mqssbench.framework.checkpoint import CheckpointedRunError, is_checkpoint_file
 from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
 from mqssbench.profiling import Profiler
 
@@ -36,6 +38,17 @@ def cli_run(config_path: str):
     if not config_path:
         raise ValueError("No config path provided")
 
+    if is_checkpoint_file(config_path):
+        runner = BenchmarkRunner.from_checkpoint(config_path)
+        try:
+            result = runner.run()
+        except CheckpointedRunError as exc:
+            print(str(exc), file=sys.stderr)
+            sys.exit(1)
+        print(format_benchmark_result(result))
+        print()
+        return
+
     try:
         with open(config_path, "r") as f:
             cfg = yaml.safe_load(f)
@@ -43,7 +56,11 @@ def cli_run(config_path: str):
         raise FileNotFoundError(f"No config found at provided path: {config_path}")
 
     manager = BenchmarkManager(cfg)
-    results = manager.dispatch()
+    try:
+        results = manager.dispatch()
+    except CheckpointedRunError as exc:
+        print(str(exc), file=sys.stderr)
+        sys.exit(1)
 
     for r in results:
         print(format_benchmark_result(r))
@@ -80,6 +97,8 @@ def main():
     mqssbench list
     mqssbench run --config path/to/config.yaml
     mqssbench -v run --config path/to/config.yaml
+    mqssbench run --config path/to/results/<run_tag>/checkpoint.json  # resume a failed run
+    mqssbench run --config path/to/results/<run_tag>/                 # same, via the run folder
     mqssbench profile path/to/results.json
     """
 
@@ -100,7 +119,13 @@ def main():
     subparsers = parser.add_subparsers(dest="command")
 
     run_parser = subparsers.add_parser("run", help="Run a benchmark from config file")
-    run_parser.add_argument("-c", "--config", required=True, help="Path to config YAML")
+    run_parser.add_argument(
+        "-c", "--config", required=True,
+        help=(
+            "Path to config YAML, or to a checkpoint.json (or its run directory) "
+            "to resume a previously failed run"
+        ),
+    )
 
     subparsers.add_parser(
         "list",

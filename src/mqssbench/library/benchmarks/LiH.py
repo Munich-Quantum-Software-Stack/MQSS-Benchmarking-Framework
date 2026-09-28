@@ -12,6 +12,7 @@ from functools import lru_cache
 from typing import Any, Dict, List, Optional, Tuple, override
 
 import matplotlib.pyplot as plt
+import numpy as np
 from qiskit import QuantumCircuit
 
 from ...framework import (
@@ -72,6 +73,39 @@ def _build_lih_qubit_hamiltonian(bond_length_angstrom: float) -> Tuple[Tuple[str
         for label, coeff in qubit_op.to_list()
     ]
     return tuple(terms)
+
+
+_PAULI_MATRICES = {
+    "I": np.eye(2, dtype=complex),
+    "X": np.array([[0, 1], [1, 0]], dtype=complex),
+    "Y": np.array([[0, -1j], [1j, 0]], dtype=complex),
+    "Z": np.array([[1, 0], [0, -1]], dtype=complex),
+}
+
+
+def _pauli_string_to_matrix(pauli_string: str) -> np.ndarray:
+    """Kronecker product of single-qubit Pauli matrices for a Pauli string label."""
+    matrix = _PAULI_MATRICES[pauli_string[0]]
+    for p in pauli_string[1:]:
+        matrix = np.kron(matrix, _PAULI_MATRICES[p])
+    return matrix
+
+
+@lru_cache(maxsize=8)
+def _exact_ground_state_energy(bond_length_angstrom: float) -> float:
+    """Exact ground-state energy of the qubit Hamiltonian via full diagonalization.
+
+    This is the true reference value (not restricted to the VQE's ansatz), used
+    to judge how close the optimizer's found energy gets to the actual minimum.
+    Only tractable because the active space is fixed at 2 qubits; would need a
+    sparse/iterative eigensolver for larger active spaces.
+    """
+    terms = _build_lih_qubit_hamiltonian(bond_length_angstrom)
+    dim = 2 ** len(terms[0][0])
+    hamiltonian = np.zeros((dim, dim), dtype=complex)
+    for pauli_string, coefficient in terms:
+        hamiltonian += coefficient * _pauli_string_to_matrix(pauli_string)
+    return float(np.linalg.eigvalsh(hamiltonian)[0])
 
 
 def _basis_rotate(qc: QuantumCircuit, pauli_string: str) -> None:
@@ -177,33 +211,44 @@ class LiHAnalyzer(BenchmarkAnalyzer):
     @override
     def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
         result = execution_results[-1]
+        bond_length = float(context.params.get("bond_length", DEFAULT_BOND_LENGTH_ANGSTROM))
+        exact_ground_state_energy = _exact_ground_state_energy(bond_length)
 
         artifacts = {}
         if context.report_config.analysis.visualization.enabled:
-            plot_filename = self._plot(context.params.get("expval", []), context)
+            plot_filename = self._plot(
+                context.params.get("expval", []), exact_ground_state_energy, context
+            )
             if plot_filename:
                 artifacts["convergence_plot"] = plot_filename
 
         return AnalysisResult(
             metrics={
-                "ground_state_energy_hartree": result.exp_value,
+                "vqe_energy_hartree": result.exp_value,
+                "ground_state_energy_hartree": exact_ground_state_energy,
                 "optimal_parameters": result.optimal_params,
             },
             artifacts=artifacts,
         )
 
-    def _plot(self, energies: List[float], context: RunContext) -> Optional[str]:
+    def _plot(
+        self, energies: List[float], ground_state_energy: float, context: RunContext
+    ) -> Optional[str]:
         if not energies:
             return None
 
         backend_name = context.adapter.get_backend_name()
+        iterations = range(1, len(energies) + 1)
 
         plt.figure()
         plt.title(f"LiH VQE energy convergence on {backend_name}" if backend_name else "LiH VQE energy convergence")
         plt.xlabel("Optimizer iteration")
         plt.ylabel("Energy (Hartree)")
         plt.grid(alpha=0.4)
-        plt.plot(range(1, len(energies) + 1), energies, marker="o", markersize=3)
+        plt.xticks(list(iterations))
+        plt.plot(iterations, energies, marker="o", markersize=3, label="VQE runs")
+        plt.axhline(ground_state_energy, linestyle="--", color="firebrick", label="Ground state")
+        plt.legend()
 
         filename = make_output_filepath(context.benchmark_key, context.run_dir, tag="convergence_plot")
         plt.savefig(filename)

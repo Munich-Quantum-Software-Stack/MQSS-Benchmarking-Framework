@@ -1,15 +1,15 @@
 benchmark: core/native/lih_vqe
 
 benchmark_params: # benchmark specific params
-  parameters: [1.6462764847019122, 1.1083078870885184, 1.3671786997665512, 0.5735651437437107]  # initial RY angles, 2 layers x 2 qubits
+  parameters: [0.1, 0.2, 0.3, 0.4]  # initial RY angles, 2 layers x 2 qubits
   bond_length: 1.5474  # angstrom (STO-3G, minimal 2e/2o active space)
 
-adapter: mqss_qiskit
+adapter: qiskit_simulator
+
 adapter_params:
-  backend: EQE1
   credentials:
     mqss_token: ""
-  shots: 4096
+  shots: 1024
 
 output_dir: "./results"
 

@@ -8,7 +8,7 @@ from ....framework.types import (
     ProfilingConfig,
     RunContext,
     ProfilingMetrics,
-    ExecutionResult,
+    CircuitExecutionResult,
 )
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ class QiskitSimulatorAdapter(DeviceAdapter):
     @override
     def execute_circuit(
         self, context: RunContext, circuit, num_qubits=None, transpile_mode=True
-    ) -> ExecutionResult:
+    ) -> CircuitExecutionResult:
         """Given a Qiskit circuit, run it using the Qiskit Simulator Adapter
 
         Args:
@@ -100,7 +100,7 @@ class QiskitSimulatorAdapter(DeviceAdapter):
             counts = result[0].data.meas.get_counts()
         job_id = job.job_id()
 
-        return ExecutionResult(
+        return CircuitExecutionResult(
             job_id=job_id,
             counts=counts,
             profiling_metrics=ProfilingMetrics(params=None),

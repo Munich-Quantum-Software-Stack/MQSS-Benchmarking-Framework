@@ -1,7 +1,12 @@
 import json
 from datetime import datetime
 from pathlib import Path
-from ..framework.types import PipelineResult, RunContext
+from ..framework.types import (
+    CircuitExecutionResult,
+    PipelineEngineExecutionResult,
+    PipelineResult,
+    RunContext,
+)
 from .storage_registry import register_storage
 from .storage_backend import StorageBackend, StorageError
 from ..framework.utils import atomic_write
@@ -33,8 +38,55 @@ class FileStorage(StorageBackend):
         return None
 
 
+def serialize_execution_entry(entry):
+    if isinstance(entry, PipelineEngineExecutionResult):
+        return {
+            "pipeline": entry.pipeline,
+            "pipeline_status": entry.pipeline_status,
+            "payload": entry.payload,
+        }
+
+    if isinstance(entry, CircuitExecutionResult):
+        er = entry
+        return {
+            "job_id": er.job_id,
+            "counts": er.counts,
+            "metadata": er.metadata or None,
+            "profiling_metrics": (
+                er.profiling_metrics.params if er.profiling_metrics else None
+            ),
+            "exp_value": er.exp_value if er.exp_value is not None else None,
+            "optimal_params": (
+                er.optimal_params if er.optimal_params is not None else None
+            ),
+            "iteration_duration": (
+                er.profiling_metrics.iteration_duration
+                if er.profiling_metrics.iteration_duration is not None
+                else None
+            ),
+            "multiple_execution_duration": (
+                er.profiling_metrics.multiple_execution_duration
+                if er.profiling_metrics.multiple_execution_duration is not None
+                else None
+            ),
+            "execution_start_times": (
+                er.profiling_metrics.execution_start_times
+                if er.profiling_metrics.execution_start_times is not None
+                else None
+            ),
+            "execution_end_times": (
+                er.profiling_metrics.execution_end_times
+                if er.profiling_metrics.execution_end_times is not None
+                else None
+            ),
+        }
+
+    return entry
+
+
 def serialize_result_json(context: RunContext, result: PipelineResult) -> dict:
     now = datetime.utcnow().isoformat() + "Z"
+
 
     return {
         "schema_version": 0.1,
@@ -46,38 +98,7 @@ def serialize_result_json(context: RunContext, result: PipelineResult) -> dict:
         "benchmark_params": result.params,
         "adapter": {"backend": context.adapter.get_backend_name()},
         "execution_results": [
-            {
-                "job_id": er.job_id,
-                "counts": er.counts,
-                "profiling_metrics": (
-                    er.profiling_metrics.params if er.profiling_metrics else None
-                ),
-                "exp_value": er.exp_value if er.exp_value is not None else None,
-                "optimal_params": (
-                    er.optimal_params if er.optimal_params is not None else None
-                ),
-                "iteration_duration": (
-                    er.profiling_metrics.iteration_duration
-                    if er.profiling_metrics.iteration_duration is not None
-                    else None
-                ),
-                "multiple_execution_duration": (
-                    er.profiling_metrics.multiple_execution_duration
-                    if er.profiling_metrics.multiple_execution_duration is not None
-                    else None
-                ),
-                "execution_start_times": (
-                    er.profiling_metrics.execution_start_times
-                    if er.profiling_metrics.execution_start_times is not None
-                    else None
-                ),
-                "execution_end_times": (
-                    er.profiling_metrics.execution_end_times
-                    if er.profiling_metrics.execution_end_times is not None
-                    else None
-                ),
-            }
-            for er in result.execution_results
+            serialize_execution_entry(entry) for entry in result.execution_results
         ],
         "analysis": (
             {

@@ -10,7 +10,7 @@ from ...framework import (
     CircuitSpec,
     DefaultBenchmarkExecutor,
     RunContext,
-    ExecutionResult,
+    CircuitExecutionResult,
     BenchmarkRegistry,
     AnalysisResult,
 )
@@ -41,7 +41,7 @@ class QuantumVolumeGenerator(CircuitGenerator):
 
 class QuantumVolumeAnalyzer(BenchmarkAnalyzer):
     @override
-    def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
+    def analyze(self, execution_results: List[CircuitExecutionResult], context: RunContext) -> AnalysisResult:
         from qiskit.circuit.library import QuantumVolume
         from qiskit.quantum_info import Statevector
 

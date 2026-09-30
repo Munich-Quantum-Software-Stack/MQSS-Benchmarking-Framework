@@ -9,7 +9,7 @@ from typing import List, override
 from collections import Counter
 import matplotlib.pyplot as plt
 
-from .types import RunContext, ExecutionResult, AnalysisResult
+from .types import RunContext, CircuitExecutionResult, AnalysisResult
 from .utils import make_output_filepath
 
 class BenchmarkAnalyzer(ABC):
@@ -24,7 +24,7 @@ class BenchmarkAnalyzer(ABC):
         self.context = context
 
     @abstractmethod
-    def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
+    def analyze(self, execution_results: List[CircuitExecutionResult], context: RunContext) -> AnalysisResult:
         """Analyze raw execution results."""
         ...
 
@@ -38,7 +38,7 @@ class DefaultAnalyzer(BenchmarkAnalyzer):
     """
 
     @override
-    def analyze(self, execution_results: List[ExecutionResult], context: RunContext) -> AnalysisResult:
+    def analyze(self, execution_results: List[CircuitExecutionResult], context: RunContext) -> AnalysisResult:
         """Analyze a list of execution results."""
         if not execution_results:
             raise ValueError("No execution results to analyze.")

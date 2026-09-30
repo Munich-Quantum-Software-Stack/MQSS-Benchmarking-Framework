@@ -13,7 +13,7 @@ from ...framework import (
     CircuitSpec,
     DefaultBenchmarkExecutor,
     RunContext,
-    ExecutionResult,
+    CircuitExecutionResult,
     AnalysisResult,
     BenchmarkRegistry,
 )
@@ -60,7 +60,7 @@ class RandomizedBenchmarkingGenerator(CircuitGenerator):
 class RandomizedBenchmarkingAnalyzer(BenchmarkAnalyzer):
     @override
     def analyze(
-        self, execution_results: List[ExecutionResult], context: RunContext
+        self, execution_results: List[CircuitExecutionResult], context: RunContext
     ) -> AnalysisResult:
         num_qubits = int(context.params["num_qubits"])
         zero_state = "0" * num_qubits

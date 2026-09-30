@@ -17,6 +17,7 @@ dependencies = [
     "colorama>=0.4.6",
     "dacite>=1.9.2",
     "pytest-cov>=7.0.0",
+    "quark-framework>=0.4.6",
 ]
 [project.scripts]
 mqssbench = "mqssbench.cli.__main__:main"

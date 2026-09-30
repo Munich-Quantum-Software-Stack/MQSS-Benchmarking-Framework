@@ -1,12 +1,16 @@
 # FILE: mqssbench/runtime/benchmark_manager.py
 from typing import Dict, List
+import logging
 import os
 from ..framework import BenchmarkRegistry
 from ..framework import ProviderRegistry
 from ..framework import AdapterRegistry
 from .benchmark_runner import BenchmarkRunner
+from ..framework.checkpoint import CheckpointedRunError
 from ..framework.types import PipelineResult
 from mqssbench.plugins import load_plugins
+
+logger = logging.getLogger(__name__)
 
 # Load built-in and installed plugins
 load_plugins()
@@ -53,18 +57,35 @@ class BenchmarkManager:
         # Disable interactive plotting for multi-benchmark runs
         os.environ["MQSSBENCH_DISPLAY"] = "0" if isinstance(self.config, list) and len(self.config) > 1 else "1"
 
-        # Normalize to a list of benchmark configs
-        if isinstance(self.config, list):
-            bench_list = self.config
-        else:
-            bench_list = [self.config]
+        # Normalize to a list of benchmark configs. A bare dict is a single
+        # benchmark, not a batch - failures there propagate as before. A list
+        # is a batch: isolate failures per-entry so one bad run doesn't cost
+        # the rest their (already-independent, already-persisted) results.
+        is_batch = isinstance(self.config, list)
+        bench_list = self.config if is_batch else [self.config]
 
         results: List[PipelineResult] = []
-        for conf in bench_list:
+        failures: List[tuple[int, CheckpointedRunError]] = []
+        for idx, conf in enumerate(bench_list):
             if not isinstance(conf, dict):
                 raise TypeError("Each benchmark config must be a dict")
             runner = BenchmarkRunner(conf)
-            result = runner.run()
+            if is_batch:
+                try:
+                    result = runner.run()
+                except CheckpointedRunError as exc:
+                    logger.error("Benchmark %d/%d failed: %s", idx + 1, len(bench_list), exc)
+                    failures.append((idx, exc))
+                    continue
+            else:
+                result = runner.run()
             results.append(result)
+
+        if failures:
+            summary = "\n".join(f"  [{idx}] {exc}" for idx, exc in failures)
+            logger.warning(
+                "%d of %d benchmark(s) failed and were checkpointed:\n%s",
+                len(failures), len(bench_list), summary,
+            )
 
         return results

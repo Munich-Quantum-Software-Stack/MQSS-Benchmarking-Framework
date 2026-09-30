@@ -17,6 +17,9 @@ dependencies = [
     "colorama>=0.4.6",
     "dacite>=1.9.2",
     "pytest-cov>=7.0.0",
+    "seaborn>=0.13.2",
+    "qiskit-nature>=0.7.2",
+    "pyscf>=2.14.0",
 ]
 [project.scripts]
 mqssbench = "mqssbench.cli.__main__:main"

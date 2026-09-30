@@ -5,22 +5,44 @@ from datetime import datetime
 import dataclasses
 from ..framework import AdapterRegistry
 from ..framework import RunContext, BenchmarkRegistry
-from ..framework.types import ProfilingConfig, PipelineResult, ReportConfig, StorageConfig
+from ..framework.types import (
+    BenchmarkRunStatus,
+    ProfilingConfig,
+    PipelineResult,
+    ReportConfig,
+    StorageConfig,
+)
 from ..framework.utils import show_artifacts
+from ..framework.checkpoint import CheckpointState, checkpoint_path_for, load_checkpoint
 from dacite import from_dict, Config
 from ..storage.storage_registry import get_storage
 class BenchmarkRunner:
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any], resume_state: Optional[CheckpointState] = None):
         self.config = config
+        self.resume_state = resume_state
+
+    @classmethod
+    def from_checkpoint(cls, checkpoint_path: str) -> "BenchmarkRunner":
+        """Build a runner that resumes a previously checkpointed run."""
+        state = load_checkpoint(checkpoint_path)
+        if state.status == BenchmarkRunStatus.COMPLETED:
+            raise ValueError(
+                f"Checkpoint at {checkpoint_path} is already completed; nothing to resume."
+            )
+        return cls(config=state.config, resume_state=state)
 
     def run(self) -> PipelineResult:
         # determine run directory
-        output_dir = self.config.get("output_dir")
-        if not output_dir:
-            raise ValueError("output_dir must be specified in the configuration.")
-        run_id = uuid.uuid4().hex
-        run_tag = f"{datetime.utcnow():%Y%m%dT%H%M%SZ}_{run_id[:8]}"
-        run_dir = os.path.join(output_dir, run_tag)
+        if self.resume_state is not None:
+            run_id = self.resume_state.run_id
+            run_dir = self.resume_state.run_dir
+        else:
+            output_dir = self.config.get("output_dir")
+            if not output_dir:
+                raise ValueError("output_dir must be specified in the configuration.")
+            run_id = uuid.uuid4().hex
+            run_tag = f"{datetime.utcnow():%Y%m%dT%H%M%SZ}_{run_id[:8]}"
+            run_dir = os.path.join(output_dir, run_tag)
 
         # get and validate adapter
         adapter_name = self.config.get("adapter")
@@ -55,6 +77,9 @@ class BenchmarkRunner:
             params=self.config.get("benchmark_params", {}),
             report_config=report_config_obj,
             profiling=profiling_config_obj,
+            metadata={"raw_config": self.config},
+            checkpoint_path=str(checkpoint_path_for(run_dir)),
+            resume_state=self.resume_state,
         )
         pipeline = BenchmarkRegistry.get_benchmark_instance(benchmark_key, context)
         pipeline_result = pipeline.run()

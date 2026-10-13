@@ -1,3 +1,3 @@
 # Benchmark Analyzer
 
-::: mqssbench.framework.benchmark_analyzer
+::: mbf.framework.benchmark_analyzer

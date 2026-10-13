@@ -8,8 +8,8 @@ import sys
 from pathlib import Path
 from types import ModuleType
 
-from mqssbench.cli.formatting import format_benchmark_result
-from mqssbench.runtime.benchmark_manager import BenchmarkManager
+from mbf.cli.formatting import format_benchmark_result
+from mbf.runtime.benchmark_manager import BenchmarkManager
 
 SMOKE_DIR = Path(__file__).resolve().parent
 SKIP_MODULES = frozenset({"run"})
@@ -56,7 +56,7 @@ def collect_smoke_configs(modules: list[ModuleType]) -> list[dict]:
 
 def main() -> None:
     available = discover_smoke_modules()
-    parser = argparse.ArgumentParser(description="Run mqssbench smoke checks")
+    parser = argparse.ArgumentParser(description="Run mbf smoke checks")
     parser.add_argument(
         "tests",
         nargs="*",

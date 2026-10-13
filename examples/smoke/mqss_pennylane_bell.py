@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Tuple, override
 
 import pennylane as qml
 
-from mqssbench.framework import (
+from mbf.framework import (
     Benchmark,
     BenchmarkCategory,
     BenchmarkRegistry,

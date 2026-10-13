@@ -10,13 +10,13 @@ logger = logging.getLogger(__name__)
 _plugins_loaded = False
 
 BUILTIN_PACKAGES = (
-    "mqssbench.library.providers",
-    "mqssbench.library.adapters",
-    "mqssbench.library.benchmarks",
-    "mqssbench.library.pipelines",
+    "mbf.library.providers",
+    "mbf.library.adapters",
+    "mbf.library.benchmarks",
+    "mbf.library.pipelines",
 )
 
-ENTRY_POINT_GROUP = "mqssbench"
+ENTRY_POINT_GROUP = "mbf"
 
 MAX_DEPTH = 3
 

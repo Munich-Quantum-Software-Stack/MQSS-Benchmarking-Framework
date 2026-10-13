@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Tuple, override
 
 from qiskit import QuantumCircuit
 
-from mqssbench.framework import (
+from mbf.framework import (
     Benchmark,
     BenchmarkAnalyzer,
     BenchmarkCategory,

@@ -1,7 +1,7 @@
 [project]
-name = "mqssbench-example-plugin"
+name = "mbf-example-plugin"
 version = "0.1.0"
-description = "Example MQSSBench plugin."
+description = "Example MBF plugin."
 readme = "README.md"
 requires-python = ">=3.12"
 
@@ -12,5 +12,5 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[project.entry-points."mqssbench"]
-mqssbench_example_plugin = "mqssbench_example_plugin:register"
+[project.entry-points."mbf"]
+mbf_example_plugin = "mbf_example_plugin:register"

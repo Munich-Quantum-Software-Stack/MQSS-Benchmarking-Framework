@@ -28,7 +28,7 @@ storage:
   file:
     format: "json"
   sqlite:
-    db_path: "./mqssbench.db"
+    db_path: "./mbf.db"
 
 profiling:
   enabled: true

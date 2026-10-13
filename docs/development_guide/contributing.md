@@ -59,8 +59,8 @@ Examples (based on existing branches in this repo):
 ## Tips for Coding
 
 * Follow the project's style and structure.
-* `src/mqssbench/framework` contains the core abstraction classes, types, and registries. It should have minimal external dependencies and no dependency on other parts of the project.
-  `src/mqssbench/library` contains built-ins and implementations based on the framework. This is a good place to start contributing (e.g., adding a new adapter, benchmark, or provider).
+* `src/mbf/framework` contains the core abstraction classes, types, and registries. It should have minimal external dependencies and no dependency on other parts of the project.
+  `src/mbf/library` contains built-ins and implementations based on the framework. This is a good place to start contributing (e.g., adding a new adapter, benchmark, or provider).
 * Ensure type safety.
 * Do not commit secrets (tokens, credentials).
 * Avoid adding debug prints to production paths.

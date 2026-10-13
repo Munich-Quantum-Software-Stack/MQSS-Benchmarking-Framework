@@ -1,3 +1,3 @@
 # Types
 
-::: mqssbench.framework.types
+::: mbf.framework.types

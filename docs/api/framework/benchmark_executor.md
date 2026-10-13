@@ -1,3 +1,3 @@
 # Benchmark Executor
 
-::: mqssbench.framework.benchmark_executor
+::: mbf.framework.benchmark_executor

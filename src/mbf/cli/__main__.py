@@ -3,8 +3,8 @@ import yaml
 import logging
 import sys
 
-from mqssbench.runtime.benchmark_manager import BenchmarkManager
-from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
+from mbf.runtime.benchmark_manager import BenchmarkManager
+from mbf.cli.formatting import format_benchmark_result, format_registry_lists
 
 logger = logging.getLogger(__name__)
 
@@ -58,13 +58,13 @@ def cli_list():
 
 def main():
     EXAMPLES = """Examples:
-    mqssbench list
-    mqssbench run --config path/to/config.yaml
-    mqssbench -v run --config path/to/config.yaml
+    mbf list
+    mbf run --config path/to/config.yaml
+    mbf -v run --config path/to/config.yaml
     """
 
     parser = argparse.ArgumentParser(
-        prog="mqssbench",
+        prog="mbf",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=EXAMPLES
     )

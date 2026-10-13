@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Tuple, override
 
 from qiskit import QuantumCircuit
 
-from mqssbench.framework import (
+from mbf.framework import (
     Benchmark,
     BenchmarkAnalyzer,
     BenchmarkCategory,
@@ -14,8 +14,8 @@ from mqssbench.framework import (
     AnalysisResult,
     BenchmarkRegistry,
 )
-from mqssbench.runtime.benchmark_manager import BenchmarkManager
-from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
+from mbf.runtime.benchmark_manager import BenchmarkManager
+from mbf.cli.formatting import format_benchmark_result, format_registry_lists
 
 class CustomCircuitGenerator(CircuitGenerator):
     @override

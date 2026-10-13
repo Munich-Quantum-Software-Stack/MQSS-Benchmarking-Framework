@@ -1,7 +1,7 @@
 from __future__ import annotations
 from colorama import Fore, Style, init as colorama_init
 from typing import Iterable, List, Optional
-from mqssbench.framework.types import PipelineResult, CircuitExecutionResult, PipelineEngineExecutionResult
+from mbf.framework.types import PipelineResult, CircuitExecutionResult, PipelineEngineExecutionResult
 
 # needed for Windows
 colorama_init(autoreset=True)

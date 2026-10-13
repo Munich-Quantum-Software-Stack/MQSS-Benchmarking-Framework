@@ -1,3 +1,3 @@
 # Provider
 
-::: mqssbench.framework.provider
+::: mbf.framework.provider

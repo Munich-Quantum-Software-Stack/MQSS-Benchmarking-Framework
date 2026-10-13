@@ -9,7 +9,7 @@ Three executor types are available:
 from abc import ABC, abstractmethod
 from typing import List
 
-from mqssbench.framework.circuit_generator import CircuitGenerator
+from mbf.framework.circuit_generator import CircuitGenerator
 
 from .types import CircuitSpec, ProfilingMetrics, RunContext, CircuitExecutionResult
 from scipy.optimize import minimize

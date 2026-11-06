@@ -1376,8 +1376,8 @@ uv<span class="w"> </span>sync<span class="w"> </span>--all-extras<span class="w
 <h2 id="tips-for-coding">Tips for Coding<a class="headerlink" href="#tips-for-coding" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Follow the project's style and structure.</li>
-<li><code>src/mqssbench/framework</code> contains the core abstraction classes, types, and registries. It should have minimal external dependencies and no dependency on other parts of the project.
-  <code>src/mqssbench/library</code> contains built-ins and implementations based on the framework. This is a good place to start contributing (e.g., adding a new adapter, benchmark, or provider).</li>
+<li><code>src/mbf/framework</code> contains the core abstraction classes, types, and registries. It should have minimal external dependencies and no dependency on other parts of the project.
+  <code>src/mbf/library</code> contains built-ins and implementations based on the framework. This is a good place to start contributing (e.g., adding a new adapter, benchmark, or provider).</li>
 <li>Ensure type safety.</li>
 <li>Do not commit secrets (tokens, credentials).</li>
 <li>Avoid adding debug prints to production paths.</li>

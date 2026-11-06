@@ -673,7 +673,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         benchmark_analyzer
@@ -684,7 +684,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         BenchmarkAnalyzer
@@ -696,7 +696,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="md-nav__link">
     <span class="md-ellipsis">
       
         analyze
@@ -712,7 +712,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         DefaultAnalyzer
@@ -724,7 +724,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="md-nav__link">
     <span class="md-ellipsis">
       
         analyze
@@ -976,7 +976,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         benchmark_analyzer
@@ -987,7 +987,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         BenchmarkAnalyzer
@@ -999,7 +999,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="md-nav__link">
     <span class="md-ellipsis">
       
         analyze
@@ -1015,7 +1015,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer" class="md-nav__link">
     <span class="md-ellipsis">
       
         DefaultAnalyzer
@@ -1027,7 +1027,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="md-nav__link">
+  <a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="md-nav__link">
     <span class="md-ellipsis">
       
         analyze
@@ -1066,7 +1066,7 @@
 
 
 
-<a id="mqssbench.framework.benchmark_analyzer"></a>
+<a id="mbf.framework.benchmark_analyzer"></a>
     <div class="doc doc-contents first">
 
         <p>Analyzers that process raw execution results into insights and visualizations.</p>
@@ -1096,11 +1096,11 @@ generate plots. The base class is subclassed for benchmark-specific analysis log
 
 
 
-<h2 id="mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer" class="doc doc-heading">
+<h2 id="mbf.framework.benchmark_analyzer.BenchmarkAnalyzer" class="doc doc-heading">
             <span class="doc doc-object-name doc-class-name">BenchmarkAnalyzer</span>
 
 
-<a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -1138,7 +1138,7 @@ Subclasses implement benchmark-specific analysis logic (e.g., fidelity, overlap)
 <div class="doc doc-object doc-function">
 
 
-<h3 id="mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="doc doc-heading">
+<h3 id="mbf.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">analyze</span>
 
 
@@ -1146,26 +1146,26 @@ Subclasses implement benchmark-specific analysis logic (e.g., fidelity, overlap)
       <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
   </span>
 
-<a href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="headerlink" title="Permanent link">&para;</a></h3>
+<a href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer.analyze" class="headerlink" title="Permanent link">&para;</a></h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">analyze</span><span class="p">(</span>
     <span class="n">execution_results</span><span class="p">:</span> <span class="n"><span title="typing.List">List</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="CircuitExecutionResult
 
 
   
       dataclass
-   (mqssbench.framework.types.CircuitExecutionResult)" href="../types/#mqssbench.framework.types.CircuitExecutionResult">CircuitExecutionResult</a></span><span class="p">],</span>
+   (mbf.framework.types.CircuitExecutionResult)" href="../types/#mbf.framework.types.CircuitExecutionResult">CircuitExecutionResult</a></span><span class="p">],</span>
     <span class="n">context</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="RunContext
 
 
   
       dataclass
-   (mqssbench.framework.types.RunContext)" href="../types/#mqssbench.framework.types.RunContext">RunContext</a></span><span class="p">,</span>
+   (mbf.framework.types.RunContext)" href="../types/#mbf.framework.types.RunContext">RunContext</a></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="AnalysisResult
 
 
   
       dataclass
-   (mqssbench.framework.types.AnalysisResult)" href="../types/#mqssbench.framework.types.AnalysisResult">AnalysisResult</a></span>
+   (mbf.framework.types.AnalysisResult)" href="../types/#mbf.framework.types.AnalysisResult">AnalysisResult</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1189,16 +1189,16 @@ Subclasses implement benchmark-specific analysis logic (e.g., fidelity, overlap)
 
 
 
-<h2 id="mqssbench.framework.benchmark_analyzer.DefaultAnalyzer" class="doc doc-heading">
+<h2 id="mbf.framework.benchmark_analyzer.DefaultAnalyzer" class="doc doc-heading">
             <span class="doc doc-object-name doc-class-name">DefaultAnalyzer</span>
 
 
-<a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-internal" title="BenchmarkAnalyzer (mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer)" href="#mqssbench.framework.benchmark_analyzer.BenchmarkAnalyzer">BenchmarkAnalyzer</a></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="BenchmarkAnalyzer (mbf.framework.benchmark_analyzer.BenchmarkAnalyzer)" href="#mbf.framework.benchmark_analyzer.BenchmarkAnalyzer">BenchmarkAnalyzer</a></code></p>
 
 
 
@@ -1231,30 +1231,30 @@ Returns metrics and plot artifacts for the benchmark report.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="mqssbench.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="doc doc-heading">
+<h3 id="mbf.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">analyze</span>
 
 
-<a href="#mqssbench.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="headerlink" title="Permanent link">&para;</a></h3>
+<a href="#mbf.framework.benchmark_analyzer.DefaultAnalyzer.analyze" class="headerlink" title="Permanent link">&para;</a></h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">analyze</span><span class="p">(</span>
     <span class="n">execution_results</span><span class="p">:</span> <span class="n"><span title="typing.List">List</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="CircuitExecutionResult
 
 
   
       dataclass
-   (mqssbench.framework.types.CircuitExecutionResult)" href="../types/#mqssbench.framework.types.CircuitExecutionResult">CircuitExecutionResult</a></span><span class="p">],</span>
+   (mbf.framework.types.CircuitExecutionResult)" href="../types/#mbf.framework.types.CircuitExecutionResult">CircuitExecutionResult</a></span><span class="p">],</span>
     <span class="n">context</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="RunContext
 
 
   
       dataclass
-   (mqssbench.framework.types.RunContext)" href="../types/#mqssbench.framework.types.RunContext">RunContext</a></span><span class="p">,</span>
+   (mbf.framework.types.RunContext)" href="../types/#mbf.framework.types.RunContext">RunContext</a></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="AnalysisResult
 
 
   
       dataclass
-   (mqssbench.framework.types.AnalysisResult)" href="../types/#mqssbench.framework.types.AnalysisResult">AnalysisResult</a></span>
+   (mbf.framework.types.AnalysisResult)" href="../types/#mbf.framework.types.AnalysisResult">AnalysisResult</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

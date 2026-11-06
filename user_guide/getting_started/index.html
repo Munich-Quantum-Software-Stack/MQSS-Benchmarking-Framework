@@ -1200,24 +1200,24 @@ To get started, ensure you have Python installed. Then, follow these steps to se
 <h2 id="usage">🚀 Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <p>MQSS Benchmarking Framework can be used in two ways: through a simple command-line interface or directly as a Python library.</p>
 <h2 id="cli-usage">💻 CLI Usage<a class="headerlink" href="#cli-usage" title="Permanent link">&para;</a></h2>
-<p>After installation, the command <code>mqssbench</code> becomes available system-wide.</p>
+<p>After installation, the command <code>mbf</code> becomes available system-wide.</p>
 <h3 id="listing-benchmarks">Listing benchmarks<a class="headerlink" href="#listing-benchmarks" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>mqssbench<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code>mbf<span class="w"> </span>list
 </code></pre></div>
 <p>This prints every benchmark registered under the <code>origin/source/name</code> structure, including internal, external and user-defined benchmarks.</p>
 <h3 id="running-benchmarks">Running benchmarks<a class="headerlink" href="#running-benchmarks" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>mqssbench<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
+<div class="highlight"><pre><span></span><code>mbf<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
 </code></pre></div>
 <p>The <code>--config</code> file may contain either:
 1. a single benchmark configuration (dict)
 2. or a list of benchmark configurations (each a full config dict)</p>
-<p>When a list is provided, mqssbench runs each benchmark sequentially using the same execution engine.</p>
+<p>When a list is provided, mbf runs each benchmark sequentially using the same execution engine.</p>
 <p>In development setups, you can run the CLI commands through <code>uv</code>:</p>
-<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>mqssbench<span class="w"> </span>list
-uv<span class="w"> </span>run<span class="w"> </span>mqssbench<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>mbf<span class="w"> </span>list
+uv<span class="w"> </span>run<span class="w"> </span>mbf<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
 </code></pre></div>
 <p>To explore all available commands and options:</p>
-<div class="highlight"><pre><span></span><code>mqssbench<span class="w"> </span>--help
+<div class="highlight"><pre><span></span><code>mbf<span class="w"> </span>--help
 </code></pre></div>
 <h3 id="verbosity-and-logging">Verbosity and logging<a class="headerlink" href="#verbosity-and-logging" title="Permanent link">&para;</a></h3>
 <p>The CLI supports adjustable logging verbosity for debugging and inspection.</p>
@@ -1229,8 +1229,8 @@ uv<span class="w"> </span>run<span class="w"> </span>mqssbench<span class="w"> <
 <li><code>-vv</code> → DEBUG</li>
 </ul>
 <p>Examples:
-<div class="highlight"><pre><span></span><code>mqssbench<span class="w"> </span>-v<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
-mqssbench<span class="w"> </span>-vv<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
+<div class="highlight"><pre><span></span><code>mbf<span class="w"> </span>-v<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
+mbf<span class="w"> </span>-vv<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>path/to/config.yaml
 </code></pre></div></p>
 <p>Benchmark results are printed to standard output, while logs are sent to standard error.</p>
 <h3 id="configuration-file-format">Configuration file format<a class="headerlink" href="#configuration-file-format" title="Permanent link">&para;</a></h3>
@@ -1368,7 +1368,7 @@ mqssbench<span class="w"> </span>-vv<span class="w"> </span>run<span class="w"> 
 </code></pre></div>
 <h2 id="python-api-usage">🧩 Python API Usage<a class="headerlink" href="#python-api-usage" title="Permanent link">&para;</a></h2>
 <p>MQSS Benchmarking Framework can also be used directly as a Python library when more control is needed.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">mqssbench.runtime</span><span class="w"> </span><span class="kn">import</span> <span class="n">BenchmarkManager</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">mbf.runtime</span><span class="w"> </span><span class="kn">import</span> <span class="n">BenchmarkManager</span>
 
 <span class="n">list_of_benchmarks</span> <span class="o">=</span> <span class="n">BenchmarkManager</span><span class="o">.</span><span class="n">get_available_benchmarks</span><span class="p">()</span>
 

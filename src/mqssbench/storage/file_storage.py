@@ -49,6 +49,7 @@ def serialize_result_json(context: RunContext, result: PipelineResult) -> dict:
             {
                 "job_id": er.job_id,
                 "counts": er.counts,
+                "circuit_depth": er.circuit_depth,
                 "profiling_metrics": (
                     er.profiling_metrics.params if er.profiling_metrics else None
                 ),

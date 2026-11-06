@@ -39,10 +39,20 @@ class ExampleAdapter(DeviceAdapter):
             "1": shots - int(shots * 0.8),
         }
 
+        # No real backend wired up for this example yet, so profiling values
+        # are supplied manually rather than measured.
+        profiling_params = {}
+        if context.profiling and context.profiling.enabled:
+            profiling_params = {
+                "queue_time": 2.3,
+                "quantum_execution": 0.85,
+                "classical_execution": 0.12,
+            }
+
         return ExecutionResult(
             job_id="example-job",
             counts=counts,
-            profiling_metrics=ProfilingMetrics(params={}),
+            profiling_metrics=ProfilingMetrics(params=profiling_params),
             metadata={},
         )
 

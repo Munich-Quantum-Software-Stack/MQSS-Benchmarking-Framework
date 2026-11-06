@@ -31,6 +31,8 @@ def format_benchmark_result(result: PipelineResult) -> str:
         for idx, ex in enumerate(exec_results):
             parts.append(f"  {Fore.GREEN}Execution {idx + 1}:{Style.RESET_ALL}")
             parts.append(f"    Job ID: {ex.job_id}")
+            if ex.circuit_depth is not None:
+                parts.append(f"    Circuit Depth: {ex.circuit_depth}")
             parts.append("    Counts:")
             for state, count in ex.counts.items():
                 parts.append(f"      {state}: {count}")

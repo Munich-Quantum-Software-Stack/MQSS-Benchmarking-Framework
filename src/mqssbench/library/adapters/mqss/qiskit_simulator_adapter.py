@@ -1,4 +1,5 @@
 import logging
+import time
 from typing import override
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer.primitives import SamplerV2
@@ -70,11 +71,13 @@ class QiskitSimulatorAdapter(DeviceAdapter):
             built_circuit = circuit()
         else:
             built_circuit = circuit
+        transpile_start = time.perf_counter()
         transpiled_circuit = transpile(
             built_circuit,
             basis_gates=["u", "cx"],
             optimization_level=0,
         )
+        transpile_duration = time.perf_counter() - transpile_start
 
         # print(f"Running circuit on backend {self._backend_name} ...")
         # print("circuit", built_circuit)
@@ -103,7 +106,8 @@ class QiskitSimulatorAdapter(DeviceAdapter):
         return ExecutionResult(
             job_id=job_id,
             counts=counts,
-            profiling_metrics=ProfilingMetrics(params=None),
+            profiling_metrics=ProfilingMetrics(params={"transpiler": transpile_duration}),
+            circuit_depth=transpiled_circuit.depth(),
         )
 
 

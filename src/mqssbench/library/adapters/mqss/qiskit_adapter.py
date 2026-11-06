@@ -1,4 +1,5 @@
 import logging
+import time
 from typing import override
 from qiskit import QuantumCircuit
 from qiskit import transpile
@@ -111,12 +112,15 @@ class QiskitAdapter(DeviceAdapter):
 
         backend = self._get_backend()
         # Transpile for this backend so the basis matches what the device supports
+        transpile_duration = None
         if transpile_mode is True:
+            transpile_start = time.perf_counter()
             transpiled_circuit = transpile(
                 built_circuit,
                 backend=backend,
                 optimization_level=0,
             )
+            transpile_duration = time.perf_counter() - transpile_start
         else:
             transpiled_circuit = built_circuit
         backend_params = dict(self._backend_params)
@@ -131,10 +135,14 @@ class QiskitAdapter(DeviceAdapter):
             profiling_data = getattr(job_result, "job_profiler_metrics", None)
         else:
             profiling_data = None
+        profiling_params = dict(profiling_data) if isinstance(profiling_data, dict) else {}
+        if transpile_duration is not None:
+            profiling_params["transpiler"] = transpile_duration
         return ExecutionResult(
             job_id=job_id,
             counts=counts,
-            profiling_metrics=ProfilingMetrics(params=profiling_data),
+            profiling_metrics=ProfilingMetrics(params=profiling_params),
+            circuit_depth=transpiled_circuit.depth(),
         )
 
 

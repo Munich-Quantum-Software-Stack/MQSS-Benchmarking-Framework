@@ -1,4 +1,4 @@
-from mqssbench.framework import (
+from mbf.framework import (
     AdapterRegistry,
     DeviceAdapter,
     CircuitExecutionResult,

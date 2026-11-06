@@ -1,3 +1,3 @@
 # Benchmark Registry
 
-::: mqssbench.framework.benchmark_registry
+::: mbf.framework.benchmark_registry

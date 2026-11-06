@@ -1,3 +1,3 @@
 # Adapter Registry
 
-::: mqssbench.framework.adapter_registry
+::: mbf.framework.adapter_registry

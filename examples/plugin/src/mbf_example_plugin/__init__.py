@@ -1,5 +1,5 @@
 """
-Example MQSSBench plugin.
+Example MBF plugin.
 """
 
 PLUGIN_ORIGIN = "example_plugin"

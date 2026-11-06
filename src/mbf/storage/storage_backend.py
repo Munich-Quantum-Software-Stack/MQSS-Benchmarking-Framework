@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from mqssbench.framework.types import PipelineResult, RunContext, StorageConfig
+from mbf.framework.types import PipelineResult, RunContext, StorageConfig
 
 class StorageError(Exception):
     pass

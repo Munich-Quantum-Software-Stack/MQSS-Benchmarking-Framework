@@ -9,14 +9,14 @@ import threading
 import pytest
 import tempfile
 
-from mqssbench.framework.benchmark_registry import BenchmarkRegistry
-from mqssbench.framework.adapter_registry import AdapterRegistry
-from mqssbench.runtime.benchmark_runner import BenchmarkRunner
-from mqssbench.framework.benchmark import Benchmark
-from mqssbench.framework.circuit_generator import CircuitGenerator
-from mqssbench.framework.benchmark_executor import BenchmarkExecutor, DefaultBenchmarkExecutor
-from mqssbench.framework.benchmark_analyzer import BenchmarkAnalyzer, DefaultAnalyzer
-from mqssbench.framework.types import (
+from mbf.framework.benchmark_registry import BenchmarkRegistry
+from mbf.framework.adapter_registry import AdapterRegistry
+from mbf.runtime.benchmark_runner import BenchmarkRunner
+from mbf.framework.benchmark import Benchmark
+from mbf.framework.circuit_generator import CircuitGenerator
+from mbf.framework.benchmark_executor import BenchmarkExecutor, DefaultBenchmarkExecutor
+from mbf.framework.benchmark_analyzer import BenchmarkAnalyzer, DefaultAnalyzer
+from mbf.framework.types import (
     RunContext,
     ReportConfig,
     CircuitExecutionResult,
@@ -234,7 +234,7 @@ def test_end_to_end_benchmark_run_via_registry():
     structure and analyzer output.
     """
 
-    from mqssbench.framework.adapter import DeviceAdapter  # import late for clarity
+    from mbf.framework.adapter import DeviceAdapter  # import late for clarity
 
     @AdapterRegistry.register_adapter
     class DummyAdapter(DeviceAdapter):
@@ -341,7 +341,7 @@ def test_benchmark_runner_integration(temp_output_dir):
     Registers dummy adapter and benchmark, builds config, calls runner.run.
     """
 
-    from mqssbench.framework.adapter import DeviceAdapter  # late import for clarity
+    from mbf.framework.adapter import DeviceAdapter  # late import for clarity
 
     @AdapterRegistry.register_adapter
     class DummyAdapter(DeviceAdapter):

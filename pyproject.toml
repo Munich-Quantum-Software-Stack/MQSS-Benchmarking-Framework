@@ -20,7 +20,7 @@ dependencies = [
     "quark-framework>=0.4.6",
 ]
 [project.scripts]
-mqssbench = "mqssbench.cli.__main__:main"
+mbf = "mbf.cli.__main__:main"
 
 [build-system]
 requires = ["setuptools"]

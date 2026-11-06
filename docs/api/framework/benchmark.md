@@ -1,3 +1,3 @@
 # Benchmark
 
-::: mqssbench.framework.benchmark
+::: mbf.framework.benchmark

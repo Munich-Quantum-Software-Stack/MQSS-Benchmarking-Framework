@@ -1,3 +1,3 @@
 # Provider Registry
 
-::: mqssbench.framework.provider_registry
+::: mbf.framework.provider_registry

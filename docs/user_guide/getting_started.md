@@ -39,12 +39,12 @@ MQSS Benchmarking Framework can be used in two ways: through a simple command-li
 
 ## 💻 CLI Usage
 
-After installation, the command `mqssbench` becomes available system-wide.
+After installation, the command `mbf` becomes available system-wide.
 
 ### Listing benchmarks
 
 ```bash
-mqssbench list
+mbf list
 ```
 
 This prints every benchmark registered under the `origin/source/name` structure, including internal, external and user-defined benchmarks.
@@ -52,26 +52,26 @@ This prints every benchmark registered under the `origin/source/name` structure,
 ### Running benchmarks
 
 ```bash
-mqssbench run --config path/to/config.yaml
+mbf run --config path/to/config.yaml
 ```
 
 The `--config` file may contain either:
 1. a single benchmark configuration (dict)
 2. or a list of benchmark configurations (each a full config dict)
 
-When a list is provided, mqssbench runs each benchmark sequentially using the same execution engine.
+When a list is provided, mbf runs each benchmark sequentially using the same execution engine.
 
 In development setups, you can run the CLI commands through `uv`:
 
 ```bash
-uv run mqssbench list
-uv run mqssbench run --config path/to/config.yaml
+uv run mbf list
+uv run mbf run --config path/to/config.yaml
 ```
 
 To explore all available commands and options:
 
 ```bash
-mqssbench --help
+mbf --help
 ```
 
 ### Verbosity and logging
@@ -88,8 +88,8 @@ Increase verbosity by repeating the `-v` / `--verbose` flag:
 
 Examples:
 ```bash
-mqssbench -v run --config path/to/config.yaml
-mqssbench -vv run --config path/to/config.yaml
+mbf -v run --config path/to/config.yaml
+mbf -vv run --config path/to/config.yaml
 ```
 
 Benchmark results are printed to standard output, while logs are sent to standard error.
@@ -242,7 +242,7 @@ Example of a multi benchmark config:
 MQSS Benchmarking Framework can also be used directly as a Python library when more control is needed.
 
 ```python
-from mqssbench.runtime import BenchmarkManager
+from mbf.runtime import BenchmarkManager
 
 list_of_benchmarks = BenchmarkManager.get_available_benchmarks()
 

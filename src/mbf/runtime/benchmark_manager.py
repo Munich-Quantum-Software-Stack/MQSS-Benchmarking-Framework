@@ -1,4 +1,4 @@
-# FILE: mqssbench/runtime/benchmark_manager.py
+# FILE: mbf/runtime/benchmark_manager.py
 from typing import Dict, List
 import os
 from ..framework import BenchmarkRegistry
@@ -6,7 +6,7 @@ from ..framework import ProviderRegistry
 from ..framework import AdapterRegistry
 from .benchmark_runner import BenchmarkRunner
 from ..framework.types import PipelineResult
-from mqssbench.plugins import load_plugins
+from mbf.plugins import load_plugins
 
 # Load built-in and installed plugins
 load_plugins()
@@ -51,7 +51,7 @@ class BenchmarkManager:
         self._validate_config()
 
         # Disable interactive plotting for multi-benchmark runs
-        os.environ["MQSSBENCH_DISPLAY"] = "0" if isinstance(self.config, list) and len(self.config) > 1 else "1"
+        os.environ["MBF_DISPLAY"] = "0" if isinstance(self.config, list) and len(self.config) > 1 else "1"
 
         # Normalize to a list of benchmark configs
         if isinstance(self.config, list):

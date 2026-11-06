@@ -14,8 +14,8 @@ from typing import Any
 
 import yaml
 
-from mqssbench.framework.benchmark_pipeline import BenchmarkPipeline
-from mqssbench.framework.types import (
+from mbf.framework.benchmark_pipeline import BenchmarkPipeline
+from mbf.framework.types import (
     AnalysisResult,
     BenchmarkCategory,
     BenchmarkRunStatus,
@@ -137,7 +137,6 @@ def _pipeline_name(
             for step in pipeline_run.steps
         )
     elif isinstance(pipeline_run, FailedPipelineRun):
-        # TODO: to match the pipeline name exactly like QUARK, later we should add a index to the beginning of the pipeline name
         pipeline_name = "-".join(
             step.unique_name
             for step in pipeline_run.metrics_up_to_now
@@ -475,6 +474,6 @@ def register() -> None:
         logger.debug("quark not installed; skipping QUARK pipeline registration")
         return
 
-    from mqssbench.framework.benchmark_registry import BenchmarkRegistry
+    from mbf.framework.benchmark_registry import BenchmarkRegistry
 
     BenchmarkRegistry.register_benchmark(QUARKBenchmarkPipeline)

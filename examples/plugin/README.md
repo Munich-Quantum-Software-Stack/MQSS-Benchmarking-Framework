@@ -1,6 +1,6 @@
-# MQSSBench Example Plugin
+# MBF Example Plugin
 
-This example demonstrates how to create a third-party MQSSBench plugin.
+This example demonstrates how to create a third-party MBF plugin.
 
 ## Install
 
@@ -16,7 +16,7 @@ uv pip install -e examples/plugin
 List available benchmarks:
 
 ```bash
-uv run mqssbench list
+uv run mbf list
 ```
 
 In the benchmark list you should see:

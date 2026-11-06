@@ -1,5 +1,5 @@
-from mqssbench.runtime.benchmark_manager import BenchmarkManager
-from mqssbench.cli.formatting import format_benchmark_result, format_registry_lists
+from mbf.runtime.benchmark_manager import BenchmarkManager
+from mbf.cli.formatting import format_benchmark_result, format_registry_lists
 
 # Show all benchmarks that the registry discovered
 print("\n===== Available Benchmarks =====")

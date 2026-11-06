@@ -1,5 +1,5 @@
 import pytest
-from mqssbench.framework.utils import validate_benchmark_registry_key
+from mbf.framework.utils import validate_benchmark_registry_key
 
 def test_valid_key():
     validate_benchmark_registry_key("core/native/bench1")  # should not raise

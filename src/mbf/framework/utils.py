@@ -78,9 +78,9 @@ def can_display() -> bool:
 
     Returns True if running interactively (e.g., VS Code, local terminal) 
     and a display is available. Returns False in headless environments 
-    (CI, SSH without X11) or if display is disabled via MQSSBENCH_DISPLAY.
+    (CI, SSH without X11) or if display is disabled via MBF_DISPLAY.
     """
-    if os.environ.get("MQSSBENCH_DISPLAY", "1") != "1":
+    if os.environ.get("MBF_DISPLAY", "1") != "1":
         plt.close()
         return False
 

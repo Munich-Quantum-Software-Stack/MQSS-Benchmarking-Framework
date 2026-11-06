@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional, Literal, TYPE_CHECKING
 from pathlib import Path
 
 if TYPE_CHECKING:
-    from mqssbench.framework.adapter import DeviceAdapter
+    from mbf.framework.adapter import DeviceAdapter
 
 
 class BenchmarkCategory(StrEnum):
@@ -161,7 +161,7 @@ class PipelineEngineExecutionResult:
     """Execution record for pipeline engines."""
 
     pipeline: str
-    pipeline_status: str    # defined as string to allow for more flexible from engine side in this stage
+    pipeline_status: str
     payload: Dict[str, Any] = field(default_factory=dict)
 
 

@@ -1,0 +1,29 @@
+# Daily EQE backend health check.
+benchmark: core/native/health
+
+benchmark_params:
+  num_qubits: 2
+  # The run fails when fewer than 80% of shots are 00 or 11.
+  min_correlated_probability: 0.8
+
+adapter: mqss_qiskit
+adapter_params:
+  backend: EQE1
+  credentials:
+    mqss_token: ""
+  shots: 256
+
+output_dir: "./results/eqe-health"
+
+report:
+  analysis:
+    enabled: true
+    visualization:
+      enabled: false
+      show: false
+
+storage:
+  enabled: true
+  type: "file"
+  file:
+    format: "json"

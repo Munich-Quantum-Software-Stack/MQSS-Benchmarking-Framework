@@ -55,6 +55,30 @@ This prints every benchmark registered under the `origin/source/name` structure,
 mbf run --config path/to/config.yaml
 ```
 
+### Daily EQE health check
+
+The built-in health benchmark submits one small two-qubit Bell-state circuit and
+fails if the fraction of correlated outcomes (`00` or `11`) is below the
+configured threshold. The EQE example uses the `EQE1` backend and stores one
+JSON result per run:
+
+```bash
+uv run mbf run --config examples/config_eqe_health.yaml
+```
+
+To run it daily with cron, make the wrapper executable and add a crontab entry
+(adjust the absolute repository path and log path):
+
+```bash
+chmod +x examples/run_eqe_health.sh
+0 6 * * * /absolute/path/to/MQSS-Benchmarking-Framework/examples/run_eqe_health.sh >> /absolute/path/to/eqe-health.log 2>&1
+```
+
+Set `MQSS_TOKEN` in the cron environment, or replace the empty token in
+`examples/config_eqe_health.yaml` with the appropriate credential mechanism.
+The command exits non-zero when submission fails or the health threshold is not
+met, so cron monitoring can alert on failures.
+
 The `--config` file may contain either:
 1. a single benchmark configuration (dict)
 2. or a list of benchmark configurations (each a full config dict)
